@@ -1,7 +1,7 @@
 @tailwind utilities;
 
 .cards.cards {
-   gap: 2rem;
+  gap: 2rem;
 }
 
 .cards span {
