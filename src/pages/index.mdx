@@ -1,0 +1,106 @@
+# 笔记
+
+---
+
+## 自我介绍
+
+面试官，上午/下午好，我是xxx，一名前端工程师，精通html、css、javascript，了解typescirpt，并且有丰富的React和Vue.js开发经验。我曾在建顺信息科技有限公司担任前端工程师，负责独立开发公司电商平台和维护公司官网，其中电商平台的架构，技术设计都是我一人完成。而在上上一家广州腾米克公司担任全栈开发工程师，负责开发内部系统和小程序。我持续关注前端领域的发展趋势并不断学习提升自己，我相信持续学习是成为一名优秀工程师的关键。我对现在面试的前端工程师职位非常感兴趣，希望能加入这个团队贡献自己的力量，并和团队成员一同成长。
+
+---
+
+## 页面适配
+
+为了在移动端让页面获得更好的现实效果，我们必须让布局视口、视觉视口都尽可能等于理想视口。我们可以借助`<meta>`元素的viewport来帮助我们设置视口、缩放等
+
+```html showLineNumbers copy
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+```
+
+参数解释:
+
+
+|width=device-width|布局视口的宽度等于当前设备视口的宽度|
+|:---|:---|
+|initial-scale|初始的缩放比列(默认设置为1.0)|
+|minimum-scale|允许用户缩放的最小比例(默认设置为1.0)|
+|maximum-scale|允许用户缩放的最大比列(默认设置为1.0)|
+|user-scalable|用户是否可以手动缩放(默认设置为no,因为我们不希望用户放大缩小页面)|
+
+---
+
+## shell脚本更新分支标签
+
+```bash showLineNumbers copy
+# !/bin/bash
+
+echo "please input your tag name: "
+
+read TAG_NAME
+
+git tag -d  ${TAG_NAME}
+
+git tag ${TAG_NAME}
+
+git push origin --delete tag ${TAG_NAME}
+
+git push origin ${TAG_NAME}
+```
+
+---
+
+## linux批量修改文件名
+
+```bash showLineNumbers copy
+# !/bin/bash
+
+i=1
+
+for file in *.mkv
+
+do
+
+mv "$file" "Coffee.Cat.Mama.2013.EP$i.1080P.WEB-DL.H264.AAC-Huawei.mkv"
+
+let i++
+
+done
+```
+
+---
+
+## 简易的暴力攻击尝试破解rar加密
+
+```python showLineNumbers copy
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os,sys
+from unrar import rarfile
+
+def rar_attack(file_name, passwords):
+  # 打开rar文件
+  file_handle = rarfile.RarFile(file_name)
+  # 加载密码字典
+  handle_password = open(passwords)
+  for pwd in handle_password:
+    pwd = pwd.rstrip()
+    try:
+      file_handle.extractall(path='test', pwd=pwd.encode())
+      print('Found:'+pwd)
+      break
+    except:
+      pass
+  handle_password.close()
+  file_handle.close()
+    
+if __name__=='__main__':
+  file_name = sys.argv[1]
+  passwords = '/path/passwords.txt'
+  if os.path.isfile(file_name) and file_name.endswith('.rar'):
+    rar_attack(file_name, passwords)
+  else:
+    print('Not RAR')
+```

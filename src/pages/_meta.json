@@ -1,0 +1,9 @@
+{
+  "index": {
+    "title": "Home",
+    "theme": {
+      "breadcrumb": false
+    },
+    "display": "hidden"
+  }
+}
