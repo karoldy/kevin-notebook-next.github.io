@@ -8,7 +8,7 @@ const config = {
       <meta name="og:title" content="Nextra: the next docs builder" />
     </>
   ),
-  logo: <span>前端开发笔记</span>,
+  logo: <span>Notebook</span>,
   project: {
     link: "https://github.com/karoldy/kevin-notebook-next",
   },
@@ -28,12 +28,12 @@ const config = {
     const { asPath } = useRouter();
     if (asPath === "/") {
       return {
-        titleTemplate: "前端开发笔记",
+        titleTemplate: "Notebook",
       };
     }
 
     return {
-      titleTemplate: "%s - 前端开发笔记",
+      titleTemplate: "%s - Notebook",
     };
   },
   gitTimestamp: null,

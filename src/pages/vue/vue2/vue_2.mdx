@@ -1,0 +1,311 @@
+# 计算属性computed和watch监视的使用和区别
+
+## 1. 计算属性computed
+
+1. Vue中的计算属性是一个函数，它可以依赖于其他的属性和数据，并对它们进行计算得出一个新的值。计算属性的值是基于响应式依赖进行缓存的，只有当它依赖的属性发生改变时，才会重新计算。这有助于避免在模板中频繁调用复杂的逻辑以及减少不必要的计算，提高应用程序的性能。
+
+2. 当计算属性的依赖发生变化时，计算属性会重新计算并返回新的值。在模板中计算属性的使用与普通属性的使用方式一样，但其实质是基于依赖关系进行计算的。
+
+### 1、定义
+
+要用的属性不存在，要通过已有属性计算得来
+
+### 2、原理
+
+底层借助了`Objcet.defineproperty`方法提供的`getter`和`setter`
+
+### 3、get函数什么时候执行
+
+1. 初次读取时会执行一次。
+
+2. 当依赖的数据发生改变时会被再次调用。
+
+### 4、优势
+
+与methods实现相比，内部有缓存机制(复用)，效率更高，调试方便。
+
+### 5、备注
+
+1. 计算属性最终会出现在vm上，直接读取使用即可。
+
+2. 如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变。
+
+### 6、例子
+
+```html showLineNumbers copy
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>姓名案例_methods实现</title>
+		<!-- 引入Vue -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			姓：<input type="text" v-model="firstName"> <br/><br/>
+			名：<input type="text" v-model="lastName"> <br/><br/>
+			全名：<span>{{ fullName() }}</span>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示。
+
+		new Vue({
+			el:'#root',
+			data:{
+				firstName: 'Mandy',
+				lastName: 'Ke'
+			},
+			methods: {
+				fullName() {
+					console.log('fullName')
+					return this.firstName + '-' + this.lastName
+				}
+			},
+		})
+	</script>
+</html>
+```
+
+```html showLineNumbers copy
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>姓名案例_计算属性实现</title>
+		<!-- 引入Vue -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			姓：<input type="text" v-model="firstName"> <br/><br/>
+			名：<input type="text" v-model="lastName"> <br/><br/>
+			全名：<span>{{ fullName }}</span> <br/><br/>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+		const vm = new Vue({
+			el:'#root',
+			data:{
+				firstName:'Mandy',
+				lastName:'ke',
+			},
+			computed: {
+				//完整写法
+				fullName:{
+					// get有什么作用？当有人读取fullName时，get就会被调用，且返回值就作为fullName的值
+					// get什么时候调用？1.初次读取fullName时。2.所依赖的数据发生变化时。
+					get(){
+						console.log('get被调用了')
+						return this.firstName + '-' + this.lastName
+					},
+					// set什么时候调用? 当fullName被修改时。
+					set(value){
+						console.log('set',value)
+						const arr = value.split('-')
+						this.firstName = arr[0]
+						this.lastName = arr[1]
+					}
+				},
+				//简写
+				fullName() {
+					console.log('get被调用了')
+					return this.firstName + '-' + this.lastName
+				}
+			}
+		})
+	</script>
+</html>
+```
+
+---
+
+## 2.watch监视
+
+### 1、描述
+
+在Vue.js中，watch是一个用于侦听Vue实例上的数据变化并触发相应的回调函数的侦听器。watch提供了一种易于使用和灵活的方式来响应数据的变化。watch可以用于侦听Vue实例中的任何数据属性。(包括data，props，$ route 、computed 、$store等)
+
+### 2、基本语法
+
+```js showLineNumbers copy
+// 监听一个数据的变化------正常写法
+watch: {
+  isHot: {
+    handler(newVal, oldVal) {
+      // 数据发生变化时执行的操作
+    },
+    deep: true, // 是否深度监听
+    immediate: true, // 是否在组件创建时立即执行回调函数
+  },
+},
+
+//简写
+isHot(newValue, oldValue) {
+	console.log('isHot被修改了', newValue, oldValue, this)
+}
+```
+
+### 3、深度监听
+
+在 Vue.js 中，watch 属性可以进行深度监听，这意味着当监听的数据是一个对象或数组时，它会递归地监听对象或数组中的每一个属性和元素的变化。需要注意的是，在进行深度监听时，由于监听的数据结构比较复杂，可能会导致性能问题，因此建议在进行深度监听时，尽量避免监听过深的层次。
+
+```js showLineNumbers copy
+watch: {
+  obj: {
+    handler(newVal, oldVal) {
+      console.log('obj changed:', newVal, oldVal);
+    },
+    deep: true,
+  }
+}
+```
+
+### 4、立即执行
+
+在 Vue.js 中，watch 属性可以设置立即执行（immediate: true），这意味着在组件创建时立即执行回调函数，而不需要等待数据发生变化。需要注意的是，在进行立即执行时，由于回调函数会在组件创建时被执行，因此需要确保监听的数据已经被初始化，否则可能会导致回调函数的执行出错。
+
+```js showLineNumbers copy
+watch: {
+  data: {
+    handler(newVal, oldVal) {
+      console.log('data changed:', newVal, oldVal);
+    },
+    immediate: true,
+  },
+}
+```
+
+### 5、销毁(watch的另一种写法)
+
+$watch：手动创建一个数据监听器，可以监听数据变化并执行相应的操作。
+
+```js showLineNumbers copy
+// 正常写法
+vm.$watch('isHot', {
+	immediate: true, // 初始化时让handler调用一下
+	deep:true, // 深度监视
+	handler(newValue, oldValue) {
+		console.log('isHot被修改了', newValue, oldValue)
+	}
+})
+
+// 简写
+vm.$watch('isHot',(newValue, oldValue) => {
+	console.log('isHot被修改了', newValue, oldValue, this)
+})
+```
+
+1.方法一
+
+vm.$watch： 返回一个取消观察函数，用来停止触发回调
+
+!>注意：组件选项中的watch中可以随着组件的销毁而销毁，而实例方法的vm.$watch()，我们需要手动销毁
+
+```js showLineNumbers copy
+var unwatch = vm.$watch('a', callback);
+// 停止触发回调
+unwatch()
+```
+
+2.方法二
+
+我们通过 beforeDestroy 钩子函数，在组件销毁前手动销毁 watch 属性，以避免内存泄漏问题。
+
+```js showLineNumbers copy
+beforeDestroy() {
+  // 组件销毁前自动销毁 watch 属性
+  this.$watch();
+}
+```
+
+---
+
+## 3.computed计算属性和watch区别
+
+### 1.computed的特点
+
+(1) 支持缓存，默认走缓存，多次调用，只会执行一次计算。只有依赖的数据发生改变，才会重新计算；
+
+(2) 不支持异步，如果有异步操作，无法监听；
+
+(3) 属性值为函数，默认使用get方法，当数据改变时，会调用set方法；
+
+(4) 主要解决模版中放入过多的逻辑导致不好维护的问题；
+
+### 2.watch的特点
+
+(1) 不支持缓存，只要数据发生变化，就会触发相应的操作；
+
+(2) 支持异步监听；
+
+(3) 接收两个参数，第一个是最新值，第二个是之前的值；
+
+(4) 还有两个其他参数：deep：默认false，深度监听，immediate：默认false，初始化时执行回调函数；
+
+### 3.总结
+
+(1) computed计算属性，他依赖其他属性值，有缓存，只有依赖的值发生变化才会去重新计算，但是不能异步；
+
+(2) watch监听，监听数据的变化，无缓存，数据变化就会执行回调，可以异步；
+
+### 4.例子
+
+```html showLineNumbers copy
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>姓名案例_watch实现</title>
+		<!-- 引入Vue -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 
+      computed和watch之间的区别：
+        1.computed能完成的功能，watch都可以完成。
+        2.watch能完成的功能，computed不一定能完成，例如：watch可以进行异步操作。
+      两个重要的小原则：
+        1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm 或 组件实例对象。
+        2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，这样this的指向才是vm 或 组件实例对象。
+		-->
+		<!-- 准备好一个容器-->
+		<div id="root">
+			姓：<input type="text" v-model="firstName"> <br/><br/>
+			名：<input type="text" v-model="lastName"> <br/><br/>
+			全名：<span>{{ fullName }}</span> <br/><br/>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+
+		const vm = new Vue({
+			el: '#root',
+			data: {
+				firstName: 'Man',
+				lastName: 'dy',
+				fullName: 'Man-dy'
+			},
+			watch: {
+				firstName(val) {
+					setTimeout(()=>{
+						console.log(this);
+						this.fullName = val + '-' + this.lastName;
+					}, 1000);
+				},
+				lastName(val) {
+					this.fullName = this.firstName + '-' + val;
+				}
+			}
+		});
+	</script>
+</html>
+```

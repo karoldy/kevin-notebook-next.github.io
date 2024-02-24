@@ -1,0 +1,389 @@
+# Markdown语法
+
+## 字体效果
+
+### 斜体
+
+语法:
+
+```tex
+*斜体文本*
+
+_斜体文本_
+```
+
+*斜体文本*
+
+_斜体文本_
+
+---
+
+### 加粗
+
+语法:
+
+```tex
+**加粗文本**
+```
+
+**加粗文本**
+
+---
+
+### 删除文本
+
+语法:
+
+```tex
+~~删除文本~~
+```
+
+~~删除文本~~
+
+---
+
+### 标记文本
+
+语法:
+
+```tex
+==标记文本==
+```
+
+<output>
+  <mark>标记文本</mark>
+</output>
+
+---
+
+### 上标
+
+语法:
+
+```tex
+这是^上标^
+```
+
+<output>
+  这是<sup>上标</sup>
+</output>
+
+---
+
+
+### 下标
+
+语法:
+
+```tex
+这是~下标~
+```
+
+<output>
+  这是<sub>下标</sub>
+</output>
+
+---
+
+## 标题
+
+```tex
+# 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题
+```
+
+---
+
+## 链接
+
+```tex
+[链接名称](url)
+```
+
+---
+
+## 图片
+
+```tex
+![图片名称](url)
+```
+
+**带链接的图片**
+
+```tex
+[![image](图片地址)](url)
+```
+
+---
+
+## 分割线
+
+```tex
+***
+
+---
+
+___
+```
+
+---
+
+## 引用
+
+```tex
+> 引用的文本
+```
+
+>引用的文本
+
+---
+
+## 列表
+
+### 无序列表
+
+语法:
+
+```tex
+- 1
+	- 1-1 
+- 2
+	- 2-1
+		- 2-1-1
+- 3
+```
+
+- 1
+	- 1-1 
+- 2
+	- 2-1
+		- 2-1-1
+- 3
+
+### 有序列表
+
+语法:
+
+```tex
+1. 苹果
+   1. 红苹果
+2. 香蕉
+   1. 熟香蕉
+      1. 唔熟
+   2. 生香蕉
+3. 橙子
+```
+
+1. 苹果
+   1. 红苹果
+2. 香蕉
+   1. 熟香蕉
+      1. 唔熟
+   2. 生香蕉
+3. 橙子
+
+---
+
+## 表格
+
+```tex
+|表头1|表头2|
+|:---|:---|
+|内容1|内容2|
+```
+
+|表头1|表头2|
+|:---|:---|
+|内容1|内容2|
+
+
+设定内容居中、居左、居右
+
+使用`:---:`居中
+
+使用`:---`居左
+
+使用`---:`居右
+
+```tex
+|表头1|表头2|表头3|
+|:---:|:---|---:|
+|内容1|内容2|内容3|
+```
+
+|表头1|表头2|表头3|
+|:---:|:---|---:|
+|内容1|内容2|内容3|
+
+---
+
+## 注脚
+
+```tex
+一个文本(有注脚)[^1]
+
+<!-- 文末添加 -->
+[^1]: 注脚的解释
+```
+
+---
+
+## 待办事项
+
+```tex
+- [ ] 未完成的任务
+- [x] 完成的任务
+	- [ ] 任务2-1
+```
+
+- [ ] 未完成的任务
+- [x] 完成的任务
+	- [ ] 任务2-1
+
+---
+
+## 代码块
+
+语法:
+
+````tex
+```js
+console.log('测试');
+```
+````
+
+>js可以是其他编程语言，例如java, python, php
+
+```js
+console.log('测试');
+```
+
+
+### 行内代码
+
+语法:
+
+```tex
+`console.log('测试')`
+```
+
+输出:
+
+`console.log('测试')`
+
+---
+
+## 数学公式
+
+Markdown Preview Enhanced使用[KaTex](https://katex.org/)或者[MathJax](https://www.mathjax.org/)来渲染数学表达式
+
+KaTeX 拥有比 MathJax 更快的性能，但是它却少了很多 MathJax 拥有的特性。你可以查看 KaTeX supported functions/symbols 来了解 KaTeX 支持那些符号和函数。
+
+```tex
+$$
+  f(x) = sin(x) + 12
+$$
+```
+
+---
+
+## 画图
+
+### 流程图
+
+````tex
+```mermaid
+flowchart LR
+  A[Hard] -->|Text| B(Round)
+  B --> C{Decision}
+  C -->|One| D[Result 1]
+  C -->|Two| E[Result 2]
+```
+````
+
+```mermaid
+flowchart LR
+  A[Hard] -->|Text| B(Round)
+  B --> C{Decision}
+  C -->|One| D[Result 1]
+  C -->|Two| E[Result 2]
+```
+
+### 甘特图
+
+````tex
+```mermaid
+gantt
+  dateFormat  YYYY-MM-DD
+  title 软件开发甘特图
+  section 设计
+  需求                      :done,    des1, 2014-01-06,2014-01-08
+  原型                      :active,  des2, 2014-01-09, 3d
+  UI设计                     :         des3, after des2, 5d
+  未来任务                     :         des4, after des3, 5d
+  section 开发
+  学习准备理解需求                      :crit, done, 2014-01-06,24h
+  设计框架                             :crit, done, after des2, 2d
+  开发                                 :crit, active, 3d
+  未来任务                              :crit, 5d
+  section 测试
+  功能测试                              :active, a1, after des3, 3d
+  压力测试                               :after a1, 20h
+  测试报告                               : 48h
+```
+````
+
+```mermaid
+gantt
+  dateFormat  YYYY-MM-DD
+  title 软件开发甘特图
+  section 设计
+  需求                      :done,    des1, 2014-01-06,2014-01-08
+  原型                      :active,  des2, 2014-01-09, 3d
+  UI设计                     :         des3, after des2, 5d
+  未来任务                     :         des4, after des3, 5d
+  section 开发
+  学习准备理解需求                      :crit, done, 2014-01-06,24h
+  设计框架                             :crit, done, after des2, 2d
+  开发                                 :crit, active, 3d
+  未来任务                              :crit, 5d
+  section 测试
+  功能测试                              :active, a1, after des3, 3d
+  压力测试                               :after a1, 20h
+  测试报告                               : 48h
+```
+
+### 饼图
+
+````tex
+```mermaid
+pie
+  "React" : 200
+  "Vue" : 85
+  "Angular" : 30
+```
+````
+
+```mermaid
+pie
+  "React" : 200
+  "Vue" : 85
+  "Angular" : 30
+```
+
+---
+
+
+## html
+
+### 键盘码
+
+语法:
+
+```html
+使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
+```
