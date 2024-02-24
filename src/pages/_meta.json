@@ -5,5 +5,9 @@
       "breadcrumb": false
     },
     "display": "hidden"
-  }
+  },
+  "vue": "Vue",
+  "interview": "面试题",
+  "markdown": "Markdown",
+  "markdown-link": "Markdown Link"
 }
