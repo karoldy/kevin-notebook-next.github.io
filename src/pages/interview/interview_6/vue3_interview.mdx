@@ -1,0 +1,114 @@
+# Vue3 面试题
+
+## vue3
+
+## 1.Vue3.0所采用的Composition Api 与Vue2.x使用的Options Api有什么不同?
+
+Composition API 和 Options API 是Vue.js中的两种组件编写方式。
+
+Options API是Vue.js早期版本中使用的编写方式，通过定义一个options对象进行组件的配置，包括props、data、methods、computed、watch等选项。这种方式的优点在于结构清晰、易于理解，在小型项目中比较实用。
+
+Composition API是Vue.js 3.x版本中新引入的一种组件编写方式，它以函数的形式组织我们的代码，允许我们将相关部分组合起来，提高了代码的可维护性和重用性。Composition API还提供了模块化、类型推断等功能，可以更好地实现面向对象编程的思想。
+
+Composition API 更好的代码组织，更好的逻辑服用；可维护性，更好的类型推导，可拓展性更好；
+
+两种API各有优缺点，使用哪种API取决于具体的项目需求。对于小型项目，Options API更为简单方便；对于大型项目，Composition API可以更好地组织代码。
+
+总之，Vue.js的Composition API和Options API是为了满足不同开发者的需求而存在的，我们应该根据具体的场景选择使用哪种API，以达到更好的开发效果和代码质量。
+
+---
+
+## 2.vue3.0的设计目标是什么?做了哪些优化
+
+[参考](https://vue3js.cn/interview/vue3/goal.html)
+
+---
+
+## 3.用Vue3.0写过组件吗?如果想实现一个Modal你会怎么设计?
+
+[参考](https://vue3js.cn/interview/vue3/modal_component.html)
+
+---
+
+## 4.vue3.0性能提升主要是通过哪几方面体现的?
+
+[参考](https://vue3js.cn/interview/vue3/performance.html)
+
+---
+
+## 5.Vue3.0里为什么要用Proxy API替代defineProperty APl?
+
+[参考](https://vue3js.cn/interview/vue3/proxy.html)
+
+---
+
+## 6.说说Vue 3.0中Treeshaking特性?举例说明—下?
+
+[参考](https://vue3js.cn/interview/vue3/treeshaking.html)
+
+---
+
+## 7.vue2和vue3的生命周期对比？
+
+Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
+
+- beforeDestroy改名为 beforeUnmount
+- destroyed改名为 unmounted
+
+Vue3.0也提供了 Composition API 形式的生命周期钩子，与Vue2.x中钩子对应关系如下：
+
+- beforeCreate===>setup()
+- created=======>setup()
+- beforeMount ===>onBeforeMount
+- mounted=======>onMounted
+- beforeUpdate===>onBeforeUpdate
+- updated =======>onUpdated
+- beforeUnmount ==>onBeforeUnmount
+- unmounted =====>onUnmounted
+
+---
+
+## 8.vue3的常用 Composition API有哪些？
+
+1. setup
+2. ref函数
+3. reactive函数
+4. computed函数
+5. watch函数
+6. watchEffect函数
+7. toRef
+8. shallowReactive 与 shallowRef
+9. readonly 与 shallowReadonly
+10. readonly: 让一个响应式数据变为只读的（深只读）。
+11. shallowReadonly：让一个响应式数据变为只读的（浅只读）。
+12. toRaw 与 markRaw
+13. customRef
+14. provide 与 inject
+
+---
+
+## 9.Vue3.0有什么更新
+
+**性能优化**：Vue.js 3.0使用了Proxy替代Object.defineProperty实现响应式，并且使用了静态提升技术来提高渲染性能。新增了编译时优化，在编译时进行模板静态分析，并生成更高效的渲染函数。
+
+**Composition API**：Composition API是一个全新的组件逻辑复用方式，可以更好地组合和复用组件的逻辑。
+
+**TypeScript支持**：Vue.js 3.0完全支持TypeScript，在编写Vue应用程序时可以更方便地利用TS的类型检查和自动补全功能。
+
+**新的自定义渲染API**：Vue.js 3.0的自定义渲染API允许开发者在细粒度上控制组件渲染行为，包括自定义渲染器、组件事件和生命周期等。
+
+**改进的Vue CLI**：Vue.js 3.0使用了改进的Vue CLI，可以更加灵活地配置项目，同时支持Vue.js2.x项目升级到Vue.js 3.0。
+
+**移除一些API**：Vue.js 3.0移除了一些不常用的API，如过渡相关API，部分修饰符等。
+
+---
+
+## 10.Vue3为什么比Vue2快？
+
+**响应式系统优化**：Vue3引入了新的响应式系统，这个系统的设计让Vue3的渲染函数可以在编译时生成更少的代码，这也就意味着在运行时需要更少的代码来处理虚拟DOM。这个新系统的一个重要改进就是提供了一种基于Proxy实现的响应式机制，这种机制为开发人员提供更加高效的API，也减少了一些运行时代码。
+
+**编译优化**：Vue3的编译器对代码进行了优化，包括减少了部分注释、空白符和其他非必要字符的编译，同时也对编译后的代码进行了懒加载优化。
+
+**更快的虚拟DOM**：Vue3对虚拟DOM进行了优化，使用了跟React类似的Fiber算法，这样可以更加高效地更新DOM节点，提高性能。
+
+**Composition API**：Vue3引入了Composition API，这种API通过提供逻辑组合和重用的方法来提升代码的可读性和重用性。这种API不仅可以让Vue3应用更好地组织和维护业务逻辑，还可以让开发人员更加轻松地实现优化。
