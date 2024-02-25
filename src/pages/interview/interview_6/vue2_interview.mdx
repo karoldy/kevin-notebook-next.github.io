@@ -1,8 +1,6 @@
-# Vue 面试题
+# Vue2 面试题
 
-## vue2
-
-### MVVM框架的理解
+## MVVM框架的理解
 
 **MVVM**是**Model-View-ViewModel**的简写。即【模型】-【视图】-【视图模型】
 
@@ -28,7 +26,7 @@
 
 ---
 
-### 2.如何理解Vue是一套渐进式的框架
+## 2.如何理解Vue是一套渐进式的框架
 
 渐进式是什么意思？
 
@@ -40,7 +38,7 @@
 
 ---
 
-### 3.vue生命周期
+## 3.vue生命周期
 
 **vue生命周期指的是**：vue实例从创建到销毁的过程 -- 开始创建、初始化数据、编译模板、挂载DOM->渲染、更新->渲染、卸载
 
@@ -70,7 +68,7 @@
 
 ---
 
-### 4.Vue的两个核心
+## 4.Vue的两个核心
 
 **1. 数据驱动，也叫双向数据绑定**
 
@@ -87,7 +85,7 @@
 
 ---
 
-### 5.Vue常用指令
+## 5.Vue常用指令
 
 `v-if`: 根据条件真假判断是否渲染元素，在切换时元素及他的数据绑定/组件被销毁并重建
 
@@ -111,7 +109,7 @@
 
 ---
 
-### 6.v-if和v-show的区别
+## 6.v-if和v-show的区别
 
 **共同点**
 
@@ -126,7 +124,7 @@ v-if和v-shoe都是可以动态显示/隐藏DOM元素
 
 ---
 
-### 7.vue常用修饰符
+## 7.vue常用修饰符
 
 **v-on常用修饰符**
 
@@ -156,7 +154,7 @@ v-if和v-shoe都是可以动态显示/隐藏DOM元素
 
 ---
 
-### 8.v-on可以监听多个方法吗
+## 8.v-on可以监听多个方法吗
 
 可以
 
@@ -165,7 +163,7 @@ v-if和v-shoe都是可以动态显示/隐藏DOM元素
 
 ---
 
-### 9.vue中key的作用？为什么不推介使用index作为key？
+## 9.vue中key的作用？为什么不推介使用index作为key？
 
 **key 的特殊属性主要用在 Vue的虚拟DOM算法，在新旧nodes对比时辨识VNodes。**
 
@@ -179,7 +177,7 @@ v-if和v-shoe都是可以动态显示/隐藏DOM元素
 
 ---
 
-### 10.vue事件中如何使用event对象
+## 10.vue事件中如何使用event对象
 
 vue传递事件对象 `$event` 
 
@@ -206,7 +204,7 @@ export default {
 </script>
 ```
 
-### 11.vue中$nextTick的使用
+## 11.vue中$nextTick的使用
 
 **nextTick的定义**
 
@@ -264,7 +262,7 @@ export default {
 
 ---
 
-### 12.异步更新队列
+## 12.异步更新队列
 
 Vue在观察到数据变化时并不是直接更新DOM，而是开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。
 所以同一个watcher被多次触发，只会添加到队列一次，因此可以去除重复数据可以避免不必要的计算和DOM操作
@@ -274,7 +272,7 @@ Vue在内部对异步队列尝试使用原生的Promise.then 、 MutationObserve
 
 ---
 
-### 13.data为什么是个函数
+## 13.data为什么是个函数
 
 JavaScript中的对象是引用类型的数据，当多个实例引用同一个对象时，只要一个实例对这个对象进行操作，其他实例中的数据也会发生变化。而在Vue中，我们更多的是想要复用组件，那就需要每个组件都有自己的数据，这样组件之间才不会相互干扰。所以组件的数据不能写成对象的形式，而是要写成函数的形式。数据以函数返回值的形式定义，这样当我们每次复用组件的时候，就会返回一个新的data，也就是说每个组件都有自己的私有数据空间，它们各自维护自己的数据，不会干扰其他组件的正常运行。
 
@@ -282,7 +280,7 @@ JavaScript中的对象是引用类型的数据，当多个实例引用同一个�
 
 ---
 
-### 14.v-for和v-if的优先级
+## 14.v-for和v-if的优先级
 
 **vue2.x 在同一个节点上，v-for的优先级比v-if优先级高**
 
@@ -294,7 +292,7 @@ JavaScript中的对象是引用类型的数据，当多个实例引用同一个�
 
 ---
 
-### 15.vue组件通信方式
+## 15.vue组件通信方式
 
 1. 父传子
 2. 子传父
@@ -308,7 +306,7 @@ JavaScript中的对象是引用类型的数据，当多个实例引用同一个�
 
 ---
 
-### 16.keep-alive组件
+## 16.keep-alive组件
 
 **keep-alive组件的作用**
 
@@ -330,7 +328,7 @@ keep-alive 主要用于保留组件状态和避免重新渲染，常见就是列
 
 ---
 
-### 17.Vue更新数组时触发视图更新的方法
+## 17.Vue更新数组时触发视图更新的方法
 
 **Vue包含一组观察数组的编译方法，所以他们将会触发视图更新，方法如下：**
 
@@ -344,11 +342,11 @@ keep-alive 主要用于保留组件状态和避免重新渲染，常见就是列
 
 ---
 
-### 18.data更新但视图没更新的原因
+## 18.data更新但视图没更新的原因
 
 **vue不能检测以下变动的数组**
 
-1. 利用索引直接设置一个项：vm.items[index] = value
+1. 利用索引直接设置一个项：`vm.items[index] = value`
 2. 修改数组长度时：vm.items.length = newLength
 
 **Vue不能检测对象属性的新增和删除**
@@ -366,7 +364,7 @@ vm.b = 3 // 这不是响应的
 
 ---
 
-### 19.Vue等单页面应用的优缺点
+## 19.Vue等单页面应用的优缺点
 
  **单页面应用（SPA）**
 
@@ -389,7 +387,7 @@ vm.b = 3 // 这不是响应的
 
 ---
 
-### 20.计算属性的缓存和方法调用的有什么区别
+## 20.计算属性的缓存和方法调用的有什么区别
 
 - 计算属性必须返回结果
 - 计算属性是基于它的依赖缓存的，一个计算属性所依赖的数据发生变化时，它才会重新取值
@@ -398,7 +396,7 @@ vm.b = 3 // 这不是响应的
 
 ---
 
-### 21.vue自定义指令
+## 21.vue自定义指令
 
 **如何使用自定义指令**
 
@@ -427,7 +425,7 @@ Vue.directive('focus',{
 
 ---
 
-### 22.computed和watch区别
+## 22.computed和watch区别
 
 **1.computed的特点**
 
@@ -459,7 +457,7 @@ Vue.directive('focus',{
 
 ---
 
-### 23.Object.defineProperty 和 proxy的区别
+## 23.Object.defineProperty 和 proxy的区别
 
 1. `Object.defineProperty`只能劫持对象的属性，需要遍历对象的每个属性，如果属性值也是对象，则需要深度遍历，而proxy是直接代理对象，不需要遍历操作
 2. `Object.defineProperty`对新增属性需要手动进行observe，因为defineproperty劫持的是对象的属性，所以新增属性时，需要重新遍历对象，再对新增属性再使用defineproperty进行劫持。而proxy可以直接监听对象属性的添加
@@ -484,7 +482,7 @@ definedProperty的缺陷
 
 ---
 
-### 24.vue diff算法
+## 24.vue diff算法
 
 **diff算法的时间复杂度**
 
@@ -503,7 +501,7 @@ definedProperty的缺陷
 
 ---
 
-### 25.vue slot插槽
+## 25.vue slot插槽
 
 **基本用法**
 
@@ -687,7 +685,7 @@ export default {
 
 ---
 
-### 26.vue props如何自定义验证
+## 26.vue props如何自定义验证
 
 ```js showLineNumbers copy
 export default {
@@ -705,7 +703,7 @@ export default {
 
 ---
 
-### 27.如何让CSS只在当前组件中起作用
+## 27.如何让CSS只在当前组件中起作用
 
 Vue可以通过使用scoped属性来限制样式仅应用于特定的组件。
 
@@ -731,7 +729,7 @@ export default {
 
 ---
 
-### 28.相同路由组件如何重新渲染
+## 28.相同路由组件如何重新渲染
 
 Vue默认不会对相同的路由的切换做重新渲染
 
@@ -745,13 +743,13 @@ Vue默认不会对相同的路由的切换做重新渲染
 
 ---
 
-### 29.如何获取data某个数值的初始值
+## 29.如何获取data某个数值的初始值
 
 data的属性改变后，可以通过`this.$options.data().x` 获取初始值
 
 ---
 
-### 30.created和mounted的区别
+## 30.created和mounted的区别
 
 created和mounted都是Vue生命周期钩子函数，但它们的执行时机不同。
 
@@ -763,13 +761,13 @@ mounted是在组件挂载到页面上后执行的钩子函数，此时组件的D
 
 ---
 
-### 31.v-model语法糖是怎么实现的
+## 31.v-model语法糖是怎么实现的
 
 `v-model`是`value` + `input`的语法糖，是`v-band`和`v-on`的简洁写法。`v-model`就实现了双向数据绑定，实际上它就是通过Vue提供的事件机制。即在子组件通过`$emit()`触发一个事件，在父组件使用`v-model`即可
 
 ---
 
-### 32.vue eventbus(事件总线)具体是怎么实现的
+## 32.vue eventbus(事件总线)具体是怎么实现的
 
 `EventBus` 又称为事件总线。在Vue中可以使用 `EventBus` 来作为沟通桥梁的概念，就像是所有组件共用相同的事件中心，可以向该中心注册发送事件或接收事件，所以组件都可以上下平行地通知其他组件，但也就是太方便所以若使用不慎，就会造成难以维护的"灾难"，因此才需要更完善的`Vuex`作为状态管理中心，将通知的概念上升到共享状态层次。
 
@@ -777,7 +775,7 @@ mounted是在组件挂载到页面上后执行的钩子函数，此时组件的D
 
 ---
 
-### 33.说说vue操作真实dom性能瓶颈
+## 33.说说vue操作真实dom性能瓶颈
 
 1. **DOM 操作的代价** ：直接操作 DOM 是昂贵的操作，因为它涉及到浏览器渲染引擎的重新计算、布局和绘制。Vue 通过虚拟 DOM 尽量减少了对真实 DOM 的操作，但在某些情况下，如使用 ref 或 $el 直接访问 DOM 元素时，我们可能会不自觉地触发大量的 DOM 操作，从而影响性能。
 2. **异步更新队列** ：Vue 在更新 DOM 时，会先将需要更新的节点放入一个异步队列中，等到下一个事件循环再执行实际的 DOM 更新。这意味着，如果你在 Vue 的更新过程中直接操作了真实 DOM，可能会覆盖 Vue 的更新，导致视图不一致。
@@ -793,7 +791,7 @@ mounted是在组件挂载到页面上后执行的钩子函数，此时组件的D
 
 ---
 
-### 34.Vue中如何获取dom、操作dom、更新dom
+## 34.Vue中如何获取dom、操作dom、更新dom
 
 在Vue中，可以通过ref属性来获取DOM元素。首先需要为目标DOM元素添加ref属性，然后使用this.$refs.xxx来访问该DOM元素。
 
@@ -822,13 +820,13 @@ export default {
 
 ---
 
-### 35.vue中为什么用虚拟dom而不操作真实dom
+## 35.vue中为什么用虚拟dom而不操作真实dom
 
 不直接操作真实DOM，因为很昂贵，我们去操作这个JS对象，就不会触发大量回流重绘操作，再加上diff算法，可以找到两次虚拟DOM之间改变的部分，从而最小量的去一次性更新真实DOM，而不是频繁操作DOM，性能得到了大大的提升。
 
 ---
 
-### 36.说说vue中的虚拟dom和diff算法
+## 36.说说vue中的虚拟dom和diff算法
 
 在Vue（以及许多其他前端框架和库，如React）中，虚拟DOM（Virtual DOM）和diff算法是两个核心概念，它们共同提高了应用程序的性能和响应速度。
 
@@ -849,7 +847,7 @@ Vue的Diff算法有以下关键特点：
 
 ---
 
-### 37.动态给vue的data添加一个新的属性时会发生什么？怎样解决？
+## 37.动态给vue的data添加一个新的属性时会发生什么？怎样解决？
 
 动态给vue的data添加一个新的属性时，这个新属性不会被响应式的监听和更新。也就是说，当你修改这个属性时，视图不会发生变化。
 
@@ -885,7 +883,7 @@ export default {
 
 ---
 
-### 38.vue的mixin的理解，有什么应用场景?
+## 38.vue的mixin的理解，有什么应用场景?
 
 **mixin是什么**
 
@@ -1037,7 +1035,7 @@ const Tooltip = {
 
 ---
 
-### 39.Vue中的过滤器了解吗?过滤器的应用场景有哪些?
+## 39.Vue中的过滤器了解吗?过滤器的应用场景有哪些?
 
 **过滤器是什么**
 
@@ -1152,13 +1150,13 @@ Vue.filter('toThousandFilter', function (value) {
 
 ---
 
-### 40.是怎么处理vue项目中的错误的?
+## 40.是怎么处理vue项目中的错误的?
 
 [参考](https://blog.csdn.net/KlausLily/article/details/124185829)
 
 ---
 
-### 41.vue要做权限管理该怎么做?
+## 41.vue要做权限管理该怎么做?
 
 **路由层面控制**
 
@@ -1250,7 +1248,7 @@ export default {
 
 ---
 
-### 42.vue项目本地开发完成后部署到服务器后报404是什么原因呢?
+## 42.vue项目本地开发完成后部署到服务器后报404是什么原因呢?
 
 **1. 路径问题**
 
@@ -1270,13 +1268,13 @@ export default {
 
 ---
 
-### 43.在Vue中，子组件为何不可以修改父组件传递的Prop
+## 43.在Vue中，子组件为何不可以修改父组件传递的Prop
 
 Vue提倡单向数据流,即父级props的更新会流向子组件,但是反过来则不行。这是为了防止意外的改变父组件状态，使得应用的数据流变得难以理解。如果破坏了单向数据流，当应用复杂时，debug 的成本会非常高。
 
 ---
 
-### 44.双向绑定和vuex是否冲突
+## 44.双向绑定和vuex是否冲突
 
 双向绑定和Vuex并不直接冲突，但在某些情况下可能会引起一些问题。
 
@@ -1292,7 +1290,7 @@ Vuex是Vue的状态管理库，用于集中管理应用程序的状态。它提�
 
 ---
 
-### 45.Vue的父组件和子组件生命周期钩子执行顺序是什么
+## 45.Vue的父组件和子组件生命周期钩子执行顺序是什么
 
 **加载渲染过程**
 
@@ -1312,747 +1310,8 @@ Vuex是Vue的状态管理库，用于集中管理应用程序的状态。它提�
 
 ---
 
-### 46.vue在v-for时给每项元素绑定事件需要用事件代理吗?为什么?
+## 46.vue在v-for时给每项元素绑定事件需要用事件代理吗?为什么?
 
 Vue 并没有在源码中做代理
 
 但是一般给 v-for 绑定事件时，都会让节点指向同一个事件处理程序（第二种情况可以运行，但是 eslint 会警告），一定程度上比每生成一个节点都绑定一个不同的事件处理程序性能好，但是监听器的数量仍不会变，所以使用事件代理会更好一点。
-
----
-
-## vue3
-
-### 1.Vue3.0所采用的Composition Api 与Vue2.x使用的Options Api有什么不同?
-
-Composition API 和 Options API 是Vue.js中的两种组件编写方式。
-
-Options API是Vue.js早期版本中使用的编写方式，通过定义一个options对象进行组件的配置，包括props、data、methods、computed、watch等选项。这种方式的优点在于结构清晰、易于理解，在小型项目中比较实用。
-
-Composition API是Vue.js 3.x版本中新引入的一种组件编写方式，它以函数的形式组织我们的代码，允许我们将相关部分组合起来，提高了代码的可维护性和重用性。Composition API还提供了模块化、类型推断等功能，可以更好地实现面向对象编程的思想。
-
-Composition API 更好的代码组织，更好的逻辑服用；可维护性，更好的类型推导，可拓展性更好；
-
-两种API各有优缺点，使用哪种API取决于具体的项目需求。对于小型项目，Options API更为简单方便；对于大型项目，Composition API可以更好地组织代码。
-
-总之，Vue.js的Composition API和Options API是为了满足不同开发者的需求而存在的，我们应该根据具体的场景选择使用哪种API，以达到更好的开发效果和代码质量。
-
----
-
-### 2.vue3.0的设计目标是什么?做了哪些优化
-
-[参考](https://vue3js.cn/interview/vue3/goal.html)
-
----
-
-### 3.用Vue3.0写过组件吗?如果想实现一个Modal你会怎么设计?
-
-[参考](https://vue3js.cn/interview/vue3/modal_component.html)
-
----
-
-### 4.vue3.0性能提升主要是通过哪几方面体现的?
-
-[参考](https://vue3js.cn/interview/vue3/performance.html)
-
----
-
-### 5.Vue3.0里为什么要用Proxy API替代defineProperty APl?
-
-[参考](https://vue3js.cn/interview/vue3/proxy.html)
-
----
-
-### 6.说说Vue 3.0中Treeshaking特性?举例说明—下?
-
-[参考](https://vue3js.cn/interview/vue3/treeshaking.html)
-
----
-
-### 7.vue2和vue3的生命周期对比？
-
-Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
-
-- beforeDestroy改名为 beforeUnmount
-- destroyed改名为 unmounted
-
-Vue3.0也提供了 Composition API 形式的生命周期钩子，与Vue2.x中钩子对应关系如下：
-
-- beforeCreate===>setup()
-- created=======>setup()
-- beforeMount ===>onBeforeMount
-- mounted=======>onMounted
-- beforeUpdate===>onBeforeUpdate
-- updated =======>onUpdated
-- beforeUnmount ==>onBeforeUnmount
-- unmounted =====>onUnmounted
-
----
-
-### 8.vue3的常用 Composition API有哪些？
-
-1. setup
-2. ref函数
-3. reactive函数
-4. computed函数
-5. watch函数
-6. watchEffect函数
-7. toRef
-8. shallowReactive 与 shallowRef
-9. readonly 与 shallowReadonly
-10. readonly: 让一个响应式数据变为只读的（深只读）。
-11. shallowReadonly：让一个响应式数据变为只读的（浅只读）。
-12. toRaw 与 markRaw
-13. customRef
-14. provide 与 inject
-
----
-
-### 9.Vue3.0有什么更新
-
-**性能优化**：Vue.js 3.0使用了Proxy替代Object.defineProperty实现响应式，并且使用了静态提升技术来提高渲染性能。新增了编译时优化，在编译时进行模板静态分析，并生成更高效的渲染函数。
-
-**Composition API**：Composition API是一个全新的组件逻辑复用方式，可以更好地组合和复用组件的逻辑。
-
-**TypeScript支持**：Vue.js 3.0完全支持TypeScript，在编写Vue应用程序时可以更方便地利用TS的类型检查和自动补全功能。
-
-**新的自定义渲染API**：Vue.js 3.0的自定义渲染API允许开发者在细粒度上控制组件渲染行为，包括自定义渲染器、组件事件和生命周期等。
-
-**改进的Vue CLI**：Vue.js 3.0使用了改进的Vue CLI，可以更加灵活地配置项目，同时支持Vue.js2.x项目升级到Vue.js 3.0。
-
-**移除一些API**：Vue.js 3.0移除了一些不常用的API，如过渡相关API，部分修饰符等。
-
----
-
-### 10.Vue3为什么比Vue2快？
-
-**响应式系统优化**：Vue3引入了新的响应式系统，这个系统的设计让Vue3的渲染函数可以在编译时生成更少的代码，这也就意味着在运行时需要更少的代码来处理虚拟DOM。这个新系统的一个重要改进就是提供了一种基于Proxy实现的响应式机制，这种机制为开发人员提供更加高效的API，也减少了一些运行时代码。
-
-**编译优化**：Vue3的编译器对代码进行了优化，包括减少了部分注释、空白符和其他非必要字符的编译，同时也对编译后的代码进行了懒加载优化。
-
-**更快的虚拟DOM**：Vue3对虚拟DOM进行了优化，使用了跟React类似的Fiber算法，这样可以更加高效地更新DOM节点，提高性能。
-
-**Composition API**：Vue3引入了Composition API，这种API通过提供逻辑组合和重用的方法来提升代码的可读性和重用性。这种API不仅可以让Vue3应用更好地组织和维护业务逻辑，还可以让开发人员更加轻松地实现优化。
-
----
-
-## vuex
-
-### 1.vuex是什么? 怎么使用? 哪种功能场景使用它?
-
-Vuex是一个用于管理Vue.js应用程序状态的状态管理库。它将应用程序的状态存储在一个中央的地方，并以响应式的方式进行更新。通过使用Vuex，开发者可以更方便地在不同组件间共享和修改状态。
-
-要使用Vuex，首先要安装和引入它。可以使用npm或者yarn进行安装：
-
-```bash showLineNumbers copy
-npm install vuex
-# 或者
-yarn add vuex
-```
-
-然后在Vue.js应用程序的入口文件中引入Vuex，并将其作为Vue的插件来使用：
-
-```js showLineNumbers copy
-import Vue from 'vue'
-import Vuex from 'vuex'
- 
-Vue.use(Vuex)
-```
-
-接下来，需要创建一个Vuex store实例，用于存储和管理应用程序的状态：
-
-```js showLineNumbers copy
-const store = new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment(state) {
-      state.count++
-    }
-  },
-  actions: {
-    increment(context) {
-      context.commit('increment')
-    }
-  },
-  getters: {
-    doubleCount(state) {
-      return state.count * 2
-    }
-  }
-})
-```
-
-在上面的例子中，我们定义了一个包含count状态的state，以及一个用于修改count状态的mutation，还有一个用于触发mutation的action，以及一个用于获取派生状态的getter。
-
-最后，通过在Vue组件中使用Vuex提供的辅助函数（如mapState、mapMutations、mapActions、mapGetters等），可以方便地在组件中访问和修改状态。
-
-**Vuex适用于以下场景：**
-
-- 多个组件需要共享和修改同一个状态。
-- 需要在状态发生变化时进行响应式更新。
-- 需要对状态进行一些处理或计算，以生成派生状态（如计算属性）。
-- 需要对状态的变化进行一些异步操作（如发起AJAX请求）。
-
-总之，Vuex提供了一种统一的方式来管理应用程序的状态，使得开发者能够更好地组织和维护状态逻辑。
-
----
-
-### 2.Vuex有哪几种属性？
-
-有五种，分别是 State、 Getter、Mutations 、Actions、 Modules
-
-- state => 基本数据(数据源存放地)
-- getters => 从基本数据派生出来的数据
-- mutations => 提交更改数据的方法，同步
-- actions => 像一个装饰器，包裹mutations，使之可以异步。
-- modules => 模块化Vuex
-
-**各模块在流程中的功能**
-
-- Vue Components：Vue组件。HTML页面上，负责接收用户操作等交互行为，执行dispatch方法触发对应action进行回应。
-- dispatch：操作行为触发方法，是唯一能执行action的方法。
-- actions：操作行为处理模块,由组件中的$store.dispatch('action 名称', data1)来触发。然后由commit()来触发mutation的调用 , 间接更新 state。可以定义异步函数，并在回调中提交mutation,就相当于异步更新了state中的字段
-- commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。
-- mutations：状态改变操作方法，由actions中的commit('mutation 名称')来触发。是Vuex修改state的唯一推荐方法。该方法只能进行同步操作，且方法名只能全局唯一。
-- state：state中存放页面共享的状态字段
-- getters：相当于当前模块state的计算属性
-
-### 2.为什么Vuex的mutation和 Redux 的reducer中不能做异步
-
-- 每个mutation执行完成后都会对应到一个新的状态变更，这样devtools就可以打个快照存下来，然后就可以实现 time-travel 了。如果mutation支持异步操作，就没有办法知道状态是何时更新的，无法很好的进行状态的追踪，给调试带来困难。
-- action 可以进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）
-
----
-
-### 3.Vuex的store特性是什么
-
-- vuex就是一个仓库，仓库里放了很多对象，其中state就是数据源存放地，对应与一般vue对象里面的data
-- state 里面存放的数据是响应式的，vue 组件从 store 读取数据，若是 store 中的数据发生改变，依赖这相数据的组件也会发生更新
-- 它通过 mapState 把全局的 state 和 getters 映射到当前组件的 computed 计算属性
-
-### 4.vuex 的 getter 特性是什么
-
-- getter 可以对 state 进行计算操作，它就是 store 的计算属性
-- 虽然在组件内也可以做计算属性，但是 getters 可以在多给件之间复用
-- 如果一个状态只在一个组件内使用，是可以不用 getters
-
----
-
-### 5.vuex 的 mutation 特性是什么
-
-- action 类似于 muation, 不同在于：action 提交的是 mutation,而不是直接变更状态
-- action 可以包含任意异步操作 
-
----
-
-### 6.vuex的state、getter、mutation、action、module特性分别是什么？
-
-- state：存放公共数据的地方
-- getter：获取根据业务场景处理返回的数据
-- mutations：唯一修改state的方法，修改过程是同步的
-- action：异步处理，通过分发操作触发mutation
-- module：将store模块分割，减少代码臃肿
-
----
-
-### 7.你觉得要是不用vuex的话会带来哪些问题 
-
-- 组件之间传值麻烦复杂
-- 可维护性会下降，你要修改数据，你得维护 3 个地方
-- 可读性下降，因为一个组件里的数据，你根本就看不出来是从哪里来的
-- 增加耦合，大量的上传派发，会让耦合性大大的增加，本来 Vue 用 Component 就是为了减少耦合，现在这么用，和组件化的初衷相背
-
----
-
-
-
-## vue-router
-
-### 1.vue-router 是什么?它有哪些组件？
-
-vue-router 是 Vue.js 官方的路由管理器，它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：
-
-- 嵌套的路由
-- 模块化的、基于组件的路由配置
-- 路由参数、查询、通配符
-- 基于 Vue.js 过度系统的视图过渡效果
-- 细颗粒度的导航控制
-- 带有自动激活的 CSS class 的连接
-- history模式或 hash 模式，在 IE9 中自动降级
-- 自定义的滚动条行为
-
-**vue-router 组件：**
-
-- `<router-link to="">` 路由的路径
-- `<router-link :to="{name:’‘l路由名’}">` 命名路由
-- `<router-view>` 路由的显示
-
----
-
-### 2.active-class 是哪个组件的属性？
-
-active-class 属于vue-router的样式方法，当routerlink标签被点击时将会应用这个样式。
-
-**使用方法一：routerLink标签内使用**
-
-```html showLineNumbers copy
-<router-link to='/' active-class="active" >首页</router-link>
-```
-
-**使用方法二：在路由js文件,配置active-class**
-
-```js showLineNumbers copy
-const router = new VueRouter({
-  routes,
-  linkActiveClass: 'active'
-});
-```
-
-在使用时会有一个bug：首页的active会一直被应用
-
-为了解决上面的问题，还需加入一个属性exact，也有两种方式。
-
-**方式一：在router-link中写入exact**
-
-```html showLineNumbers copy
-<router-link to='/' active-class="active" exact>首页</router-link>
-```
-
-**方式二：在路由js文件,配置active-class**
-
-```js showLineNumbers copy
-const router = new VueRouter({
-  routes,
-  linkExactActiveClass: 'active'
-});
-```
-
-### 3.怎么定义 vue-router 的动态路由? 怎么获取传过来的值？
-
-可以通过query ,param两种方式，区别：query通过url传参，刷新页面参数还在，params刷新页面参数不在了。
-
-**param的类型：**
-
-- 配置路由格式:/router/:id
-- 传递的方式:在path后面跟上对应的值
-- 传递后形成的路径:/router/123
-
-```js showLineNumbers copy
-// 定义路由
-{
-  path: '/user/:userid',
-  component: User,
-},
-```
-
-```html showLineNumbers copy
-<!-- 动态路由-params -->
-<router-link :to="'/user/'+userId" replace>用户</router-link>
-```
-
-跳转方法：
-
-```html showLineNumbers copy
-<!-- 方法1：-->
-<router-link :to="{ name: 'users', params: { uname: wade }}">按钮</router-link>
-```
-
-```js showLineNumbers copy
-// 方法2：
-this.$router.push({name:'users',params:{uname:wade}})
-```
-
-```js showLineNumbers copy
-// 方法3：
-this.$router.push('/user/' + wade)
-```
-
-通过$route.params.参数名 获取你所传递的值
-
-**query的类型：**
-
-- 配置路由格式:/router,也就是普通配置
-- 传递的方式:对象中使用query的key作为传递方式
-- 传递后形成的路径:/route?id=123
-
-```html showLineNumbers copy
-<!--动态路由-query -->
-<!--01-直接在router-link 标签上以对象的形式-->
-<router-link :to="{path:'/profile',query:{name:'why',age:28,height:188}}">档案</router-link>
-```
-
-```vue showLineNumbers copy
-<tempalte>
-  <button @click='profileClick'>我的</button>
-</tempalte>
-<script>
-  export default {
-    methods: {
-      profileClick(){
-        this.$router.push({
-          path: "/profile",
-          query: {
-            name: "kobi",
-            age: "28",
-            height: 198
-          }
-        });
-      }
-    }
-  }
-</script>
-```
-
-跳转方法:
-
-方法1：
-```html showLineNumbers copy
-<router-link :to="{ name: 'users', query: { uname: james }}">按钮</router-link>
-```
-
-方法2：
-```js showLineNumbers copy
-this.$router.push({ name: 'users', query:{ uname:james }})
-```
-
-方法3：
-```html showLineNumbers copy
-<router-link :to="{ path: '/user', query: { uname:james }}">按钮</router-link>
-```
-
-方法4：
-```js showLineNumbers copy
-this.$router.push({ path: '/user', query:{ uname:james }})
-```
-
-方法5：
-```js showLineNumbers copy
-this.$router.push('/user?uname=' + jsmes)
-```
-
-通过$route.query 获取你所传递的值
-
-### 4.vue-router 有哪几种导航钩子（导航守卫）?
-
-**第一种：全局导航钩子**
-
-1.前置钩子 `beforeEach`
-
-```js showLineNumbers copy
-//单独设置每个路由的属性：
-const routes = [
-  {
-    path: '/login',
-    name: 'login',
-    component: Login,
-    meta: {
-      may: true
-    }
-  }
-]
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(item => item.meta.may)) {
-    let id = window.localStorage.getItem("id")
-    if (id) {
-      next()
-    } else {
-      next({ name: "login" })
-    }
-  } else {
-    next()
-  }
-})
-```
-
->注意：next 方法必须要调用，否则钩子函数无法 resolved
-
-2.后置钩子 `afterEach`
-
-```js showLineNumbers copy
-router.afterEach((to,from) => {
-	if(to.meta && to.meta.title){
-		document.title = to.meta.title
-	}else{
-		document.title = "666"
-	}
-})
-```
-
-**第二种：单独路由独享钩子**
-
-```js showLineNumbers copy
-{
-  path: '/home',
-  name: 'home',
-  component: Home,
-  beforeEnter(to, from, next) {
-    if (window.localStorage.getItem("id")) {
-      next()
-    } else {
-      next({ name: "login" })
-    }
-  }
-}
-```
-
-**第三种：组件内的钩子**
-
-```js showLineNumbers copy
-beforeRouteEnter(to, from, next) {
-  // do someting
-  // 在渲染该组件的对应路由被 confirm 前调用
-},
-beforeRouteUpdate(to, from, next) {
-  // do someting
-  // 在当前路由改变，但是依然渲染该组件是调用
-},
-beforeRouteLeave(to, from ,next) {
-  // do someting
-  // 导航离开该组件的对应路由时被调用
-}
-```
-
-**全局解析守卫**
-
-router.beforeResolve 注册一个全局守卫，和 router.beforeEach 类似
-
-可以在src目录下新建一个permission.js文件
-
-```js showLineNumbers copy
-import router from './router'
-import store from './store'
-import { Message } from 'element-ui'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-import { getToken } from '@/utils/auth'
-
-NProgress.configure({ showSpinner: false })
-
-const whiteList = ['/login', '/auth-redirect', '/bind', '/register']
-
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-  if (getToken()) {
-    /* has token*/
-    if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done()
-    } else {
-      if (store.getters.roles.length === 0) {
-        // 判断当前用户是否已拉取完user_info信息
-        store.dispatch('GetInfo').then(res => {
-          // 拉取user_info
-          const roles = res.roles
-          store.dispatch('GenerateRoutes', { roles }).then(accessRoutes => {
-          // 测试 默认静态页面
-          // store.dispatch('permission/generateRoutes', { roles }).then(accessRoutes => {
-            // 根据roles权限生成可访问的路由表
-            router.addRoutes(accessRoutes) // 动态添加可访问路由表
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
-          })
-        })
-          .catch(err => {
-            store.dispatch('FedLogOut').then(() => {
-              Message.error(err)
-              next({ path: '/' })
-            })
-          })
-      } else {
-        next()
-        // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
-        // if (hasPermission(store.getters.roles, to.meta.roles)) {
-        //   next()
-        // } else {
-        //   next({ path: '/401', replace: true, query: { noGoBack: true }})
-        // }
-        // 可删 ↑
-      }
-    }
-  } else {
-    // 没有token
-    if (whiteList.indexOf(to.path) !== -1) {
-      // 在免登录白名单，直接进入
-      next()
-    } else {
-      next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
-      NProgress.done()
-    }
-  }
-})
-
-router.afterEach(() => {
-  // 进度条
-  NProgress.done()
-})
-```
-
-### 5.$route 和 $router 的区别
-
-**$route对象**：$route对象表示当前的路由信息，包含了当前 URL 解析得到的信息。包含当前的路径，参数，query对象等。
-
-```
-1. $route.path 字符串，对应当前路由的路径，总是解析为绝对路径，如"/foo/bar"。
-2. $route.params 一个 key/value 对象，包含了 动态片段 和 全匹配片段， 如果没有路由参数，就是一个空对象。
-3. $route.query 一个 key/value 对象，表示 URL 查询参数。 例如，对于路径 /foo?user=1，则有$route.query.user == 1， 如果没有查询参数，则是个空对象。
-4. $route.hash 当前路由的hash值 (不带#) ，如果没有 hash 值，则为空字符串。锚点*
-5. $route.fullPath 完成解析后的 URL，包含查询参数和hash的完整路径。
-6. $route.matched 数组，包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
-7. $route.name 当前路径名字
-8. $route.meta 路由元信息
-```
-
-**$router对象**：$router对象是全局路由的实例，是router构造方法的实例。
-
-实例方法：
-
-**1、push**
-
-1. 字符串`this.$router.push('home')`
-2. 对象`this.$router.push({ path: 'home'})`
-3. 命名的路由`this.$router.push({name:'user',params:{userId:123}})`
-4.带查询参数，变成 /register?plan=123 -> `this.$router.push({path:'register',query:{plan:'123'}})`
-
-push方法其实和`<router-link :to="...">`是等同的。
-
->注意：push方法的跳转会向 history 栈添加一个新的记录，当我们点击浏览器的返回按钮时可以看到之前的页面。
-
-**2、go**
-
-页面路由跳转
-前进或者后退this.$router.go(-1) // 后退
-
-**3、replace**
-
-push方法会向 history 栈添加一个新的记录，而replace方法是替换当前的页面，
-不会向 history 栈添加一个新的记录
-
----
-
-### 6.vue-router响应路由参数的变化？
-
-当使用路由参数时，例如从 /user/aside导航到 /user/foo，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
-
-注意:
-
-（1）从同一个组件跳转到同一个组件。
-
-（2）生命周期钩子created和mounted都不会调用。
-
-```js showLineNumbers copy
-beforeRouteUpdate(to,from,next){
-  // 在这个钩子函数中：to表示将要跳转的路由对象，from表示从哪个路由跳转过来，next多数就是需要调用
-  // created和mounted不调用，无法拿到需要的动态值，就通过to.path,to.params等
-  // 可以在这个函数中打印to，具体看to对象有什么可以使用的属性
-}
-```
-
-添加watch监听
-
-```js showLineNumbers copy
-watch: {
- // 方法1 //监听路由是否变化
-  '$route' (to, from) {
-   if(to.query.id !== from.query.id){
-      this.id = to.query.id;
-      // 重新加载数据
-      this.init();
-    }
-  }
-}
-//方法 2  设置路径变化时的处理函数
-watch: {
-'$route': {
-    handler: 'init',
-    immediate: true
-  }
-}
-```
-
-为了实现这样的效果可以给router-view添加一个不同的key，这样即使是公用组件，只要url变化了，就一定会重新创建这个组件。
-
-```html showLineNumbers copy
-<router-view :key="$route.fullpath"></router-view>
-```
-
----
-
-### 7.vue项目实现路由按需加载(路由懒加载)的3种方式
-
-**1.vue异步组件技术**
-
-```js showLineNumbers copy
-/* vue异步组件技术 */
-{
-  path: '/home',
-  name: 'home',
-  component: resolve => require(['@/components/home'],resolve)
-},{
-  path: '/index',
-  name: 'Index',
-  component: resolve => require(['@/components/index'],resolve)
-},{
-  path: '/about',
-  name: 'about',
-  component: resolve => require(['@/components/about'],resolve)
-} 
-```
-
-**2.路由懒加载(使用import)**
-
-```js showLineNumbers copy
-// 下面2行代码，没有指定webpackChunkName，每个组件打包成一个js文件。
-/*
-const Home = () => import('@/components/home')
-const Index = () => import('@/components/index')
-const About = () => import('@/components/about')
-*/
-
-// 下面2行代码，指定了相同的webpackChunkName，会合并打包成一个js文件。 把组件按组分块
-const Home =  () => import(/* webpackChunkName: 'ImportFuncDemo' */ '@/components/home')
-const Index = () => import(/* webpackChunkName: 'ImportFuncDemo' */ '@/components/index')
-const About = () => import(/* webpackChunkName: 'ImportFuncDemo' */ '@/components/about')
-```
-
-**webpack提供的require.ensure()**
-
-vue-router配置路由，使用webpack的require.ensure技术，也可以实现按需加载。
-这种情况下，多个路由指定相同的chunkName，会合并打包成一个js文件。
-
-```js showLineNumbers copy
-/* 组件懒加载方案三: webpack提供的require.ensure() */
-{
-  path: '/home',
-  name: 'home',
-  component: r => require.ensure([], () => r(require('@/components/home')), 'demo')
-}, {
-  path: '/index',
-  name: 'Index',
-  component: r => require.ensure([], () => r(require('@/components/index')), 'demo')
-}, {
-  path: '/about',
-  name: 'about',
-  component: r => require.ensure([], () => r(require('@/components/about')), 'demo-01')
-}
-```
-
----
-
-### 8.路由的history和hash
-
-Vue-Router主要有两种模式：Hash模式和 History模式。这两种模式的主要区别在于它们如何处理url以及如何更新页面的内容。
-
-**Hash模式**：这是VueRouter的默认模式。它的工作原理是利用`hashchange`事件监听URL中的`#`符号的变化。在这个模式下，URL的变化不会导致页面的刷新，而是通过监听hashchange事件来实现路由的切换。这样的设计使得页面只在首次加载时刷新，而在后续的导航过程中，只要URL发生变化，就会显示最新的内容，而不必完全重载页面。
-
-**History模式**：在这种模式下，Vue单页面应用不会刷新页面。它是基于HTML5的新特性`history`实现的，允许用户在浏览器历史记录栈中操作，如前进、后退等。通过这种方式，无论是在开发还是生产环境，都可以实现无刷新地切换页面
-
-此外，Vue-Router还提供了一种抽象模式，这种模式不依赖于具体的浏览器环境，而是在非浏览器环境中使用，如Node.js的服务器端渲染
-
----
-
-### 9.vue-router跳转和location.href有什么区别
-
-- 使用location跳转简单方便，但是刷新了页面
-- 使用history.pushState('/url')无刷新页面，静态跳转
-- 引进router，然后使用router.push('/url')来跳转，使用了diff算法，实现了按需加载，减少了Dom的消耗
