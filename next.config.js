@@ -17,6 +17,7 @@ if (isGithubActions) {
   config.assetPrefix = `/${repo}/`
   config.basePath = `/${repo}`
 }
-console.log(config);
+
+// console.log(config);
 
 module.exports = withNextra(config);

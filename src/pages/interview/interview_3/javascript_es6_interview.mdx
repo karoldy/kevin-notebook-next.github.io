@@ -1,36 +1,35 @@
 # JavaScript Es6 面试题
 
-## 1.var、 let 、const 区别?（常问、必记）
+## 1.var、 let 、const 区别?(常问、必记)
 
 **1. `var`**
 
-作用域: var声明的变量拥有函数作用域，如果在函数外部声明，它将具有全局作用域。在全局作用域下使用var声明的变量会被附加到**window对象**上。
-
-- **变量提升**: var声明的变量会发生变量提升（hoisting），意味着无论在函数的哪个部分声明，它们都会被移动到函数的顶部。
+- **作用域**: var声明的变量拥有函数作用域, 如果在函数外部声明, 它将具有全局作用域。在全局作用域下使用var声明的变量会被附加到**window对象**上。
+- **变量提升**: var声明的变量会发生变量提升(hoisting), 意味着无论在函数的哪个部分声明, 它们都会被移动到函数的顶部。
 - **重复声明**: 使用var可以重复声明同一个变量。
 - **重新赋值**: 使用var声明的变量可以被重新赋值。
 
 **2. `let`**
 
-- **作用域**: let声明的变量具有块级作用域（block scope），仅在声明它的代码块内有效。
-- **变量提升**: let声明的变量也会提升，但它们不会被初始化。在代码执行到声明之前，它们是不可访问的，这个区间被称为“暂时性死区”（Temporal Dead Zone, TDZ）。
-- **重复声明**: 在同一个作用域中，let不允许重新声明已经存在的变量。
-- **重新赋值**: 使用let声明的变量可以被重新赋值，但不能重复声明。
+- **作用域**: let声明的变量具有块级作用域(block scope), 仅在声明它的代码块内有效。
+- **变量提升**: let声明的变量也会提升, 但它们不会被初始化。在代码执行到声明之前, 它们是不可访问的, 这个区间被称为“暂时性死区”(Temporal Dead Zone, TDZ)。
+- **重复声明**: 在同一个作用域中, let不允许重新声明已经存在的变量。
+- **重新赋值**: 使用let声明的变量可以被重新赋值, 但不能重复声明。
 
 **3. `const`**
 
-- **作用域**: 与let相同，const声明的变量也具有块级作用域。
-- **变量提升**: const同样会提升到块的顶部，但是在声明语句之前它们也是不可访问的，存在于**暂时性死区**中。
+- **作用域**: 与let相同, const声明的变量也具有块级作用域。
+- **变量提升**: const同样会提升到块的顶部, 但是在声明语句之前它们也是不可访问的, 存在于**暂时性死区**中。
 - **重复声明**: const不允许在相同作用域内重复声明变量。
-- **重新赋值**: const声明的变量不能被重新赋值，它们必须在声明时初始化，并且声明后值是固定的。但是，如果const变量指向的是一个对象或数组，那么对象或数组的内容是可以被修改的。
+- **重新赋值**: const声明的变量不能被重新赋值, 它们必须在声明时初始化, 并且声明后值是固定的。但是, 如果const变量指向的是一个对象或数组, 那么对象或数组的内容是可以被修改的。
 
 **附加在window对象上**
 
->在浏览器环境中，全局作用域下使用var声明的变量会成为window对象的属性。这意味着，如果你声明了var dog = 'bowser'，实际上你添加了一个新的全局变量dog到window对象上，你可以通过window.dog访问到它，并且会得到'bowser'这个值。相比之下，let和const声明的变量则不会被添加到window对象。这有助于避免全局命名空间的污染，也让变量的控制范围更加严格。
+>在浏览器环境中, 全局作用域下使用var声明的变量会成为window对象的属性。这意味着, 如果你声明了var dog = 'bowser', 实际上你添加了一个新的全局变量dog到window对象上, 你可以通过window.dog访问到它, 并且会得到'bowser'这个值。相比之下, let和const声明的变量则不会被添加到window对象。这有助于避免全局命名空间的污染, 也让变量的控制范围更加严格。
 
 **暂时性死区**
 
-只要块级作用域内存在`let`命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+只要块级作用域内存在`let`命令, 它所声明的变量就“绑定”(binding)这个区域, 不再受外部的影响。
 
 ```js showLineNumbers copy
 var tmp = 123;
@@ -41,11 +40,11 @@ if (true) {
 }
 ```
 
-上面代码中，存在全局变量`tmp`，但是块级作用域内`let`又声明了一个局部变量`tmp`，导致后者绑定这个块级作用域，所以在`let`声明变量前，对tmp赋值会报错。
+上面代码中, 存在全局变量`tmp`, 但是块级作用域内`let`又声明了一个局部变量`tmp`, 导致后者绑定这个块级作用域, 所以在`let`声明变量前, 对tmp赋值会报错。
 
-ES6 明确规定，如果区块中存在`let`和`const`命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。
+ES6 明确规定, 如果区块中存在`let`和`const`命令, 这个区块对这些命令声明的变量, 从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量, 就会报错。
 
-总之，在代码块内，使用`let`命令声明变量之前，该变量都是不可用的。这在语法上，称为**暂时性死区**（temporal dead zone，简称 TDZ）。
+总之, 在代码块内, 使用`let`命令声明变量之前, 该变量都是不可用的。这在语法上, 称为**暂时性死区**(temporal dead zone, 简称 TDZ)。
 
 ```js showLineNumbers copy
 if (true) {
@@ -61,7 +60,7 @@ if (true) {
 }
 ```
 
-上面代码中，在let命令声明变量tmp之前，都属于变量tmp的“死区”。
+上面代码中, 在let命令声明变量tmp之前, 都属于变量tmp的“死区”。
 
 “暂时性死区”也意味着`typeof`不再是一个百分之百安全的操作。
 
@@ -70,17 +69,17 @@ typeof x; // ReferenceError
 let x;
 ```
 
-上面代码中，变量`x`使用`let`命令声明，所以在声明之前，都属于x的“死区”，只要用到该变量就会报错。因此，`typeof`运行时就会抛出一个`ReferenceError`。
+上面代码中, 变量`x`使用`let`命令声明, 所以在声明之前, 都属于x的“死区”, 只要用到该变量就会报错。因此, `typeof`运行时就会抛出一个`ReferenceError`。
 
-作为比较，如果一个变量根本没有被声明，使用`typeof`反而不会报错。
+作为比较, 如果一个变量根本没有被声明, 使用`typeof`反而不会报错。
 
 ```js showLineNumbers copy
 typeof undeclared_variable // "undefined"
 ```
 
-上面代码中，undeclared_variable是一个不存在的变量名，结果返回“undefined”。所以，在没有let之前，typeof运算符是百分之百安全的，永远不会报错。现在这一点不成立了。这样的设计是为了让大家养成良好的编程习惯，变量一定要在声明之后使用，否则就报错。
+上面代码中, undeclared_variable是一个不存在的变量名, 结果返回“undefined”。所以, 在没有let之前, typeof运算符是百分之百安全的, 永远不会报错。现在这一点不成立了。这样的设计是为了让大家养成良好的编程习惯, 变量一定要在声明之后使用, 否则就报错。
 
-有些“死区”比较隐蔽，不太容易发现。
+有些“死区”比较隐蔽, 不太容易发现。
 
 ```js showLineNumbers copy
 function bar(x = y, y = 2) {
@@ -90,7 +89,7 @@ function bar(x = y, y = 2) {
 bar(); // 报错
 ```
 
-上面代码中，调用bar函数之所以报错（某些实现可能不报错），是因为参数x默认值等于另一个参数y，而此时y还没有声明，属于“死区”。如果y的默认值是x，就不会报错，因为此时x已经声明了。
+上面代码中, 调用bar函数之所以报错(某些实现可能不报错), 是因为参数x默认值等于另一个参数y, 而此时y还没有声明, 属于“死区”。如果y的默认值是x, 就不会报错, 因为此时x已经声明了。
 
 ```js showLineNumbers copy
 function bar(x = 2, y = x) {
@@ -99,7 +98,7 @@ function bar(x = 2, y = x) {
 bar(); // [2, 2]
 ```
 
-另外，下面的代码也会报错，与var的行为不同。
+另外, 下面的代码也会报错, 与var的行为不同。
 
 ```js showLineNumbers copy
 // 不报错
@@ -110,46 +109,451 @@ let x = x;
 // ReferenceError: x is not defined
 ```
 
-上面代码报错，也是因为暂时性死区。使用let声明变量时，只要变量在还没有声明完成前使用，就会报错。上面这行就属于这个情况，在变量x的声明语句还没有执行完成前，就去取x的值，导致报错”x 未定义“。
+上面代码报错, 也是因为暂时性死区。使用let声明变量时, 只要变量在还没有声明完成前使用, 就会报错。上面这行就属于这个情况, 在变量x的声明语句还没有执行完成前, 就去取x的值, 导致报错”x 未定义“。
 
-ES6 规定暂时性死区和let、const语句不出现变量提升，主要是为了减少运行时错误，防止在变量声明前就使用这个变量，从而导致意料之外的行为。这样的错误在 ES5 是很常见的，现在有了这种规定，避免此类错误就很容易了。
+ES6 规定暂时性死区和let、const语句不出现变量提升, 主要是为了减少运行时错误, 防止在变量声明前就使用这个变量, 从而导致意料之外的行为。这样的错误在 ES5 是很常见的, 现在有了这种规定, 避免此类错误就很容易了。
 
-总之，暂时性死区的本质就是，只要一进入当前作用域，所要使用的变量就已经存在了，但是不可获取，只有等到声明变量的那一行代码出现，才可以获取和使用该变量。
+总之, 暂时性死区的本质就是, 只要一进入当前作用域, 所要使用的变量就已经存在了, 但是不可获取, 只有等到声明变量的那一行代码出现, 才可以获取和使用该变量。
 
 ---
 
-## 2.ES6中数组新增了哪些扩展？
+## 2.ES6中字符串新增了哪些拓展?
 
-**扩展运算符的应用**
+1. 字符的 Unicode 表示法
 
-ES6通过扩展元素符...，好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列
+ES6 加强了对 Unicode 的支持，允许采用\uxxxx形式表示一个字符, 其中xxxx表示字符的 Unicode 码点。
 
 ```js showLineNumbers copy
-console.log(...[1, 2, 3])
-// 1 2 3
-
-console.log(1, ...[2, 3, 4], 5)
-// 1 2 3 4 5
-
-[...document.querySelectorAll('div')]
-// [<div>, <div>, <div>]
+"\u0061"
+// "a"
 ```
 
->注意：通过扩展运算符实现的是浅拷贝，修改了引用指向的值，会同步反映到新数组
+2. 字符串的遍历器接口
+
+ES6 为字符串添加了遍历器接口(详见《Iterator》一章), 使得字符串可以被`for...of`循环遍历。
+
+```js showLineNumbers copy
+for (let codePoint of 'foo') {
+  console.log(codePoint)
+}
+// "f"
+// "o"
+// "o"
+```
+
+3. 模板字符串
+
+传统的 JavaScript 语言，输出模板通常是这样写的(下面使用了 jQuery 的方法)
+
+```js showLineNumbers copy
+$('#result').append(
+  'There are <b>' + basket.count + '</b> ' +
+  'items in your basket, ' +
+  '<em>' + basket.onSale +
+  '</em> are on sale!'
+);
+```
+
+上面这种写法相当繁琐不方便, ES6 引入了模板字符串解决这个问题。
+
+```js showLineNumbers copy
+$('#result').append(`
+  There are <b>${basket.count}</b> items
+   in your basket, <em>${basket.onSale}</em>
+  are on sale!
+`);
+```
+
+4. `String.prototype.includes()`, `String.prototype.startsWith()`, `String.prototype.endsWith()`
+
+传统上, JavaScript 只有`indexOf`方法, 可以用来确定一个字符串是否包含在另一个字符串中。ES6 又提供了三种新方法。
+
+- `includes()`：返回布尔值, 表示是否找到了参数字符串
+- `startsWith()`：返回布尔值, 表示参数字符串是否在原字符串的头部
+- `endsWith()`：返回布尔值, 表示参数字符串是否在原字符串的尾部
+
+```js showLineNumbers copy
+let s = 'Hello world!';
+
+s.startsWith('Hello') // true
+s.endsWith('!') // true
+s.includes('o') // true
+```
+
+这三个方法都支持第二个参数, 表示开始搜索的位置。
+
+```js showLineNumbers copy
+let s = 'Hello world!';
+
+s.startsWith('world', 6) // true
+s.endsWith('Hello', 5) // true
+s.includes('Hello', 6) // false
+```
+
+5. `String.prototype.repeat()`
+
+`repeat()`方法返回一个新字符串, 表示将原字符串重复n次。
+
+```js showLineNumbers copy
+'x'.repeat(3) // "xxx"
+'hello'.repeat(2) // "hellohello"
+'na'.repeat(0) // ""
+```
+
+6. `String.prototype.padStart()`, `String.prototype.padEnd()`
+
+ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度, 会在头部或尾部补全。`padStart()`用于头部补全, `padEnd()`用于尾部补全
+
+```js showLineNumbers copy
+'x'.padStart(5, 'ab') // 'ababx'
+'x'.padStart(4, 'ab') // 'abax'
+
+'x'.padEnd(5, 'ab') // 'xabab'
+'x'.padEnd(4, 'ab') // 'xaba'
+```
+
+7. `String.prototype.trimStart()`, `String.prototype.trimEnd()`
+
+ES2019 对字符串实例新增了`trimStart()`和`trimEnd()`这两个方法。它们的行为与`trim()`一致, `trimStart()`消除字符串头部的空格, `trimEnd()`消除尾部的空格。它们返回的都是新字符串，不会修改原始字符串。
+
+```js showLineNumbers copy
+const s = '  abc  ';
+
+s.trim() // "abc"
+s.trimStart() // "abc  "
+s.trimEnd() // "  abc"
+```
 
 ---
 
-## 3.你是怎么理解ES6新增Set、Map两种数据结构的？
+## 3.ES6中数组新增了哪些扩展?
 
-Set是一种叫做集合的数据结构，Map是一种叫做字典的数据结构
+1. 扩展运算符(Spread Operator)
 
-- 集合: 是由一堆无序的、相关联的，且不重复的内存结构【数学中称为元素】组成的组合
-- 字典: 是一些元素的集合。每个元素有一个称作key 的域，不同元素的key 各不相同
+扩展运算符 (...) 允许您在数组字面量、函数调用或其他表达式中展开数组, 以便将数组的元素合并到新的数组中。
+
+```js showLineNumbers copy
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr1, ...arr2];
+console.log(combined); // 输出: [1, 2, 3, 4, 5, 6]
+```
+
+2.`Array.from()`
+
+`Array.from()`方法允许您将类似数组的对象或可迭代对象转换为真正的数组。这在处理DOM集合或其他可迭代对象时非常有用。
+
+```js showLineNumbers copy
+const arrayLike = document.querySelectorAll(".elements"); // DOM集合
+const newArray = Array.from(arrayLike);
+```
+
+3.`Array.of()`
+
+`Array.of()` 方法用于创建具有给定参数的新数组。与Array() 构造函数不同, 它不会根据参数数量的不同来创建不同类型的数组。
+
+
+```js showLineNumbers copy
+const arr = Array.of(1, 2, 3);
+console.log(arr); // 输出: [1, 2, 3]
+```
+
+4.`Array.prototype.find()` 和 `Array.prototype.findIndex()`
+
+`find()`方法用于查找数组中第一个满足条件的元素, 而 `findIndex()` 方法用于查找第一个满足条件的元素的索引。
+
+```js showLineNumbers copy
+const numbers = [10, 20, 30, 40, 50];
+const foundValue = numbers.find((num) => num > 25);
+console.log(foundValue); // 输出: 30
+ 
+const foundIndex = numbers.findIndex((num) => num > 25);
+console.log(foundIndex); // 输出: 2
+```
+
+5.`Array.prototype.includes()`
+
+`ncludes()` 方法用于检查数组是否包含特定的元素, 并返回一个布尔值。
+
+```js showLineNumbers copy
+const numbers = [1, 2, 3, 4, 5];
+console.log(numbers.includes(3)); // 输出: true
+console.log(numbers.includes(6)); // 输出: false
+```
+
+6.`Array.prototype.fill()` 
+
+`fill()` 方法允许您用指定的值填充数组的所有元素。
+
+```js showLineNumbers copy
+const arr = [1, 2, 3, 4, 5];
+arr.fill(0, 2, 4); // 将2和3替换为0
+console.log(arr); // 输出: [1, 2, 0, 0, 5]
+```
+
+7.`Array.prototype.copyWithin()`
+
+`copyWithin()` 方法允许您将数组的一部分复制到另一部分, 同时保留原始数组的长度。
+
+```js showLineNumbers copy
+const arr = [1, 2, 3, 4, 5];
+arr.copyWithin(0, 3, 4); // 从索引3开始复制到索引4(不包括), 覆盖索引0开始的位置
+console.log(arr); // 输出: [4, 2, 3, 4, 5]
+```
+
+8.`Array.prototype.entries()`、`Array.prototype.keys()` 与 `Array.prototype.values()`
+
+都返回一个数组迭代器对象
+
+```js showLineNumbers copy
+const entries = [1, 2, 3].entries();
+console.log(entries.next().value); // [0, 1]
+console.log(entries.next().value); // [1, 2]
+console.log(entries.next().value); // [2, 3]
+
+const keys = [1, 2, 3].keys();
+console.log(keys.next().value); // 0
+console.log(keys.next().value); // 1
+console.log(keys.next().value); // 2
+
+const valuess = [1, 2, 3].values();
+console.log(values.next().value); // 1
+console.log(values.next().value); // 2
+console.log(values.next().value); // 3
+```
+
+---
+
+## 4.函数新增了哪些扩展?
+
+1. 参数
+  - es6允许为函数的参数设置默认值
+  - 函数的形参是默认声明的, 不能使用let或const再次声明
+  - 参数默认值可以与解构赋值的默认值结合起来使用
+2. 属性
+  - name属性返回该函数的函数名
+  - length属性将返回没有指定默认值的参数个数
+3. 作用域
+4. 严格模式
+5. 箭头函数
+
+---
+
+## 5.对象新增了哪些扩展?
+
+1. 属性的简写
+
+当对象字面量的属性名与变量名相同时, 可以省略属性名, 直接使用变量名作为属性名。
+
+```js showLineNumbers copy
+const x = 10;
+const y = 20;
+
+// ES6之前
+const obj1 = { x: x, y: y };
+
+// ES6属性简写
+const obj2 = { x, y };
+```
+
+2. 方法简写
+
+在对象字面量中定义方法时, 可以省略冒号和 function 关键字。
+
+```js showLineNumbers copy
+// ES6之前
+const obj1 = {
+  method: function() {
+    // 方法内容
+  }
+};
+
+// ES6方法简写
+const obj2 = {
+  method() {
+    // 方法内容
+  }
+};
+```
+
+3. 计算属性名
+
+在对象字面量中, 可以使用计算表达式来定义属性名。
+
+```js showLineNumbers copy
+const prefix = "foo";
+const obj = {
+  [prefix + "Bar"]: 42
+};
+
+console.log(obj.fooBar); // 输出 42
+
+```
+
+4. 对象解构赋值
+
+可以从对象中提取属性并赋值给变量。
+
+```js showLineNumbers copy
+const obj = { x: 10, y: 20 };
+
+const { x, y } = obj;
+
+console.log(x, y); // 输出 10 20
+```
+
+5. `Object.assign()` 方法
+
+用于将一个或多个源对象的属性复制到目标对象。
+
+```js showLineNumbers copy
+const target = { a: 1 };
+const source = { b: 2, c: 3 };
+
+const result = Object.assign(target, source);
+
+console.log(result); // 输出 { a: 1, b: 2, c: 3 }
+```
+
+6. `Object.keys()`、`Object.values()` 和 `Object.entries()`
+
+这些静态方法用于获取对象的键、值和键值对的数组。
+
+```js showLineNumbers copy
+const obj = { a: 1, b: 2, c: 3 };
+
+console.log(Object.keys(obj)); // 输出 ["a", "b", "c"]
+console.log(Object.values(obj)); // 输出 [1, 2, 3]
+console.log(Object.entries(obj)); // 输出 [["a", 1], ["b", 2], ["c", 3]]
+```
+
+7. `Object.fromEntries(entries)`
+
+该方法将一个由键值对组成的数组(二维数组)转换为一个对象。
+
+```js showLineNumbers copy
+const entries = [['a', 1], ['b', 2], ['c', 3]];
+const obj = Object.fromEntries(entries);
+
+console.log(obj);
+// 输出: { a: 1, b: 2, c: 3 }
+```
+
+8. `Object.create(proto, propertiesObject)`
+
+该方法创建一个新对象, 使用现有的对象作为新对象的原型, 并可以可选地传入属性描述符来定义新对象的属性。可以实现对象的继承。
+
+```js showLineNumbers copy
+const parent = {
+  sayHello() {
+    console.log('Hello');
+  }
+};
+
+const child = Object.create(parent, {
+  name: {
+    value: 'Alice',
+    writable: true,
+    enumerable: true,
+    configurable: true
+  }
+});
+
+console.log(child.name);
+child.sayHello(); // 输出: Hello
+```
+
+9. ES6中属性的遍历
+
+ES6 一共有 5 种方法可以遍历对象的属性。
+
+- `for…in`: 循环遍历对象自身的和继承的可枚举属性(不含`Symbol`属性)
+
+- `Object.keys(obj)`: 返回一个数组, 包括对象自身的(不含继承的)所有可枚举属性(不含`Symbol`属性)的键名
+
+- `Object.getOwnPropertyNames(obj)`: 回一个数组, 包含对象自身的所有属性(不含`Symbol`属性, 但是包括不可枚举属性)的键名
+
+- `Object.getOwnPropertySymbols(obj)`: 返回一个数组, 包含对象自身的所有`Symbol`属性的键名
+
+- `Reflect.ownKeys(obj)`: 返回一个数组, 包含对象自身的(不含继承的)所有键名, 不管键名是`Symbol`或字符串, 也不管是否可枚举
+
+上述遍历, 都遵守同样的属性遍历的次序规则: 
+
+- 首先遍历所有数值键, 按照数值升序排列
+- 其次遍历所有字符串键, 按照加入时间升序排列
+- 最后遍历所有`Symbol`键, 按照加入时间升序排
+
+---
+
+## 6.箭头函数和普通函数的区别
+
+1. 箭头函数没有自己的this箭头函数不会创建自己的this,所以它没有自己的this,它只会在自己作用域的上一层继承this。所以箭头函数中的this的指向在它在定义时就确定了, 之后不会改变。
+2. 箭头函数继承来的this指向永远不会改变
+3. call()、apply()、bind()等方法不能改变箭头函数中的this指向
+4. 箭头函数不能作为构造函数使用
+5. 箭头函数没有自己的arguments
+6. 箭头函数没有prototype
+7. 箭头函数不能用作Generator函数,不能使用yeild关键字
+
+---
+
+## 7.你是怎么理解ES6新增Set、Map两种数据结构的？
+
+Set是一种叫做集合的数据结构, Map是一种叫做字典的数据结构
+
+- 集合: 是由一堆无序的、相关联的, 且不重复的内存结构【数学中称为元素】组成的组合
+- 字典: 是一些元素的集合。每个元素有一个称作key 的域, 不同元素的key 各不相同
 
 **区别？**
 
-- 共同点：集合、字典都可以存储不重复的值
-- 不同点：集合是以`[值，值]`的形式存储元素，字典是以`[键，值]`的形式存储
+- 共同点: 集合、字典都可以存储不重复的值
+- 不同点: 集合是以`[值, 值]`的形式存储元素, 字典是以`[键, 值]`的形式存储
+
+
+**WeakSet和Set区别**
+
+- WeakSet与Set有两个主要的区别: 没有遍历操作的API、没有size属性
+- WeakSet成员只能是引用类型, 而不能是其他类型的值。
+
+**WeakMap和Map区别**
+
+- weakMap的结构与Map相似, 用于生成键值对的集合
+- WeakMap和Map有两个区别: 没有遍历操作的API, 没有clear情况方法
 
 ---
 
+## 8.`for...in` 与 `for...of` 区别
+
+**for...in循环**
+
+- `for...in`获取的是对象的键名
+- `for...in`会遍历对象的整个原型链,性能非常差不推荐使用
+- 对于数组的遍历, `for...in`会返回数组中所有可枚举的属性(包括原型链上可枚举的属性)
+
+**for...of循环**
+
+- `for...of`遍历获取的是对象的键值
+- `for...of`只遍历当前对象不会遍历原型链
+- 对于数组的遍历, `for...of`只返回数组的下标对应的属性值
+
+`for...of`循环的原理其实也是利用了遍历对象内部的iterator接口,将`for...of`循环分解成最原始的for循环,内部实现的机制可以这么理解
+
+```js showLineNumbers copy
+let arr = [1, 2, 3, 4, 5]
+let iterator = arr[Symbil.iterator]()
+
+for (let value, res; (res = iterator.next()) && !res.done;) {
+  value = res.value
+}
+```
+
+可以看到只要满足第二个条件(iterator.next()存在且res.done为true)就可以一直循环下去, 并且每次把迭代器的next方法生成的对象赋值给res,然后将res的value属性赋值给`for...of`第一个条件中声明的变量即可, res的done属性控制是否继续遍历下去
+
+---
+
+## 9.你是怎么理解ES6中Promise的?使用场景?
+## 10.你是怎么理解ES6中Module的?使用场景?
+## 11.你是怎么理解ES6中Generator的?使用场景?
+## 12.你是怎么理解ES6中Decorator的?使用场景?
+## 13.你是怎么理解ES6新增Set、 Map两种数据结构的?
+## 14.你是怎么理解ES6中Proxy的?使用场景?
