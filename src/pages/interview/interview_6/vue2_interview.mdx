@@ -215,41 +215,7 @@ export default {
 1. 修改data数据后，数据不是实时更新的。
 2. 当你需要在数据更新dom后执行某个操作，该操作需要放在nextTick中。
 
->当你设置 vm.someData = ‘new value’，该组件不会立即重新渲染。当刷新队列时，组件会在下一个事件循环“tick”中更新。如果你想基于更新后的 DOM 状态来做点什么，可以在数据变化之后立即使用 Vue.nextTick(callback)。这样回调函数将在 DOM 更新完成后被调用。例如：
-
-```vue showLineNumbers copy
-<!-- 这页面显示一个输入框或者是按钮，最开始是展示一个按钮，当点击按钮后，则显示输入框 -->
-<!-- 当输入框失去焦点后，则显示按钮-->
-<!-- 需求: 当输入框展示的时候，自动获取焦点，获取焦点使用的是focus()方法-->
-<!-- 若是在按钮点击后，直接使用focus()方法获取焦点，则会失败，因为DOM还没渲染到页面-->
-<!-- 拿不到输入框的ref，所以需要用到了nextTick()方法-->
-<template>
-  <div>
-    <input type="text" v-if="flag" ref="inputRef" @blur="showButton">
-    <button v-else @click="showInput">展示输入框</button>
-  </div> 
-</template>
-<script>
-  export default{
-    data(){
-      return {
-        flag: false
-      }
-    },
-    methods: {
-      showInput(){
-        this.flag = true;
-        this.$nextTick(() => {
-          this.$refs.inputRef.focus();
-        })
-      },
-      showButton(){
-        this.flag = false;
-      }
-    }
-  }
-</script>
-```
+>当你设置 vm.someData = ‘new value’，该组件不会立即重新渲染。当刷新队列时，组件会在下一个事件循环“tick”中更新。如果你想基于更新后的 DOM 状态来做点什么，可以在数据变化之后立即使用 Vue.nextTick(callback)。这样回调函数将在 DOM 更新完成后被调用。
 
 **使用场景**
 1. 在生命周期created()中进行的dom操作一定要放到nextTick()的回调函数中。
@@ -1315,3 +1281,4 @@ Vuex是Vue的状态管理库，用于集中管理应用程序的状态。它提�
 Vue 并没有在源码中做代理
 
 但是一般给 v-for 绑定事件时，都会让节点指向同一个事件处理程序（第二种情况可以运行，但是 eslint 会警告），一定程度上比每生成一个节点都绑定一个不同的事件处理程序性能好，但是监听器的数量仍不会变，所以使用事件代理会更好一点。
+
