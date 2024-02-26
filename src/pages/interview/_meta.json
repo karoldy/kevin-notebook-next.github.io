@@ -1,17 +1,14 @@
 {
-  "index": {
-    "display": "hidden"
-  },
-  "interview_1": "Html 面试题",
-  "interview_2": "Css 面试题",
-  "interview_3": "JavaScript 面试题",
-  "interview_4": "Es6 面试题",
-  "interview_5": "Jquery 面试题",
-  "interview_6": "Vue 面试题",
-  "interview_7": "React 面试题",
-  "interview_8": "Angular 面试题",
-  "interview_9": "Fullter 面试题",
-  "interview_10": "Vite 面试题",
-  "interview_11": "Webpack 面试题",
-  "interview_12": "Node.js 面试题"
+  "interview_1": "Html",
+  "interview_2": "Css",
+  "interview_3": "JavaScript",
+  "interview_4": "TypeScript",
+  "interview_5": "Jquery",
+  "interview_6": "Vue",
+  "interview_7": "React",
+  "interview_8": "Angular",
+  "interview_9": "Fullter",
+  "interview_10": "构建工具",
+  "interview_11": "NodeJs",
+  "interview_12": "其他"
 }
