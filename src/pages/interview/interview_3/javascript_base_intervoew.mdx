@@ -2,16 +2,16 @@
 
 ## 1.说说JavaScript中的数据类型?存储上的差别?
 
-在JavaScript中，我们可以分成两种类型：
+在JavaScript中, 我们可以分成两种类型: 
 
 - 基本类型
 - 复杂类型
 
-两种类型的区别是：存储位置不同
+两种类型的区别是: 存储位置不同
 
 **基本类型**
 
-基本类型主要为以下6种：
+基本类型主要为以下6种: 
 
 - Number
 - String
@@ -23,7 +23,7 @@
 
 **复杂类型**
 
-复杂类型统称为`Object`，我们这里主要讲述下面三种：
+复杂类型统称为`Object`, 我们这里主要讲述下面三种: 
 
 - Object
 - Array
@@ -31,142 +31,75 @@
 
 **其他引用类型**
 
-除了上述说的三种之外，还包括`Date`、`RegExp`、`Map`、`Set`等......
+除了上述说的三种之外, 还包括`Date`、`RegExp`、`Map`、`Set`等......
 
 **存储区别**
 
-基本数据类型和引用数据类型存储在内存中的位置不同：
+基本数据类型和引用数据类型存储在内存中的位置不同: 
 
 - 基本数据类型存储在栈中
 - 引用类型的对象存储于堆中
 
-[JavaScript中的数据类型](/javascript/docs1/docs_2)
+---
+
+## 2.说说你了解的JavaScript数据结构?
+
+JavaScript提供了多种现成的数据结构, 包括: 
+
+**1. 数组(Array) - 是一个有序列表, 可以存储任何类型的数据**
+
+数组(Array): 是 JavaScript 中最常用的数据结构, 它是一组有序的值的列表, 每个值都有对应的索引。可以存储任何类型的数据。数组的特点是快速的随机访问以及高效的添加和删除元素。可以使用下标访问数组元素。
+
+**2. 集合(Set) - 是一组唯一的值, 其中任何值仅出现一次**
+
+集合(Set): 是一组唯一的值, 其中任何值仅出现一次。集合有无序性, 不能通过索引访问集合中的元素。在 JavaScript 中, 可以使用 Set 类来创建集合, 并使用 add() 方法向集合添加元素, 使用 has() 方法来检查集合是否包含元素。
+
+**3. 映射(Map) - 是一组键值对, 其中每个键都是唯一的**
+
+映射(Map): 是一组键值对, 其中每个键都是唯一的。在 JavaScript 中, 可以使用 Map 类来创建映射, 并使用 set() 方法向映射添加元素, 使用 get() 方法获取元素。
+
+**4. 栈(Stack) - 后进先出的有序数据集合**
+
+栈(Stack): 是一种后进先出的有序数据集合。栈类似于一组叠放的盘子, 只能在顶部添加或删除元素。在 JavaScript 中, 可以使用数组来模拟栈。
+
+**5. 队列(Queue) - 先进先出的有序数据集合**
+
+队列(Queue): 是一种先进先出的有序数据集合。队列类似于排队等待服务的顾客, 只能在队尾添加元素, 在队首删除元素。在 JavaScript 中, 可以使用数组来模拟队列。
+
+**6. 链表(Linked List) - 是一起有序的数据元素的集合**
+
+链表(Linked List): 是由一个个节点按照链式连接形成的一起有序的数据元素的集合。每个节点包含两部分信息, 一部分是存储数据的变量值, 另一部分是存储指向下一个节点的指针。链表操作通常是对头部的操作, 例如插入、删除和访问元素。链表不需要预先分配固定的内存空间, 因此可以更加灵活。
+
+**7. 树(Tree) - 是由n(n≥1)个有限节点组成一个具有层次关系的集合**
+
+树(Tree): 是由n(n≥1)个有限节点组成一个具有层次关系的集合。树有一个根节点, 每个节点都有零个或多个子节点。树的特点是有效的搜索、插入和删除元素。树被广泛应用于计算机科学中的算法和数据结构。
+
+**8. 图(Graph) - 是一组由节点和边组成的网络结构。**
+
+图(Graph): 是一组由节点和边组成的网络结构, 其中节点表示网络中的对象, 边表示两个节点之间的连接。图被广泛应用于计算机科学中的算法和数据结构, 例如网络寻路、社交网络分析和路由算法等。
 
 ---
 
-## 2.JavaScript字符串的常用方法有哪些?
-
-- concat()
-- slice()
-- substr()
-- substring()
-- trim()、trimLeft()、trimRight()
-- repeat()
-- padStart()、padEnd()
-- toLowerCase()、 toUpperCase()
-- chatAt()
-- indexOf()
-- startWith()
-- includes()
-- split()
-- match()
-- search()
-- replace()
-
-[JavaScript字符串常用方法](/javascript/docs1/docs_4)
-
----
-
-## 3.JavaScript数组的常用方法有哪些?
-
-- push()
-- unshift()
-- splice()
-- concat()
-- pop()
-- shift()
-- splice()
-- slice()
-- indexOf()
-- includes()(es6新增)
-- find()
-- reverse()
-- sort()
-- join()
-- some()
-- every()
-- forEach()
-- filter()
-- map()
-
-[JavaScript数组常用方法](/javascript/docs1/docs_10)
-
----
-
-## 4.JavaScrip数据结构
-
-JavaScript提供了多种现成的数据结构，包括：
-
-**1. 数组（Array）- 是一个有序列表，可以存储任何类型的数据。**
-
-```
-数组（Array）：是 JavaScript 中最常用的数据结构，它是一组有序的值的列表，每个值都有对应的索引。可以存储任何类型的数据。数组的特点是快速的随机访问以及高效的添加和删除元素。可以使用下标访问数组元素。
-```
-
-**2. 集合（Set）- 是一组唯一的值，其中任何值仅出现一次。**
-
-```
-集合（Set）：是一组唯一的值，其中任何值仅出现一次。集合有无序性，不能通过索引访问集合中的元素。在 JavaScript 中，可以使用 Set 类来创建集合，并使用 add() 方法向集合添加元素，使用 has() 方法来检查集合是否包含元素。
-```
-
-**3. 映射（Map）- 是一组键值对，其中每个键都是唯一的。**
-
-```
-映射（Map）：是一组键值对，其中每个键都是唯一的。在 JavaScript 中，可以使用 Map 类来创建映射，并使用 set() 方法向映射添加元素，使用 get() 方法获取元素。
-```
-
-**4. 栈（Stack）- 后进先出的有序数据集合。**
-
-```
-栈（Stack）：是一种后进先出的有序数据集合。栈类似于一组叠放的盘子，只能在顶部添加或删除元素。在 JavaScript 中，可以使用数组来模拟栈。
-```
-
-**5. 队列（Queue）- 先进先出的有序数据集合。**
-
-```
-队列（Queue）：是一种先进先出的有序数据集合。队列类似于排队等待服务的顾客，只能在队尾添加元素，在队首删除元素。在 JavaScript 中，可以使用数组来模拟队列。
-```
-
-**6. 链表（Linked List）- 是一起有序的数据元素的集合。**
-
-```
-链表（Linked List）：是由一个个节点按照链式连接形成的一起有序的数据元素的集合。每个节点包含两部分信息，一部分是存储数据的变量值，另一部分是存储指向下一个节点的指针。链表操作通常是对头部的操作，例如插入、删除和访问元素。链表不需要预先分配固定的内存空间，因此可以更加灵活。
-```
-
-**7. 树（Tree）- 是由n（n≥1）个有限节点组成一个具有层次关系的集合。**
-
-```
-树（Tree）：是由n（n≥1）个有限节点组成一个具有层次关系的集合。树有一个根节点，每个节点都有零个或多个子节点。树的特点是有效的搜索、插入和删除元素。树被广泛应用于计算机科学中的算法和数据结构。
-```
-
-**8. 图（Graph）- 是一组由节点和边组成的网络结构。**
-
-```
-图（Graph）：是一组由节点和边组成的网络结构，其中节点表示网络中的对象，边表示两个节点之间的连接。图被广泛应用于计算机科学中的算法和数据结构，例如网络寻路、社交网络分析和路由算法等。
-```
-
----
-
-## 5.DOM常见的操作有哪些?
+## 3.DOM常见的操作有哪些?
 
 - 创建节点
-  - createTextNode()
-  - createAttribute()
+  - `createTextNode()`
+  - `createAttribute()`
 - 查询节点
-  - getElementById()
-  - querySelector()
-  - querySelectorAll()
+  - `getElementById()`
+  - `querySelector()`
+  - `querySelectorAll()`
 - 更新节点
-  - innerHTML
-  - innerText、textContent
-  - style
+  - `innerHTML`
+  - `innerText、textContent`
+  - `style`
 - 添加节点
-  - innerHTML
-  - appendChild
-  - insertBefore
-  - setAttribute
+  - `innerHTML`
+  - `appendChild()`
+  - `insertBefore()`
+  - `setAttribute()`
 - 删除节点
-  - removeChild
+  - `removeChild()`
 
 [DOM & DOM常见操作](/javascript/docs1/docs_12)
 
@@ -174,45 +107,46 @@ JavaScript提供了多种现成的数据结构，包括：
 
 ## 4.说说你对BOM的理解,常见的BOM对象你了解哪些?
 
-BOM (Browser Object Model)，浏览器对象模型，提供了独立于内容与浏览器窗口进行交互的对象
+**BOM(浏览器对象模型)** 是指浏览器提供的一组JavaScript对象, 用于与浏览器窗口进行交互以及控制浏览器本身的行为。BOM并不属于 JavaScript 标准的一部分, 因此在不同浏览器中可能会有所差异。
 
-其作用就是跟浏览器做一些交互效果,比如如何进行页面的后退，前进，刷新，浏览器的窗口发生变化，滚动条的滚动，以及获取客户的一些信息如：浏览器品牌版本，屏幕分辨率
+常见的 BOM 对象包括: 
 
-浏览器的全部内容可以看成DOM，整个浏览器可以看成BOM。区别如下：
+- `window`: 代表整个浏览器窗口, 并且是所有其他BOM对象的默认全局对象
+- `navigator`: 提供了关于浏览器本身的信息, 例如浏览器的名称、版本和所在的平台
+- `screen`: 提供了关于用户屏幕显示器的信息, 例如屏幕的分辨率和颜色深度
+- `location`: 提供了有关当前文档的URL和浏览器的导航功能
+- `history`: 提供了浏览器的历史记录管理功能
+- `document`: 代表当前正在加载的文档, 在BOM中扮演着重要的角色
 
-![](https://static.vue-js.com/482f33e0-8089-11eb-85f6-6fac77c0c9b3.png)
+除了上述常见的 BOM 对象之外, 还有其他一些对象和API, 例如
 
-常见的BOM对象
-
-- location
-- navigator
-- history
-
-[BOM & BOM常见对象](/javascript/docs1/docs_13)
+- `XMLHttpRequest`
+- `setTimeout()`
+- `setInterval()`
+- `alert()`
+- `confirm()`等
 
 ---
 
-## 5.==和===区别，分别在什么情况使用
+## 5.==和===区别, 分别在什么情况使用
 
-[先理解一下JavaScript类型转换](/javascript/docs1/docs_14)
+在JavaScript中, `==(宽松相等)`和 `===(严格相等)`是用于比较两个值的运算符, 但它们在比较时的行为和结果可能会非常不同。
 
-在JavaScript中，`==（宽松相等）`和 `===（严格相等）`是用于比较两个值的运算符，但它们在比较时的行为和结果可能会非常不同。
-
-相等操作符（==）会做类型转换，再进行值的比较，全等运算符不会做类型转换
+相等操作符(==)会做类型转换, 再进行值的比较, 全等运算符不会做类型转换
 
 ```js showLineNumbers copy
-var result1 = ("55" === 55); // false，不相等，因为数据类型不同
-var result2 = (55 === 55); // true，相等，因为数据类型相同值也相同
+var result1 = ("55" === 55); // false, 不相等, 因为数据类型不同
+var result2 = (55 === 55); // true, 相等, 因为数据类型相同值也相同
 ```
 
-`null` 和 `undefined` 比较，相等操作符（==）为true，全等为false
+`null` 和 `undefined` 比较, 相等操作符(==)为true, 全等为false
 
 ```js showLineNumbers copy
 var result1 = (null == undefined ); // true
 var result2 = (null  === undefined); // false
 ```
 
-但在比较null的情况的时候，我们一般使用相等操作符==
+但在比较null的情况的时候, 我们一般使用相等操作符==
 
 ```js showLineNumbers copy
 const obj = {};
@@ -230,26 +164,26 @@ if(obj.x === null || obj.x === undefined) {
 }
 ```
 
-使用相等操作符（==）的写法明显更加简洁了
+使用相等操作符(==)的写法明显更加简洁了
 
-所以，除了在比较对象属性为null或者undefined的情况下，我们可以使用相等操作符（==），其他情况建议一律使用全等操作符（===）
+所以, 除了在比较对象属性为null或者undefined的情况下, 我们可以使用相等操作符(==), 其他情况建议一律使用全等操作符(===)
 
 ---
 
-## 6.typeof 与instanceof区别
+## 6.typeof 与 instanceof 区别
 
 **typeof**
 
-typeof 操作符返回一个字符串，表示未经计算的操作数的类型
+typeof 操作符返回一个字符串, 表示未经计算的操作数的类型
 
-使用方法如下：
+使用方法如下: 
 
 ```js showLineNumbers copy
 typeof operand
 typeof(operand)
 ```
 
-`operand`表示对象或原始值的表达式，其类型将被返回
+`operand`表示对象或原始值的表达式, 其类型将被返回
 
 举个例子
 
@@ -266,14 +200,14 @@ typeof console // 'object'
 typeof console.log // 'function'
 ```
 
-所以，null在 typeof之后返回的是有问题的结果，不能作为判断null的方法。如果你需要在 if 语句中判断是否为 null，直接通过===null来判断就好
+所以, null在 typeof之后返回的是有问题的结果, 不能作为判断null的方法。如果你需要在 if 语句中判断是否为 null, 直接通过===null来判断就好
 
-同时，可以发现引用类型数据，用typeof来判断的话，除了function会被识别出来之外，其余的都输出object
+同时, 可以发现引用类型数据, 用typeof来判断的话, 除了function会被识别出来之外, 其余的都输出object
 
-如果我们想要判断一个变量是否存在，可以使用typeof：(不能使用if(a)， 若a未声明，则报错)
+如果我们想要判断一个变量是否存在, 可以使用typeof: (不能使用if(a),  若a未声明, 则报错)
 
 ```js showLineNumbers copy
-if(typeof a != 'undefined'){
+if (typeof a != 'undefined') {
   // 变量存在
 }
 ```
@@ -282,15 +216,15 @@ if(typeof a != 'undefined'){
 
 instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
 
-使用如下：
+使用如下: 
 
 ```js showLineNumbers copy
 object instanceof constructor
 ```
 
-object为实例对象，constructor为构造函数
+object为实例对象, constructor 为构造函数
 
-构造函数通过new可以实例对象，instanceof能判断这个对象是否是之前那个构造函数生成的对象
+构造函数通过new可以实例对象, instanceof能判断这个对象是否是之前那个构造函数生成的对象
 
 ```js showLineNumbers copy
 // 定义构建函数
@@ -303,41 +237,41 @@ let str = 'xxx'
 str instanceof String // false
 ```
 
-关于instanceof的实现原理，可以参考下面：
+关于instanceof的实现原理, 可以参考下面: 
 
 ```js showLineNumbers copy
 function myInstanceof(left, right) {
-  // 这里先用typeof来判断基础数据类型，如果是，直接返回false
+  // 这里先用typeof来判断基础数据类型, 如果是, 直接返回false
   if(typeof left !== 'object' || left === null) return false;
-  // getProtypeOf是Object对象自带的API，能够拿到参数的原型对象
+  // getProtypeOf是Object对象自带的API, 能够拿到参数的原型对象
   let proto = Object.getPrototypeOf(left);
   while(true) {                  
     if(proto === null) return false;
-    if(proto === right.prototype) return true;//找到相同原型对象，返回true
+    if(proto === right.prototype) return true;//找到相同原型对象, 返回true
     proto = Object.getPrototypeof(proto);
   }
 }
 ```
 
-也就是顺着原型链去找，直到找到相同的原型对象，返回true，否则为false
+也就是顺着原型链去找, 直到找到相同的原型对象, 返回true, 否则为false
 
 **区别**
 
-typeof与instanceof都是判断数据类型的方法，区别如下：
+typeof与instanceof都是判断数据类型的方法, 区别如下: 
 
-- `typeof`会返回一个变量的基本类型，`instanceof`返回的是一个布尔值
-- `instanceof` 可以准确地判断复杂引用数据类型，但是不能正确判断基础数据类型
-- 而`typeof` 也存在弊端，它虽然可以判断基础数据类型（null 除外），但是引用数据类型中，除了`function` 类型以外，其他的也无法判断
+- `typeof`会返回一个变量的基本类型, `instanceof`返回的是一个布尔值
+- `instanceof` 可以准确地判断复杂引用数据类型, 但是不能正确判断基础数据类型
+- 而`typeof` 也存在弊端, 它虽然可以判断基础数据类型(null 除外), 但是引用数据类型中, 除了`function` 类型以外, 其他的也无法判断
 
-可以看到，上述两种方法都有弊端，并不能满足所有场景的需求
+可以看到, 上述两种方法都有弊端, 并不能满足所有场景的需求
 
-如果需要通用检测数据类型，可以采用`Object.prototype.toString`，调用该方法，统一返回格式“[object Xxx]”的字符串
+如果需要通用检测数据类型, 可以采用`Object.prototype.toString`, 调用该方法, 统一返回格式“[object Xxx]”的字符串
 
 如下
 
 ```js showLineNumbers copy
 Object.prototype.toString({})       // "[object Object]"
-Object.prototype.toString.call({})  // 同上结果，加上call也ok
+Object.prototype.toString.call({})  // 同上结果, 加上call也ok
 Object.prototype.toString.call(1)    // "[object Number]"
 Object.prototype.toString.call('1')  // "[object String]"
 Object.prototype.toString.call(true)  // "[object Boolean]"
@@ -351,15 +285,15 @@ Object.prototype.toString.call(document)  //"[object HTMLDocument]"
 Object.prototype.toString.call(window)   //"[object Window]"
 ```
 
-了解了toString的基本用法，下面就实现一个全局通用的数据类型判断方法
+了解了toString的基本用法, 下面就实现一个全局通用的数据类型判断方法
 
 ```js showLineNumbers copy
 function getType(obj){
   let type  = typeof obj;
-  if (type !== "object") {    // 先进行typeof判断，如果是基础数据类型，直接返回
+  if (type !== "object") {    // 先进行typeof判断, 如果是基础数据类型, 直接返回
     return type;
   }
-  // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
+  // 对于typeof返回结果是object的, 再进行如下的判断, 正则返回结果
   return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1'); 
 }
 ```
@@ -367,13 +301,13 @@ function getType(obj){
 使用如下
 
 ```js showLineNumbers copy
-getType([])     // "Array" typeof []是object，因此toString返回
+getType([])     // "Array" typeof []是object, 因此toString返回
 getType('123')  // "string" typeof 直接返回
 getType(window) // "Window" toString返回
-getType(null)   // "Null "首字母大写，typeof null是object，需toString来判断
+getType(null)   // "Null "首字母大写, typeof null是object, 需toString来判断
 getType(undefined)   // "undefined" typeof 直接返回
 getType()            // "undefined" typeof 直接返回
-getType(function(){}) // "function" typeof能判断，因此首字母小写
+getType(function(){}) // "function" typeof能判断, 因此首字母小写
 getType(/123/g)      // "RegExp" toString返回
 ```
 
@@ -385,22 +319,22 @@ getType(/123/g)      // "RegExp" toString返回
 
 `JavaScript` 常被描述为一种基于原型的语言——每个对象拥有一个原型对象
 
-当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾
+当试图访问一个对象的属性时, 它不仅仅在该对象上搜寻, 还会搜寻该对象的原型, 以及该对象的原型的原型, 依次层层向上搜索, 直到找到一个名字匹配的属性或到达原型链的末尾
 
-准确地说，这些属性和方法定义在Object的构造器函数（constructor functions）之上的`prototype`属性上，而非实例对象本身
+准确地说, 这些属性和方法定义在Object的构造器函数(constructor functions)之上的`prototype`属性上, 而非实例对象本身
 
 **原型链**
 
-原型对象也可能拥有原型，并从中继承方法和属性，一层一层、以此类推。这种关系常被称为原型链 (prototype chain)，它解释了为何一个对象会拥有定义在其他对象中的属性和方法
+原型对象也可能拥有原型, 并从中继承方法和属性, 一层一层、以此类推。这种关系常被称为原型链 (prototype chain), 它解释了为何一个对象会拥有定义在其他对象中的属性和方法
 
-在对象实例和它的构造器之间建立一个链接（它是`__proto__`属性，是从构造函数的`prototype`属性派生的），之后通过上溯原型链，在构造器中找到这些属性和方法
+在对象实例和它的构造器之间建立一个链接(它是`__proto__`属性, 是从构造函数的`prototype`属性派生的), 之后通过上溯原型链, 在构造器中找到这些属性和方法
 
 **特点**
 
-- 一切对象都是继承自Object对象，Object 对象直接继承根源对象null
-- 一切的函数对象（包括 Object 对象），都是继承自 Function 对象
+- 一切对象都是继承自Object对象, Object 对象直接继承根源对象null
+- 一切的函数对象(包括 Object 对象), 都是继承自 Function 对象
 - Object 对象直接继承自 Function 对象
-- Function对象的__proto__会指向自己的原型对象，最终还是继承自Object对象
+- Function对象的__proto__会指向自己的原型对象, 最终还是继承自Object对象
 
 [JavaScript原型、原型链](/javascript/docs1/docs_15)
 
@@ -410,15 +344,15 @@ getType(/123/g)      // "RegExp" toString返回
 
 **作用域**
 
-作用域，即变量（变量作用域又称上下文）和函数生效（能被访问）的区域或集合
+作用域, 即变量(变量作用域又称上下文)和函数生效(能被访问)的区域或集合
 
-换句话说，作用域决定了代码区块中变量和其他资源的可见性
+换句话说, 作用域决定了代码区块中变量和其他资源的可见性
 
 **作用域链**
 
-当在Javascript中使用一个变量的时候，首先Javascript引擎会尝试在当前作用域下去寻找该变量，如果没找到，再到它的上层作用域寻找，以此类推直到找到该变量或是已经到了全局作用域
+当在Javascript中使用一个变量的时候, 首先Javascript引擎会尝试在当前作用域下去寻找该变量, 如果没找到, 再到它的上层作用域寻找, 以此类推直到找到该变量或是已经到了全局作用域
 
-如果在全局作用域里仍然找不到该变量，它就会在全局范围内隐式声明该变量(非严格模式下)或是直接报错
+如果在全局作用域里仍然找不到该变量, 它就会在全局范围内隐式声明该变量(非严格模式下)或是直接报错
 
 [JavaScript作用域与作用域链](/javascript/docs1/docs_16)
 
@@ -426,113 +360,118 @@ getType(/123/g)      // "RegExp" toString返回
 
 ## 9.谈谈this对象的理解
 
-[JavaScript this对象](javascript/docs1/docs_17)
+- this对象总是指向函数的调用者
+- 如果有new关键字, this指向new出来的那个对象
+- 在事件中, this指向触发这个事件的对象, 特殊的是, `IE`中的`attachEvent中`的this总是指向全局对象的window
 
 ---
 
 ## 10.说说new操作符具体干了什么?
 
-1. 首先创建了一个新对象
-2. 设置原型，将对象的原型设置为函数的prototype对象
-3. 让函数的this指向这个对象，执行构造函数的代码(为这个新对象添加属性)
-4. 判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象
+1. 创建一个空对象
+2. 将空对象的原型, 指向于构造函数的原型 -> 将空对象的`__proto__`指向构造函数的`prototype`
+3. 将空对象作为构造函数的上下文(改变this的指向)
+4. 执行构造函数代码。如果构造函数返回一个对象, 那么这个对象会被用作 new 表达式的返回值, 否则, 新创建的对象会被返回。
 
-[JavaScript New操作符](/javascript/docs1/docs_18)
+我们可以根据以上四点的定义, 自定义一个函数来实现new操作符的作用
+
+```js showLineNumbers copy
+function myNew(fn, ...arr) {
+  //1.创建一个空对象
+  let obj = {};
+  //2.将空对象的原型, 指向于构造函数的原型
+  Object.setPrototypeOf(obj, fn.prototype);
+  //3.将空对象作为构造函数的上下文(改变this指向)
+  let result = fn.apply(obj, arr);
+  //4.对构造函数有返回值的判断处理
+  return result instanceof Object ? result : obj;
+}
+```
 
 ---
 
 ## 11.bind、 call、apply区别?如何实现一个bind?
 
-apply、call、bind三者的区别在于：
+三者都能改变this的指向
 
-- 三者都可以改变函数的this对象指向
-- 三者第一个参数都是this要指向的对象，如果如果没有这个参数或参数为undefined或null，则默认指向全局window
-- 三者都可以传参，但是apply是数组，而call是参数列表，且apply和call是一次性传入参数，而bind可以分为多次传入
-- bind是返回绑定this之后的函数，apply、call 则是立即执行
+**区别: **
 
-实现
+- `bind()`方法创建一个新的函数, 将传入的对象绑定为新函数的this值, 并返回一个新函数。这个新函数可以在以后的任何时间被调用, 并且this值始终指向绑定的对象。
+
+- `call()`方法调用一个函数, 并将一个对象作为函数执行时的上下文(this值), 以及一个参数列表传递给函数。
+
+- `apply()`方法也调用一个函数, 但是它接受一个数组作为参数, 数组中的每个元素将被视为函数的一个参数。第一个参数仍然是函数执行时的上下文。
+
+**实现bind**
 
 ```js showLineNumbers copy
-Function.prototype.myBind = function (context) {
-  // 判断调用对象是否为函数
-  if (typeof this !== "function") {
-    throw new TypeError("Error");
+Function.prototype.myBind = function(context, ...args) {
+  const fn = this;
+  return function(...innerArgs) {
+    if (this instanceof fn) {
+      return new fn(...args, ...innerArgs);
+    }
+    return fn.apply(context, [...args, ...innerArgs]);
   }
-
-  // 获取参数
-  const args = [...arguments].slice(1),
-  fn = this;
-
-  return function Fn() {
-    // 根据调用方式，传入不同绑定值
-    return fn.apply(this instanceof Fn ? new fn(...arguments) : context, args.concat(...arguments)); 
-  }
-}
+};
 ```
 
 ---
 
 ## 12.JavaScript中执行上下文和执行栈是什么?
 
-[JavaScript中执行上下文和执行栈](/javascript/docs3/docs_3)
+**执行上下文**
+
+简单的来说, 执行上下文是一种对Javascript代码执行环境的抽象概念, 也就是说只要有Javascript代码运行, 那么它就一定是运行在执行上下文中
+
+执行上下文的类型分为三种: 
+
+- 全局执行上下文: 只有一个, 浏览器中的全局对象就是 `window` 对象, `this` 指向这个全局对象
+- 函数执行上下文: 存在无数个, 只有在函数被调用的时候才会被创建, 每次调用函数都会创建一个新的执行上下文
+- Eval函数执行上下文:  指的是运行在`eval`函数中的代码, 很少用而且不建议使用
+
+**执行栈**
+
+执行栈, 在其他编程语言中也被叫做调用栈, 具有LIFO(后进先出)结构, 用于存储在代码执行期间创建的所有执行上下文。当JavaScript引擎首次读取脚本时, 它会创建一个全局执行上下文并将其推入当前的执行栈。每当发生一个函数调用, 引擎都会为该函数创建一个新的执行上下文, 并将其推到当前执行栈的顶端。引擎会运行执行上下文在执行栈顶端的函数, 当此函数运行完成后, 其对应的执行上下文将会从执行栈中弹出, 上下文控制权将移到当前执行栈的下一个执行上下文。所以程序结束以前, 执行栈最底部永远有一个globalContext。
 
 ---
 
 ## 13.说说JavaScript中的事件模型
 
-事件模型可以分为三种：
+JavaScript 中的事件模型是一个核心机制, 允许在特定动作或行为发生时执行预定义的代码。事件可以是用户交互(如点击或键盘输入), 也可以是由浏览器或 JavaScript 代码本身触发的其他动作。
 
-- 原始事件模型（DOM0级）
-- 标准事件模型（DOM2级）
-- IE事件模型（基本不用）
+事件模型主要由三部分组成: 
 
-[JavaScript事件模型](/javascript/docs1/docs_19)
+事件源: 这是发生事件的元素或对象。例如, 在 HTML 中, 按钮、链接、输入框等都可以是事件源。
+事件类型: 这描述了发生的具体事件类型。例如, `click`、`keydown`、`load`、`mouseover` 等都是常见的事件类型。
+事件处理程序: 当事件发生时, 事件处理程序定义了应该执行的代码。事件处理程序通常是一个函数, 这个函数在事件触发时被调用。
+
+而JavaScript事件模型有以下三种模型。
+
+1. 原始事件模型(DOM0级事件模型)
+2. DOM2事件模型
+3. IE事件模型
+
+[JavaScript事件模型详解](/javascript/docs1/docs_19)
 
 ---
 
 ## 14.解释下什么是事件代理?应用场景?
 
-事件代理，俗地来讲，就是把一个元素响应事件（click、keydown......）的函数委托到另一个元素
+JavaScript事件代理, 也称为事件委托, 是一种通过将事件处理程序绑定到某个父元素而实现的技术。当子元素触发某个事件时, 该事件将被传递到父元素, 父元素再根据触发事件的具体子元素来执行相应的操作。
 
-前面讲到，事件流的都会经过三个阶段： 捕获阶段 -> 目标阶段 -> 冒泡阶段，而事件委托就是在冒泡阶段完成
+应用场景
 
-事件委托，会把一个或者一组元素的事件委托到它的父层或者更外层元素上，真正绑定事件的是外层元素，而不是目标元素
-
-当事件响应到目标元素上时，会通过事件冒泡机制从而触发它的外层元素的绑定事件上，然后在外层元素上去执行函数
-
-下面举个例子：
-
-比如一个宿舍的同学同时快递到了，一种笨方法就是他们一个个去领取
-
-较优方法就是把这件事情委托给宿舍长，让一个人出去拿好所有快递，然后再根据收件人一一分发给每个同学
-
-在这里，取快递就是一个事件，每个同学指的是需要响应事件的 DOM元素，而出去统一领取快递的宿舍长就是代理的元素
-
-所以真正绑定事件的是这个元素，按照收件人分发快递的过程就是在事件执行中，需要判断当前响应的事件应该匹配到被代理元素中的哪一个或者哪几个
-
-**应用场景**
-
-如果我们有一个列表，列表之中有大量的列表项，我们需要在点击列表项的时候响应一个事件
-
-如果给每个列表项一一都绑定一个函数，那对于内存消耗是非常大的
-
-这时候就可以事件委托，把点击事件绑定在父级元素ul上面，然后执行事件的时候再去匹配目标元素
-
-还有一种场景是上述列表项并不多，我们给每个列表项都绑定了事件
-
-但是如果用户能够随时动态的增加或者去除列表项元素，那么在每一次改变的时候都需要重新给新增的元素绑定事件，给即将删去的元素解绑事件
-
-如果用了事件委托就没有这种麻烦了，因为事件是绑定在父层的，和目标元素的增减是没有关系的，执行到目标元素是在真正响应执行事件函数的过程中去匹配的
-
-[JavaScript事件代理](https://vue3js.cn/interview/JavaScript/event_agent.html)
+1. 列表和表格的交互
+2. 动态生成的元素绑定事件
 
 ---
 
 ## 15.说说你对闭包的理解?闭包使用场景
 
-闭包是指在一个函数内部创建另一个函数，并且内部函数可以访问外部函数的变量、参数以及其他内部函数，即使外部函数已经执行完毕。这种机制使得内部函数保留了对外部作用域的引用，即使外部作用域已经不再活跃。
+闭包是指在一个函数内部创建另一个函数, 并且内部函数可以访问外部函数的变量、参数以及其他内部函数, 即使外部函数已经执行完毕。这种机制使得内部函数保留了对外部作用域的引用, 即使外部作用域已经不再活跃。
 
-闭包在 JavaScript 中具有重要的用途和价值。它们可以用于创建私有变量、封装逻辑、避免全局污染等方面。另外，闭包还允许你在函数之外操作局部变量，从而为代码提供更大的灵活性和可维护性。
+闭包在 JavaScript 中具有重要的用途和价值。它们可以用于创建私有变量、封装逻辑、避免全局污染等方面。另外, 闭包还允许你在函数之外操作局部变量, 从而为代码提供更大的灵活性和可维护性。
 
 闭包常被用于:
 
@@ -540,41 +479,45 @@ Function.prototype.myBind = function (context) {
 - 状态持续 - 闭包可以在函数调用之间保持状态(例如计数器)。函数的变量在调用之间持续存在。
 - 偏函数应用 - 闭包可以用于偏函数应用和柯里化函数。这涉及到创建一个捕获一些参数但保留其他参数未设置的函数。
 
-[JavaScript闭包](/javascript/docs1/docs_20)
-
 ---
 
 ## 16.谈谈JavaScript中的类型转换机制
 
-常见的类型转换有：
+Javascrip 中的类型转换可以分为`显示类型转换`和`隐式类型转换`。
 
-- 强制转换（显示转换）
-- 自动转换（隐式转换）
+(1)显示类型转换是指我们手动调用原生函数进行类型转换, 常见的有 Number()、String()、Boolean()。
 
-**强制转换（显示转换）**
+还有一个`parseInt`, 相比于Number转换就没有那么严格了, `parseInt`函数逐个解析字符, 遇到不能转换的字符就停下来
 
-- Number()
-- parseInt()
-- String()
-- Boolean()
+(2)隐式类型转换发生在算数运算符和比较运算符中。
 
-**自动转换（隐式转换）**
+【自动转成数值】在算数运算符加减乘除和取余的运算过程中, 除了 加, 都是将操作数使用 toNumber转成数值类型再进行运算。
 
-- 比较运算（`==`、`!=`、`>`、`<`）、`if`、`while`需要布尔值地方
-- 算术运算（`+`、`-`、`*`、`/`、`%`）
+【自动转成字符串】加操作有点特殊, 在有两个操作数, 并且其中一个操作数是字符串或者能够通过 toPrimitive 操作转成字符串的时候, 就将两个操作数都转成字符串, 然后执行字符串拼接操作。其他情况是转成数值然后进行加操作
 
-[JavaScript类型转换机制](/javascript/docs1/docs_14)
+【自动转成数值】对于比较运算符, 如果两个操作数都是字符串, 就更具字母表顺序进行比较, 其他情况都是把来个操作数使用 toPrimitive 再执行 toNumber 转成数值再进行比较。
+
+(2)在条件语句中, 会有 toBoolean 的隐式类型转换, 比如if while, 除了7个为false的值其他的值都会转成true。
+
+隐式类型转换是 js 自动的机制。其本质就是对操作数的原始值的比较。
 
 ---
 
-
 ## 17.深拷贝浅拷贝的区别?如何实现一个深拷贝?
 
-浅拷贝和深拷贝都创建出一个新的对象，但在复制对象属性的时候，行为就不一样
+**深拷贝**
 
-浅拷贝只复制属性指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存，修改对象属性会影响原对象
+就是在复制数据或者对象的时候, 将其内存中值复制过来。
 
-**实现深拷贝**
+**浅拷贝**
+
+就是在复制数据或者对象的时候, 是将其引用复制过来。
+
+**区别：**
+
+深拷贝复制的是被复制数据或者对象的值, 复制的数据或对象会在内存中重新分配内存空间, 赋值的和被赋值的互不影响；浅拷贝赋值的是被复制数据或者对象的引用, 复制的数据或对象通过引用指向被复制数据或者对象引用所指向的值。
+
+**实现一个深拷贝**
 
 ```js showLineNumbers copy
 function deepClone(obj, hash = new WeakMap()) {
@@ -606,82 +549,200 @@ function deepClone(obj, hash = new WeakMap()) {
 }
 ```
 
-[JavaScript深拷贝与浅拷贝](/javascript/docs1/docs_21)
-
 ---
 
 ## 18.Javascript中如何实现函数缓存?函数缓存有哪些应用场景?
 
 实现函数缓存主要依靠闭包、柯里化、高阶函数
 
-虽然使用缓存效率是非常高的，但并不是所有场景都适用，因此千万不要极端的将所有函数都添加缓存
+虽然使用缓存效率是非常高的, 但并不是所有场景都适用, 因此千万不要极端的将所有函数都添加缓存
 
-以下几种情况下，适合使用缓存：
+以下几种情况下, 适合使用缓存: 
 
-- 对于昂贵的函数调用，执行复杂计算的函数
+- 对于昂贵的函数调用, 执行复杂计算的函数
 - 对于具有有限且高度重复输入范围的函数
 - 对于具有重复输入值的递归函数
-- 对于纯函数，即每次使用特定输入调用时返回相同输出的函数
+- 对于纯函数, 即每次使用特定输入调用时返回相同输出的函数
 
-[JavaScript函数缓存](/javascript/docs1/docs_22)
+---
+
+## 19.JavaScript宁字符串的常用方法有哪些?
+
+- 增
+  - `concat()`
+- 删
+  - `slice()`
+  - `substr()`
+  - `substring()`
+- 改
+  - `trim()`、`trimLeft()`、`trimRight()`
+  - `repeat()`
+  - `padStart()`、`padEnd()`
+  - `toLowerCase()`、 `toUpperCase()`
+- 查
+  - `chatAt()`
+  - `indexOf()`
+  - `startWith()`
+  - `includes()`
+- 转换方法
+  - `split()`
+- 模板匹配方法
+  - `match()`
+  - `search()`
+  - `replace()`
+
+---
+
+## 20.数组的常用方法有哪些?
+
+- 增
+  - `push()`
+  - `unshift()`
+  - `splice()`
+  - `concat()`
+- 删
+  - `pop()`
+  - `shift()`
+  - `splice()`
+- 改
+  - `slice()`
+- 查
+  - `indexOf()`
+  - `includes()(es6新增)`
+  - `find()`
+- 排序方法
+  - `reverse()`
+  - `sort()`
+- 转换方法
+  - `join()`
+- 迭代方法
+  - `some()`
+  - `every()`
+  - `forEach()`
+  - `filter()`
+  - `map()`
 
 ---
 
 ## 21.说说你对事件循环的理解
 
-在JavaScript中，所有的任务都可以分为
+在JavaScript中, 所有的任务都可以分为
 
-- 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行
-- 异步任务：异步执行的任务，比如ajax网络请求，setTimeout定时函数等
+- 同步任务: 立即执行的任务, 同步任务一般会直接进入到主线程中执行
+- 异步任务: 异步执行的任务, 比如ajax网络请求, setTimeout定时函数等
 
 异步任务还可以细分为微任务与宏任务
 
-- 执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中
-- 当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完
+- 执行一个宏任务, 如果遇到微任务就将它放到微任务的事件队列中
+- 当前宏任务执行完成后, 会查看微任务的事件队列, 然后将里面的所有微任务依次执行完
 
-同步任务进入主线程，即主执行栈，异步任务进入任务队列，主线程内的任务执行完毕为空，会去任务队列读取对应的任务，推入主线程执行。上述过程的不断重复就事件循环
+常见宏任务有
 
-[JavaScript事件循环](/javascript/docs1/docs_23)
+- script(外层的同步代码)
+- setTimeout / setInterval
+- UI rendering / UI事件
+- postMessage、MessageChannel
+- setImmediate、I/O(Node.js)
+
+常见微任务有
+
+- Promise.then(promise本身是同步的, 它的.then方法是异步的)
+- MutationObserver
+- process.nextTick(Node.js)
+
+执行过程: `同步任务` —> `微任务` —> `宏任务`
+
+1. 先执行所有同步任务, 碰到异步任务放到任务队列中
+2. 同步任务执行完毕, 开始执行当前所有的异步任务
+3. 先执行任务队列里面所有的微任务
+4. 然后执行一个宏任务
+5. 然后再执行所有的微任务
+6. 再执行一个宏任务, 再执行所有的微任务·······依次类推到执行结束。
+
+上述过程的不断重复就事件循环
 
 ---
 
 ## 22.Javascript本地存储的方式有哪些?区别及应用场景?
 
-javaScript本地缓存的方法我们主要讲述以下四种：
+JavaScript常用的本地缓存的方法有:
 
 - cookie
-- sessionStorage
 - localStorage
-- indexedDB
+- sessionStorage
 
-关于cookie、sessionStorage、localStorage三者的区别主要如下：
+>拓展: indexedDB也是本地存储的一种方式, 但讲解有些复杂, 想详细了解的请查看[indexedDB详解](/javascript/docs3/indexeddb)
 
-- 存储大小：cookie数据大小不能超过4k，sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大
-- 有效时间：localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据； sessionStorage数据在当前浏览器窗口关闭后自动删除；cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
-- 数据与服务器之间的交互方式，cookie的数据会自动的传递到服务器，服务器端也可以写cookie到客户端； sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存
+区别
 
-**应用场景**
+1. **时效性**: cookie可以设置过期时间; localStorage是永久性的储存, 需用户自己手动清除; sessionStorage页面关闭自动清楚数据;
 
-在了解了上述的前端的缓存方式后，我们可以看看针对不对场景的使用选择：
+2. **储存大小**: cookie一般储存不超过4KB数据, localStorage和sessionStorage一般储存不超过5MB数据(看浏览器机制);
 
-- 标记用户与跟踪用户行为的情况，推荐使用cookie
-- 适合长期保存在本地的数据（令牌），推荐使用localStorage
-- 敏感账号一次性登录，推荐使用sessionStorage
-- 存储大量数据的情况、在线文档（富文本编辑器）保存编辑历史的情况，推荐使用indexedDB
+3. **数据与服务器之间的交互方式**: cookie的数据会自动的传递到服务器, 服务器端也可以写cookie到客户端; sessionStorage和localStorage不会自动把数据发给服务器, 仅在本地保存
 
----
+应用场景
 
-## 23.大文件上传如何做断点续传?
+在了解了上述的前端的缓存方式后, 我们可以看看针对不对场景的使用选择: 
 
-[参考](https://vue3js.cn/interview/JavaScript/continue_to_upload.html)
+- 标记用户与跟踪用户行为的情况, 推荐使用cookie
+- 适合长期保存在本地的数据(令牌), 推荐使用localStorage
+- 敏感账号一次性登录, 推荐使用sessionStorage
+- 存储大量数据的情况、在线文档(富文本编辑器)保存编辑历史的情况, 推荐使用indexedDB
 
 ---
 
-## 24.ajax原理是什么?如何实现?
+## 24.Ajax原理是什么?如何实现?
 
-[参考](https://vue3js.cn/interview/JavaScript/ajax.html)
+Ajax的原理简单来说是通过XMLHttpRequest对象向服务器发送异步请求, 从服务器获得数据, 然后用JavaScript来操作DOM从而局部更新页面
 
----
+实现一个Ajax
+
+实现 Ajax异步交互需要服务器逻辑进行配合, 需要完成以下步骤: 
+
+- 创建 Ajax 的核心对象 `XMLHttpRequest`对象
+- 通过 `XMLHttpRequest` 对象的 `open()` 方法与服务端建立连接
+- 构建请求所需的数据内容, 并通过`XMLHttpRequest` 对象的 `send()` 方法发送给服务器端
+- 通过 `XMLHttpRequest` 对象提供的 `onreadystatechange` 事件监听服务器端你的通信状态
+- 接受并处理服务端向客户端响应的数据结果
+- 将处理结果更新到 HTML页面中
+
+代码
+
+```js showLineNumbers copy
+//封装一个ajax请求
+function ajax(options) {
+  //创建XMLHttpRequest对象
+  const xhr = new XMLHttpRequest()
+
+  //初始化参数的内容
+  options = options || {}
+  options.type = (options.type || 'GET').toUpperCase()
+  options.dataType = options.dataType || 'json'
+  const params = options.data
+
+  //发送请求
+  if (options.type === 'GET') {
+    xhr.open('GET', options.url + '?' + params, true)
+    xhr.send(null)
+  } else if (options.type === 'POST') {
+    xhr.open('POST', options.url, true)
+    xhr.send(params)
+  }
+
+  //接收请求
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      let status = xhr.status
+      if (status >= 200 && status < 300) {
+        options.success && options.success(xhr.responseText, xhr.responseXML)
+      } else {
+        options.fail && options.fail(status)
+      }
+    }
+  }
+}
+```
 
 ## 25.说说 JavaScript 中内存泄漏的几种情况？
 
@@ -695,17 +756,17 @@ function foo(arg) {
 }
 ```
 
-- 另一种意外的全局变量可能由 this 创建：
+- 另一种意外的全局变量可能由 this 创建: 
 
 ```js showLineNumbers copy
 function foo() {
   this.variable = "potential accidental global";
 }
-// foo 调用自己，this 指向了全局对象（window）
+// foo 调用自己, this 指向了全局对象(window)
 foo();
 ```
 
-上述使用严格模式，可以避免意外的全局变量
+上述使用严格模式, 可以避免意外的全局变量
 
 - 定时器也常会造成内存泄露
 
@@ -720,9 +781,9 @@ setInterval(function() {
 }, 1000);
 ```
 
-如果id为Node的元素从DOM中移除，该定时器仍会存在，同时，因为回调函数中包含对someResource的引用，定时器外面的someResource也不会被释放
+如果id为Node的元素从DOM中移除, 该定时器仍会存在, 同时, 因为回调函数中包含对someResource的引用, 定时器外面的someResource也不会被释放
 
-- 包括我们之前所说的闭包，维持函数内局部变量，使其得不到释放
+- 包括我们之前所说的闭包, 维持函数内局部变量, 使其得不到释放
 
 ```js showLineNumbers copy
 function bindEvent() {
@@ -744,17 +805,11 @@ refA = null;
 console.log(refA, 'refA'); // 解除引用
 ```
 
-包括使用事件监听`addEventListener`监听的时候，在不监听的情况下使用`removeEventListener`取消对事件监听
+包括使用事件监听`addEventListener`监听的时候, 在不监听的情况下使用`removeEventListener`取消对事件监听
 
 ---
 
-## 26.说说你对函数式编程的理解？优缺点？
-
-[参考](https://vue3js.cn/interview/JavaScript/functional_programming.html)
-
----
-
-## 27.说说 Javascript 数字精度丢失的问题，如何解决？
+## 26.说说 Javascript 数字精度丢失的问题, 如何解决？
 
 一个经典的面试题
 
@@ -768,17 +823,17 @@ console.log(refA, 'refA'); // 解除引用
 
 比如一个数 1÷3=0.33333333......
 
-3会一直无限循环，数学可以表示，但是计算机要存储，方便下次取出来再使用，但0.333333...... 这个数无限循环，再大的内存它也存不下，所以不能存储一个相对于数学来说的值，只能存储一个近似值，当计算机存储后再取出时就会出现精度丢失问题
+3会一直无限循环, 数学可以表示, 但是计算机要存储, 方便下次取出来再使用, 但0.333333...... 这个数无限循环, 再大的内存它也存不下, 所以不能存储一个相对于数学来说的值, 只能存储一个近似值, 当计算机存储后再取出时就会出现精度丢失问题
 
-理论上用有限的空间来存储无限的小数是不可能保证精确的，但我们可以处理一下得到我们期望的结果
+理论上用有限的空间来存储无限的小数是不可能保证精确的, 但我们可以处理一下得到我们期望的结果
 
-当你拿到 1.4000000000000001 这样的数据要展示时，建议使用 toPrecision 凑整并 parseFloat 转成数字后再显示，如下：
+当你拿到 1.4000000000000001 这样的数据要展示时, 建议使用 toPrecision 凑整并 parseFloat 转成数字后再显示, 如下: 
 
 ```js showLineNumbers copy
 parseFloat(1.4000000000000001.toPrecision(12)) === 1.4  // True
 ```
 
-封装成方法就是：
+封装成方法就是: 
 
 ```js showLineNumbers copy
 function strip(num, precision = 12) {
@@ -786,7 +841,7 @@ function strip(num, precision = 12) {
 }
 ```
 
-对于运算类操作，如 +-*/，就不能使用 toPrecision 了。正确的做法是把小数转成整数后再运算。以加法为例：
+对于运算类操作, 如 +-*/, 就不能使用 toPrecision 了。正确的做法是把小数转成整数后再运算。以加法为例: 
 
 ```js showLineNumbers copy
 /**
@@ -800,32 +855,32 @@ function add(num1, num2) {
 }
 ```
 
-最后还可以使用第三方库，如`Math.js`、`BigDecimal.js`
+最后还可以使用第三方库, 如`Math.js`、`BigDecimal.js`
 
 ---
 
-## 28.什么是防抖和节流？有什么区别？如何实现？
+## 27.什么是防抖和节流？有什么区别？如何实现？
 
 本质上是优化高频率执行代码的一种手段
 
-如：浏览器的 resize、scroll、keypress、mousemove 等事件在触发时，会不断地调用绑定在事件上的回调函数，极大地浪费资源，降低前端性能
+如: 浏览器的 resize、scroll、keypress、mousemove 等事件在触发时, 会不断地调用绑定在事件上的回调函数, 极大地浪费资源, 降低前端性能
 
-为了优化体验，需要对这类事件进行调用次数的限制，对此我们就可以采用 防抖（debounce） 和 节流（throttle） 的方式来减少调用频率
+为了优化体验, 需要对这类事件进行调用次数的限制, 对此我们就可以采用 防抖(debounce) 和 节流(throttle) 的方式来减少调用频率
 
 **定义**
 
-- 节流: n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效
-- 防抖: n 秒后在执行该事件，若在 n 秒内被重复触发，则重新计时
+- 节流: n 秒内只运行一次, 若在 n 秒内重复触发, 只有一次生效
+- 防抖: n 秒后在执行该事件, 若在 n 秒内被重复触发, 则重新计时
 
 一个经典的比喻:
 
-想象每天上班大厦底下的电梯。把电梯完成一次运送，类比为一次函数的执行和响应
+想象每天上班大厦底下的电梯。把电梯完成一次运送, 类比为一次函数的执行和响应
 
-假设电梯有两种运行策略 debounce 和 throttle，超时设定为15秒，不考虑容量限制
+假设电梯有两种运行策略 debounce 和 throttle, 超时设定为15秒, 不考虑容量限制
 
-电梯第一个人进来后，15秒后准时运送一次，这是节流
+电梯第一个人进来后, 15秒后准时运送一次, 这是节流
 
-电梯第一个人进来后，等待15秒。如果过程中又有人进来，15秒等待重新计时，直到15秒后开始运送，这是防抖
+电梯第一个人进来后, 等待15秒。如果过程中又有人进来, 15秒等待重新计时, 直到15秒后开始运送, 这是防抖
 
 **代码实现**
 
@@ -845,7 +900,7 @@ function throttled2(fn, delay = 500) {
 }
 ```
 
-可以将时间戳写法的特性与定时器写法的特性相结合，实现一个更加精确的节流。实现如下
+可以将时间戳写法的特性与定时器写法的特性相结合, 实现一个更加精确的节流。实现如下
 
 ```js showLineNumbers copy
 function throttled(fn, delay) {
@@ -853,7 +908,7 @@ function throttled(fn, delay) {
   let starttime = Date.now()
   return function () {
     let curTime = Date.now() // 当前时间
-    let remaining = delay - (curTime - starttime)  // 从上一次到现在，还剩下多少多余时间
+    let remaining = delay - (curTime - starttime)  // 从上一次到现在, 还剩下多少多余时间
     let context = this
     let args = arguments
     clearTimeout(timer)
@@ -867,7 +922,7 @@ function throttled(fn, delay) {
 }
 ```
 
-- 防抖（debounce）
+- 防抖(debounce)
 
 ```js showLineNumbers copy
 function debounce(func, wait) {
@@ -885,7 +940,7 @@ function debounce(func, wait) {
 }
 ```
 
-防抖如果需要立即执行，可加入第三个参数用于判断，实现如下：
+防抖如果需要立即执行, 可加入第三个参数用于判断, 实现如下: 
 
 ```js showLineNumbers copy
 function debounce(func, wait, immediate) {
@@ -898,7 +953,7 @@ function debounce(func, wait, immediate) {
 
     if (timeout) clearTimeout(timeout); // timeout 不为null
     if (immediate) {
-        let callNow = !timeout; // 第一次会立即执行，以后只有事件执行后才会再次触发
+        let callNow = !timeout; // 第一次会立即执行, 以后只有事件执行后才会再次触发
         timeout = setTimeout(function () {
           timeout = null;
         }, wait)
@@ -918,38 +973,20 @@ function debounce(func, wait, immediate) {
 
 ---
 
-## 29.如何判断一个元素是否在可视区域中？
+## 28.JavaScript 垃圾回收机制
 
-[参考](https://vue3js.cn/interview/JavaScript/visible.html)
-
----
-
-## 30.JavaScript 垃圾回收机制
-
-JavaScript的垃圾回收机制是为了防止内存泄漏，间歇的不定期的寻找到不再使用的变量，并释放它们所指向的内存
+JavaScript的垃圾回收机制是为了防止内存泄漏, 间歇的不定期的寻找到不再使用的变量, 并释放它们所指向的内存
 
 **方式**
 
-1. 标记清除算法 - 标记阶段给活动的对象做上标记，清除阶段把没有标记的对象销毁(缺点：内存碎片化，分配速度慢)
-2. 引用计数算法 - 如果没有引用指向该对象，则销毁，现在很少使用这算法了
+1. 标记清除算法 - 标记阶段给活动的对象做上标记, 清除阶段把没有标记的对象销毁(缺点: 内存碎片化, 分配速度慢)
+2. 引用计数算法 - 如果没有引用指向该对象, 则销毁, 现在很少使用这算法了
 
 ---
 
-## 31.箭头函数和普通函数的区别
+## 29.JavaScript数组如何去重,你有几种方法?
 
-1. 箭头函数没有自己的this箭头函数不会创建自己的this,所以它没有自己的this,它只会在自己作用域的上一层继承this。所以箭头函数中的this的指向在它在定义时就确定了，之后不会改变。
-2. 箭头函数继承来的this指向永远不会改变
-3. call()、apply()、bind()等方法不能改变箭头函数中的this指向
-4. 箭头函数不能作为构造函数使用
-5. 箭头函数没有自己的arguments
-6. 箭头函数没有prototype
-7. 箭头函数不能用作Generator函数,不能使用yeild关键字
-
----
-
-## 32.JavaScript数组如何去重,你有几种方法?
-
-1. 利用ES6 Set去重（ES6中最常用）
+1. 利用ES6 Set去重(ES6中最常用)
 
 ```js showLineNumbers copy
 function unique (arr) {
@@ -960,7 +997,7 @@ console.log(unique(arr))
 // [1, "true", true, 15, false, undefined, null, NaN, "NaN", 0, "a", {}, {}]
 ```
 
-2. 利用for嵌套for，然后splice去重（ES5中最常用）
+2. 利用for嵌套for, 然后splice去重(ES5中最常用)
 
 ```js showLineNumbers copy
 function unique (arr) {            
