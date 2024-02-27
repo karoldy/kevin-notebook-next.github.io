@@ -61,7 +61,7 @@ const store = new Vuex.Store({
 
 ---
 
-## 2.Vuex有哪几种属性？
+## 2.vuex有哪几种属性？
 
 有五种，分别是 State、 Getter、Mutations 、Actions、 Modules
 
@@ -125,3 +125,15 @@ const store = new Vuex.Store({
 - 可维护性会下降，你要修改数据，你得维护 3 个地方
 - 可读性下降，因为一个组件里的数据，你根本就看不出来是从哪里来的
 - 增加耦合，大量的上传派发，会让耦合性大大的增加，本来 Vue 用 Component 就是为了减少耦合，现在这么用，和组件化的初衷相背
+
+---
+
+## 8.vuex中如何异步修改状态
+
+在actions里面异步修改状态
+
+actions与mutations作用类似, 都是可以对状态进行修改。不同的是actions是异步操作的。
+
+actions是可以调用Mutations里的方法的
+
+---
