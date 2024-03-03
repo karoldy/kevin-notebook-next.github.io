@@ -1,14 +1,15 @@
 {
   "interview_1": "Html",
   "interview_2": "Css",
-  "interview_3": "JavaScript",
-  "interview_4": "TypeScript",
+  "javascript": "JavaScript",
+  "es6": "ES6",
+  "typescript": "TypeScript",
   "interview_5": "Jquery",
   "interview_6": "Vue",
   "interview_7": "React",
   "interview_8": "Angular",
   "interview_9": "Fullter",
-  "interview_10": "webpack系列",
+  "webpack": "webpack",
   "interview_11": "构建工具系列",
   "interview_12": "NodeJs",
   "interview_13": "其他"

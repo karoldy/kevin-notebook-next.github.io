@@ -1,0 +1,54 @@
+# ES6 面试题
+
+## 面试官系列
+
+- [var、let、const区别?(常问、必记)](/interview/es6/es6_1)
+- [ES6中字符串新增了哪些拓展?](/interview/es6/es6_2)
+- [ES6中数组新增了哪些扩展?](/interview/es6/es6_3)
+- [ES6中对象新增了哪些扩展?](/interview/es6/es6_4)
+- [ES6中函数新增了哪些拓展?](/interview/es6/es6_5)
+- [你是怎么理解ES6新增Set、Map两种数据结构的?](/interview/es6/es6_6)
+- [你是怎么理解ES6中 Promise的?使用场景?](/interview/es6/es6_7)
+- [你是怎么理解ES6中 Generator的?使用场景?](/interview/es6/es6_8)
+- [你是怎么理解ES6中Proxy的?使用场景?](/interview/es6/es6_9)
+- [你是怎么理解ES6中Module的?使用场景?](/interview/es6/es6_10)
+- [你是怎么理解ES6中 Decorator 的?使用场景?](/interview/es6/es6_11)
+
+## 箭头函数和普通函数的区别
+
+1. 箭头函数没有自己的this箭头函数不会创建自己的this,所以它没有自己的this,它只会在自己作用域的上一层继承this。所以箭头函数中的this的指向在它在定义时就确定了, 之后不会改变。
+2. 箭头函数继承来的this指向永远不会改变
+3. call()、apply()、bind()等方法不能改变箭头函数中的this指向
+4. 箭头函数不能作为构造函数使用
+5. 箭头函数没有自己的arguments
+6. 箭头函数没有prototype
+7. 箭头函数不能用作Generator函数,不能使用yeild关键字
+
+---
+
+## `for...in` 与 `for...of` 区别
+
+**for...in循环**
+
+- `for...in`获取的是对象的键名
+- `for...in`会遍历对象的整个原型链,性能非常差不推荐使用
+- 对于数组的遍历, `for...in`会返回数组中所有可枚举的属性(包括原型链上可枚举的属性)
+
+**for...of循环**
+
+- `for...of`遍历获取的是对象的键值
+- `for...of`只遍历当前对象不会遍历原型链
+- 对于数组的遍历, `for...of`只返回数组的下标对应的属性值
+
+`for...of`循环的原理其实也是利用了遍历对象内部的iterator接口,将`for...of`循环分解成最原始的for循环,内部实现的机制可以这么理解
+
+```js showLineNumbers copy
+let arr = [1, 2, 3, 4, 5]
+let iterator = arr[Symbil.iterator]()
+
+for (let value, res; (res = iterator.next()) && !res.done;) {
+  value = res.value
+}
+```
+
+可以看到只要满足第二个条件(iterator.next()存在且res.done为true)就可以一直循环下去, 并且每次把迭代器的next方法生成的对象赋值给res,然后将res的value属性赋值给`for...of`第一个条件中声明的变量即可, res的done属性控制是否继续遍历下去
