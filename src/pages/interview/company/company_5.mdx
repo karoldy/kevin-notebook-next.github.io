@@ -1,0 +1,86 @@
+# xxx通信-前端工程师
+
+## 1.有几种方法实现垂直居中
+
+---
+
+## 2.下面代码输出什么, 并作简单解释
+
+```js
+for (var i = 0; i < 5; i ++) {
+  (function () {
+    setTimeout(function () {
+      console.log(i);
+    }, i * 100)
+  })(i)
+}
+```
+
+---
+
+## 3.\[3, 2, 5, 1, 7\], 不使用数组的方法循环, 如何获取最大值
+
+---
+
+## 4.有这样一个数组, 请把数组中的元素向右移动s个位置, 其中s是非负数，输入\[1, 2, 3, 4, 5, 6, 7\]和s=3, 输出\[5, 6, 7, 1, 2, 3, 4\], 请写出方法
+
+---
+
+## 5.写出以下代码运行结果
+
+```js
+function fn (a, c) {
+  var a = 12;
+  console.log(a);
+  console.log(c);
+
+  function a () {}
+  if (false) {
+    var d = 34;
+  }
+
+  console.log(d);
+  console.log(b);
+  var b = function () {};
+  console.log(b);
+
+  function c () {}
+  console.log(c);
+}
+
+fn(1, 2);
+```
+
+---
+
+## 6.写出以下代码运行结果
+
+```js
+async function a1 () {
+  console.log(1);
+  await a2();
+  console.log(2);
+}
+
+async function a2 () {
+  console.log(3);
+}
+
+consoloe.log(4);
+
+setTimeout(() => {
+  console.log(5);
+}, 0);
+
+
+a1();
+
+new Promise(function (reslove) {
+  console.log(6);
+  reslove();
+}).then(function () {
+  console.log(7);
+});
+
+console.log(8);
+```

@@ -1,16 +1,18 @@
 {
-  "interview_1": "Html",
-  "interview_2": "Css",
+  "html": "Html",
+  "css": "Css",
   "javascript": "JavaScript",
   "es6": "ES6",
   "typescript": "TypeScript",
-  "interview_5": "Jquery",
-  "interview_6": "Vue",
-  "interview_7": "React",
+  "jquery": "Jquery",
+  "vue2": "Vue2 系列",
+  "vue3": "Vue3 系列",
+  "react": "React",
+  "webpack": "webpack",
   "interview_8": "Angular",
   "interview_9": "Fullter",
-  "webpack": "webpack",
   "interview_11": "构建工具系列",
   "interview_12": "NodeJs",
-  "interview_13": "其他"
+  "interview_13": "其他",
+  "company": "企业真题"
 }

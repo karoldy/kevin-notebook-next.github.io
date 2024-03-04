@@ -28,7 +28,7 @@ concurrency:
 jobs:
   # Build job 部署任务
   build:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3

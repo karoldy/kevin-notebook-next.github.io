@@ -1,0 +1,489 @@
+# vue-router 面试题
+
+## 1.vue-router 是什么?它有哪些组件? 
+
+vue-router 是 Vue.js 官方的路由管理器, 它和 Vue.js 的核心深度集成, 让构建单页面应用变得易如反掌。包含的功能有: 
+
+- 嵌套的路由
+- 模块化的、基于组件的路由配置
+- 路由参数、查询、通配符
+- 基于 Vue.js 过度系统的视图过渡效果
+- 细颗粒度的导航控制
+- 带有自动激活的 CSS class 的连接
+- history模式或 hash 模式, 在 IE9 中自动降级
+- 自定义的滚动条行为
+
+**vue-router 组件: **
+
+- `<router-link to="">` 路由的路径
+- `<router-link :to="{name:’‘l路由名’}">` 命名路由
+- `<router-view>` 路由的显示
+
+---
+
+## 2.active-class 是哪个组件的属性? 
+
+active-class 属于vue-router的样式方法, 当routerlink标签被点击时将会应用这个样式。
+
+**使用方法一: routerLink标签内使用**
+
+```html showLineNumbers copy
+<router-link to='/' active-class="active" >首页</router-link>
+```
+
+**使用方法二: 在路由js文件,配置active-class**
+
+```js showLineNumbers copy
+const router = new VueRouter({
+  routes,
+  linkActiveClass: 'active'
+});
+```
+
+在使用时会有一个bug: 首页的active会一直被应用
+
+为了解决上面的问题, 还需加入一个属性exact, 也有两种方式。
+
+**方式一: 在router-link中写入exact**
+
+```html showLineNumbers copy
+<router-link to='/' active-class="active" exact>首页</router-link>
+```
+
+**方式二: 在路由js文件,配置active-class**
+
+```js showLineNumbers copy
+const router = new VueRouter({
+  routes,
+  linkExactActiveClass: 'active'
+});
+```
+
+## 3.怎么定义 vue-router 的动态路由? 怎么获取传过来的值? 
+
+可以通过query ,param两种方式, 区别: query通过url传参, 刷新页面参数还在, params刷新页面参数不在了。
+
+**param的类型: **
+
+- 配置路由格式:/router/:id
+- 传递的方式:在path后面跟上对应的值
+- 传递后形成的路径:/router/123
+
+```js showLineNumbers copy
+// 定义路由
+{
+  path: '/user/:userid',
+  component: User,
+},
+```
+
+```html showLineNumbers copy
+<!-- 动态路由-params -->
+<router-link :to="'/user/'+userId" replace>用户</router-link>
+```
+
+跳转方法: 
+
+```html showLineNumbers copy
+<!-- 方法1: -->
+<router-link :to="{ name: 'users', params: { uname: wade }}">按钮</router-link>
+```
+
+```js showLineNumbers copy
+// 方法2: 
+this.$router.push({name:'users',params:{uname:wade}})
+```
+
+```js showLineNumbers copy
+// 方法3: 
+this.$router.push('/user/' + wade)
+```
+
+通过$route.params.参数名 获取你所传递的值
+
+**query的类型: **
+
+- 配置路由格式:/router,也就是普通配置
+- 传递的方式:对象中使用query的key作为传递方式
+- 传递后形成的路径:/route?id=123
+
+```html showLineNumbers copy
+<!--动态路由-query -->
+<!--01-直接在router-link 标签上以对象的形式-->
+<router-link :to="{path:'/profile',query:{name:'why',age:28,height:188}}">档案</router-link>
+```
+
+```vue showLineNumbers copy
+<tempalte>
+  <button @click='profileClick'>我的</button>
+</tempalte>
+<script>
+  export default {
+    methods: {
+      profileClick(){
+        this.$router.push({
+          path: "/profile",
+          query: {
+            name: "kobi",
+            age: "28",
+            height: 198
+          }
+        });
+      }
+    }
+  }
+</script>
+```
+
+跳转方法:
+
+方法1: 
+```html showLineNumbers copy
+<router-link :to="{ name: 'users', query: { uname: james }}">按钮</router-link>
+```
+
+方法2: 
+```js showLineNumbers copy
+this.$router.push({ name: 'users', query:{ uname:james }})
+```
+
+方法3: 
+```html showLineNumbers copy
+<router-link :to="{ path: '/user', query: { uname:james }}">按钮</router-link>
+```
+
+方法4: 
+```js showLineNumbers copy
+this.$router.push({ path: '/user', query:{ uname:james }})
+```
+
+方法5: 
+```js showLineNumbers copy
+this.$router.push('/user?uname=' + jsmes)
+```
+
+通过$route.query 获取你所传递的值
+
+## 4.vue-router 有哪几种导航钩子(导航守卫)?
+
+**第一种: 全局导航钩子**
+
+1.前置钩子 `beforeEach`
+
+```js showLineNumbers copy
+//单独设置每个路由的属性: 
+const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      may: true
+    }
+  }
+]
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(item => item.meta.may)) {
+    let id = window.localStorage.getItem("id")
+    if (id) {
+      next()
+    } else {
+      next({ name: "login" })
+    }
+  } else {
+    next()
+  }
+})
+```
+
+>注意: next 方法必须要调用, 否则钩子函数无法 resolved
+
+2.后置钩子 `afterEach`
+
+```js showLineNumbers copy
+router.afterEach((to,from) => {
+	if(to.meta && to.meta.title){
+		document.title = to.meta.title
+	}else{
+		document.title = "666"
+	}
+})
+```
+
+**第二种: 单独路由独享钩子**
+
+```js showLineNumbers copy
+{
+  path: '/home',
+  name: 'home',
+  component: Home,
+  beforeEnter(to, from, next) {
+    if (window.localStorage.getItem("id")) {
+      next()
+    } else {
+      next({ name: "login" })
+    }
+  }
+}
+```
+
+**第三种: 组件内的钩子**
+
+```js showLineNumbers copy
+beforeRouteEnter(to, from, next) {
+  // do someting
+  // 在渲染该组件的对应路由被 confirm 前调用
+},
+beforeRouteUpdate(to, from, next) {
+  // do someting
+  // 在当前路由改变, 但是依然渲染该组件是调用
+},
+beforeRouteLeave(to, from ,next) {
+  // do someting
+  // 导航离开该组件的对应路由时被调用
+}
+```
+
+**全局解析守卫**
+
+router.beforeResolve 注册一个全局守卫, 和 router.beforeEach 类似
+
+可以在src目录下新建一个permission.js文件
+
+```js showLineNumbers copy
+import router from './router'
+import store from './store'
+import { Message } from 'element-ui'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import { getToken } from '@/utils/auth'
+
+NProgress.configure({ showSpinner: false })
+
+const whiteList = ['/login', '/auth-redirect', '/bind', '/register']
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  if (getToken()) {
+    /* has token*/
+    if (to.path === '/login') {
+      next({ path: '/' })
+      NProgress.done()
+    } else {
+      if (store.getters.roles.length === 0) {
+        // 判断当前用户是否已拉取完user_info信息
+        store.dispatch('GetInfo').then(res => {
+          // 拉取user_info
+          const roles = res.roles
+          store.dispatch('GenerateRoutes', { roles }).then(accessRoutes => {
+          // 测试 默认静态页面
+          // store.dispatch('permission/generateRoutes', { roles }).then(accessRoutes => {
+            // 根据roles权限生成可访问的路由表
+            router.addRoutes(accessRoutes) // 动态添加可访问路由表
+            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+          })
+        })
+          .catch(err => {
+            store.dispatch('FedLogOut').then(() => {
+              Message.error(err)
+              next({ path: '/' })
+            })
+          })
+      } else {
+        next()
+        // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
+        // if (hasPermission(store.getters.roles, to.meta.roles)) {
+        //   next()
+        // } else {
+        //   next({ path: '/401', replace: true, query: { noGoBack: true }})
+        // }
+        // 可删 ↑
+      }
+    }
+  } else {
+    // 没有token
+    if (whiteList.indexOf(to.path) !== -1) {
+      // 在免登录白名单, 直接进入
+      next()
+    } else {
+      next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+      NProgress.done()
+    }
+  }
+})
+
+router.afterEach(() => {
+  // 进度条
+  NProgress.done()
+})
+```
+
+## 5.$route 和 $router 的区别
+
+**$route对象**: $route对象表示当前的路由信息, 包含了当前 URL 解析得到的信息。包含当前的路径, 参数, query对象等。
+
+```
+1. $route.path 字符串, 对应当前路由的路径, 总是解析为绝对路径, 如"/foo/bar"。
+2. $route.params 一个 key/value 对象, 包含了 动态片段 和 全匹配片段,  如果没有路由参数, 就是一个空对象。
+3. $route.query 一个 key/value 对象, 表示 URL 查询参数。 例如, 对于路径 /foo?user=1, 则有$route.query.user == 1,  如果没有查询参数, 则是个空对象。
+4. $route.hash 当前路由的hash值 (不带#) , 如果没有 hash 值, 则为空字符串。锚点*
+5. $route.fullPath 完成解析后的 URL, 包含查询参数和hash的完整路径。
+6. $route.matched 数组, 包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
+7. $route.name 当前路径名字
+8. $route.meta 路由元信息
+```
+
+**$router对象**: $router对象是全局路由的实例, 是router构造方法的实例。
+
+实例方法: 
+
+**1、push**
+
+1. 字符串`this.$router.push('home')`
+2. 对象`this.$router.push({ path: 'home'})`
+3. 命名的路由`this.$router.push({name:'user',params:{userId:123}})`
+4.带查询参数, 变成 /register?plan=123 -> `this.$router.push({path:'register',query:{plan:'123'}})`
+
+push方法其实和`<router-link :to="...">`是等同的。
+
+>注意: push方法的跳转会向 history 栈添加一个新的记录, 当我们点击浏览器的返回按钮时可以看到之前的页面。
+
+**2、go**
+
+页面路由跳转
+前进或者后退this.$router.go(-1) // 后退
+
+**3、replace**
+
+push方法会向 history 栈添加一个新的记录, 而replace方法是替换当前的页面, 
+不会向 history 栈添加一个新的记录
+
+---
+
+## 6.vue-router响应路由参数的变化? 
+
+当使用路由参数时, 例如从 /user/aside导航到 /user/foo, 原来的组件实例会被复用。因为两个路由都渲染同个组件, 比起销毁再创建, 复用则更加高效。不过, 这也意味着组件的生命周期钩子不会再被调用。
+
+注意:
+
+(1)从同一个组件跳转到同一个组件。
+
+(2)生命周期钩子created和mounted都不会调用。
+
+```js showLineNumbers copy
+beforeRouteUpdate(to,from,next){
+  // 在这个钩子函数中: to表示将要跳转的路由对象, from表示从哪个路由跳转过来, next多数就是需要调用
+  // created和mounted不调用, 无法拿到需要的动态值, 就通过to.path,to.params等
+  // 可以在这个函数中打印to, 具体看to对象有什么可以使用的属性
+}
+```
+
+添加watch监听
+
+```js showLineNumbers copy
+watch: {
+ // 方法1 //监听路由是否变化
+  '$route' (to, from) {
+   if(to.query.id !== from.query.id){
+      this.id = to.query.id;
+      // 重新加载数据
+      this.init();
+    }
+  }
+}
+//方法 2  设置路径变化时的处理函数
+watch: {
+'$route': {
+    handler: 'init',
+    immediate: true
+  }
+}
+```
+
+为了实现这样的效果可以给router-view添加一个不同的key, 这样即使是公用组件, 只要url变化了, 就一定会重新创建这个组件。
+
+```html showLineNumbers copy
+<router-view :key="$route.fullpath"></router-view>
+```
+
+---
+
+## 7.vue项目实现路由按需加载(路由懒加载)的3种方式
+
+**1.vue异步组件技术**
+
+```js showLineNumbers copy
+/* vue异步组件技术 */
+{
+  path: '/home',
+  name: 'home',
+  component: resolve => require(['@/components/home'],resolve)
+},{
+  path: '/index',
+  name: 'Index',
+  component: resolve => require(['@/components/index'],resolve)
+},{
+  path: '/about',
+  name: 'about',
+  component: resolve => require(['@/components/about'],resolve)
+} 
+```
+
+**2.路由懒加载(使用import)**
+
+```js showLineNumbers copy
+// 下面2行代码, 没有指定webpackChunkName, 每个组件打包成一个js文件。
+/*
+const Home = () => import('@/components/home')
+const Index = () => import('@/components/index')
+const About = () => import('@/components/about')
+*/
+
+// 下面2行代码, 指定了相同的webpackChunkName, 会合并打包成一个js文件。 把组件按组分块
+const Home =  () => import(/* webpackChunkName: 'ImportFuncDemo' */ '@/components/home')
+const Index = () => import(/* webpackChunkName: 'ImportFuncDemo' */ '@/components/index')
+const About = () => import(/* webpackChunkName: 'ImportFuncDemo' */ '@/components/about')
+```
+
+**webpack提供的require.ensure()**
+
+vue-router配置路由, 使用webpack的require.ensure技术, 也可以实现按需加载。
+这种情况下, 多个路由指定相同的chunkName, 会合并打包成一个js文件。
+
+```js showLineNumbers copy
+/* 组件懒加载方案三: webpack提供的require.ensure() */
+{
+  path: '/home',
+  name: 'home',
+  component: r => require.ensure([], () => r(require('@/components/home')), 'demo')
+}, {
+  path: '/index',
+  name: 'Index',
+  component: r => require.ensure([], () => r(require('@/components/index')), 'demo')
+}, {
+  path: '/about',
+  name: 'about',
+  component: r => require.ensure([], () => r(require('@/components/about')), 'demo-01')
+}
+```
+
+---
+
+## 8.路由的history和hash
+
+Vue-Router主要有两种模式: Hash模式和 History模式。这两种模式的主要区别在于它们如何处理url以及如何更新页面的内容。
+
+**Hash模式**: 这是VueRouter的默认模式。它的工作原理是利用`hashchange`事件监听URL中的`#`符号的变化。在这个模式下, URL的变化不会导致页面的刷新, 而是通过监听hashchange事件来实现路由的切换。这样的设计使得页面只在首次加载时刷新, 而在后续的导航过程中, 只要URL发生变化, 就会显示最新的内容, 而不必完全重载页面。
+
+**History模式**: 在这种模式下, Vue单页面应用不会刷新页面。它是基于HTML5的新特性`history`实现的, 允许用户在浏览器历史记录栈中操作, 如前进、后退等。通过这种方式, 无论是在开发还是生产环境, 都可以实现无刷新地切换页面
+
+此外, Vue-Router还提供了一种抽象模式, 这种模式不依赖于具体的浏览器环境, 而是在非浏览器环境中使用, 如Node.js的服务器端渲染
+
+---
+
+## 9.vue-router跳转和location.href有什么区别
+
+- 使用location跳转简单方便, 但是刷新了页面
+- 使用history.pushState('/url')无刷新页面, 静态跳转
+- 引进router, 然后使用router.push('/url')来跳转, 使用了diff算法, 实现了按需加载, 减少了Dom的消耗

@@ -1,13 +1,13 @@
 {
-  "webpack_interview": "常见面试题",
-  "webpack_1": "说说你对webpack的理解?解决了什么问题?",
-  "webpack_2": "说说webpack的构建流程?",
-  "webpack_3": "说说webpack中常见的Loader?解决了什么问题?",
-  "webpack_4": "说说webpack中常见的Plugin?解决了什么问题?",
-  "webpack_5": "说说Loader和Plugin的区别?编写Loader, Plugin的思路?",
-  "webpack_6": "说说webpack的热更新是如何做到的?原理是什么?",
-  "webpack_7": "说说webpack proxy工作原理?为什么能解决跨域?",
-  "webpack_8": "说说如何借助webpack来优化前端性能?",
-  "webpack_9": "如何提高webpack的构建速度?",
-  "webpack_10": "webpack类似的工具还有哪些?区别?" 
+  "webpack_interview": "面试题",
+  "webpack": "说说你对webpack的理解?解决了什么问题?",
+  "build_process": "说说webpack的构建流程?",
+  "loader": "说说webpack中常见的Loader?解决了什么问题?",
+  "plugin": "说说webpack中常见的Plugin?解决了什么问题?",
+  "loader_plugin": "说说Loader和Plugin的区别?编写Loader, Plugin的思路?",
+  "hmr": "说说webpack的热更新是如何做到的?原理是什么?",
+  "proxy": "说说webpack proxy工作原理?为什么能解决跨域?",
+  "performance": "说说如何借助webpack来优化前端性能?",
+  "improve_build": "如何提高webpack的构建速度?",
+  "rollup_parcel_snowpack_vite": "webpack类似的工具还有哪些?区别?" 
 }
