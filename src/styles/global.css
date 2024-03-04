@@ -1,11 +1,11 @@
 @tailwind utilities;
 
-/* @font-face {
+@font-face {
   font-family: "Open Monaco";
   src: url('../../public/fonts/Monaco.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-} */
+}
 
 body {
   font-family: Monaco, 'Open Monaco', Menlo, Consolas, Inconsolata;
