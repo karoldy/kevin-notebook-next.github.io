@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:mdx": "markdownlint ./pages"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
@@ -27,8 +28,22 @@
     "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "markdownlint-cli": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "link-staged"
+    }
+  },
+  "lint-staged": {
+    "docs/**/*.mdx": [
+      "yarn lind:mdx ",
+      "git add"
+    ]
   }
 }
