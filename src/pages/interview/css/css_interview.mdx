@@ -2,25 +2,978 @@
 
 ## 面试官系列
 
-- [说说你对盒子模型的理解?](/interview/css/box)
-- [css选择器有哪些? 优先级? 哪些属性可以继承?](/interview/css/selector)
-- [说说em/px/rem/vh/vw区别?](/interview/css/em_px_rem_vh_vw)
-- [说说设备像素、css像素、设备独立像素、dpr、ppi 之间的区别?](/interview/css/dp_px_dpr_ppi)
-- [css中, 有哪些方式可以隐藏页面元素? 区别?](/interview/css/hide_attributes)
-- [谈谈你对BFC的理解?](/interview/css/bfc)
-- [元素水平垂直居中的方法有哪些? 如果元素不定宽高呢?](/interview/css/center)
-- [如何实现两栏布局, 右侧自适应? 三栏布局中间自适应呢?](/interview/css/column_layout)
-- [说说flexbox(弹性盒布局模型), 以及适用场景?](/interview/css/flexbox)
-- [介绍一下Grid网格布局](/interview/css/grid)
-- [CSS3新增了哪些新特性?](/interview/css/css3_features)
-- [Css3动画有哪些?](/interview/css/animation)
-- [怎么理解回流跟重绘? 什么场景下会触发?](/interview/css/layout_painting)
-- [什么是响应式设计? 响应式设计的基本原理是什么? 如何做?](/interview/css/responsive_layout)
-- [如果要做优化, CSS提高性能的方法有哪些?](/interview/css/css_performance)
-- [如何实现单行／多行文本溢出的省略样式?](/interview/css/single_multi_line)
-- [如何使用css完成视差滚动效果?](/interview/css/visual_scrolling)
-- [CSS如何画一个三角形? 原理是什么?](/interview/css/triangle)
-- [让Chrome支持小于12px 的文字方式有哪些? 区别?](/interview/css/less_12)
-- [说说对Css预编语言的理解? 有哪些区别?](/interview/css/sass_less_stylus)
+- [说说你对盒子模型的理解?](/css/box)
+- [css选择器有哪些? 优先级? 哪些属性可以继承?](/css/selector)
+- [说说em/px/rem/vh/vw区别?](/css/em_px_rem_vh_vw)
+- [说说设备像素、css像素、设备独立像素、dpr、ppi 之间的区别?](/css/dp_px_dpr_ppi)
+- [css中, 有哪些方式可以隐藏页面元素? 区别?](/css/hide_attributes)
+- [谈谈你对BFC的理解?](/css/bfc)
+- [谈谈你对IFC的理解](/css/ifc)
+- [谈谈你对GFC的理解](/css/gfc)
+- [元素水平垂直居中的方法有哪些? 如果元素不定宽高呢?](/css/center)
+- [如何实现两栏布局, 右侧自适应? 三栏布局中间自适应呢?](/css/column_layout)
+- [说说flexbox(弹性盒布局模型), 以及适用场景?](/css/flexbox)
+- [介绍一下Grid网格布局](/css/grid)
+- [CSS3新增了哪些新特性?](/css/css3_features)
+- [Css3动画有哪些?](/css/animation)
+- [怎么理解回流跟重绘? 什么场景下会触发?](/css/layout_painting)
+- [什么是响应式设计? 响应式设计的基本原理是什么? 如何做?](/css/responsive_layout)
+- [如果要做优化, CSS提高性能的方法有哪些?](/css/css_performance)
+- [如何实现单行／多行文本溢出的省略样式?](/css/single_multi_line)
+- [如何使用css完成视差滚动效果?](/css/visual_scrolling)
+- [CSS如何画一个三角形? 原理是什么?](/css/triangle)
+- [让Chrome支持小于12px 的文字方式有哪些? 区别?](/css/less_12)
+- [说说对Css预编语言的理解? 有哪些区别?](/css/sass_less_stylus)
+- [说说什么是CSS Hack](/css/css_hack)
 
 ## 经典面试题
+
+### 1.简述CSS3选择器优先级及计算?
+
+[css选择器有哪些? 优先级? 哪些属性可以继承?](/css/selector)
+
+---
+
+### 2.详细说明CSS3新特性?
+
+[CSS3新增了哪些新特性?](/css/css3_features)
+
+---
+
+### 3.Padding和Margin有什么区别?
+
+margin是指从自身边框到另一个容器边框之间的距离, 即容器外距离, 是隔开元素与元素的间距;
+
+而padding是指自身边框到自身内部另一个容器边框之间的距离, 即可容器内距离, 是盒子边框与盒子内部元素的距离。
+
+Padding(填充)属性定义元素边框与元素内容之间的空间。padding简写属性在一个声明中设置所有内边距属性。设置所有当前或者指定元素内边距属性。该属性可以有1到4个值。
+
+margin, 是CSS语法, 这个简写属性用于在一个声明中设置所有当前或者指定元素所有外边距的宽度, 或者设置各边上外边距的宽度。margin属性接受任何长度单位、百分数值甚至负值。
+
+---
+
+### 4.CSS引入的方式有哪些? link和@import的区别是? 
+
+**引入CSS的方式**
+
+在HTML中引入CSS的方式主要有四种: 行内式, 内嵌式, 链接式, 导入式
+
+- 行内式
+
+```html
+<div style="background: yellow;"></div>
+```
+
+- 内嵌式
+
+```html
+<html>
+  <head>
+    <style>
+      /* 此处添加css代码 */
+    </style>           
+  </head>
+</html>
+```
+
+>每个单一网页可以考虑使用内嵌式
+
+- 链接式
+
+```html
+<!-- 将css放在一个后缀为.css的文档中, 然后在页面的header标签中用link标签引入 -->
+<!-- rel: 定义当前文档与被链接文档之间的关系, 在这里需要指定为stylesheet, 表示被链接的文档式一个样式表文件 -->
+<!-- href: 定义所连接外部样式表文件的URL, 可以式相对路径也可以是绝对路径 -->
+<link rel="stylesheet" href="css的路径" type="text/css" />
+```
+
+- 导入式
+
+```html
+<style>  
+  @import "test.css";  
+</style>
+```
+
+在HTML的header标签的style标签中引入, 也可以在css文件中用@import方式引入
+
+**link和@import引入方式的区别**
+
+1. link是XML标签, 除了加载css外, 还可以定义RSS等其他事务, @import属于CSS范畴, 只能加载CSS
+2. link引入css时, 和页面载入同时加载, @import需要网页完全载入之后加载(因此@import引入会导致网页如果比较大会先显示没样式的网页, 闪烁一下后再出现样式)
+3. link是XML标签, 无兼容性问题, @import是CSS2.1提供的, 低版本的浏览器不支持
+4. link支持使用javascript控制DOM去改变样式, 而@import不支持
+
+---
+
+### 5.描述CSS Reset的作用和用途?
+
+CSS Reset 是一种重置 CSS 样式的技术, 用于应对不同浏览器在渲染网页时会出现的不一致性。由于不同浏览器本身就有不同的默认样式, 因此在编写 CSS 代码时, 可能会出现不同浏览器表现出的网页界面样式有所不同的情况, 这就需要使用 CSS Reset 技术来消除这些差异, 以达到使网页在不同浏览器上都能呈现出一致的样式风格的目的。
+
+**CSS Reset 的作用可以总结为以下两点**: 
+
+1. 清除不同浏览器的默认样式
+
+在不同的浏览器上, 各个 HTML 标签的默认样式可能是不一样的。这样可能会导致同一份 CSS 代码在不同的浏览器下, 表现出来的显示效果不尽相同。CSS Reset 就是为了消除这些默认样式差异而产生的一种技术。
+
+2. 实现跨浏览器下的一致性
+
+在各种浏览器的兼容性方面, 开发者需要通过针对性的 CSS 代码来实现跨浏览器的一致性, 以确保所有的网站访问者都能够获得相同的体验和效果。通常来说, 我们都需要为每种浏览器都编写一套针对性的 CSS 代码, 以确保不同浏览器下网页的显示一致性。而使用 CSS Reset 技术, 则可以通过一次性地创建、应用一套通用的 CSS 规则, 快速地解决跨浏览器兼容性问题。
+
+---
+
+### 6.CSS 清除浮动的几种方式, 各自的优缺点?
+
+浮动引起的问题有如下几个。
+
+(1)父元素的高度无法被撑开, 影响与父元素同级的元素。
+
+(2)与元素同级的非浮动元素会紧随其后(类似遮盖现象)。
+
+(3)如果一个元素浮动, 则该元素之前的元素也需要浮动;否则, 会影响页面显示的结构(即通常所说的串行现象)。
+
+**方法一: 额外标签法**
+
+给谁清除浮动, 就在其后额外添加一个空白标签 , 给其设置`clear: both`。
+
+- 优点: 通俗易懂, 书写方便。
+- 缺点: 添加许多无意义的标签, 结构化比较差。
+
+```html
+<html>
+  <style>
+    #clear {
+      /* clear: both: 本质就是闭合浮动,  就是让父盒子闭合出口和入口, 不让子盒子出来 。 */
+      clear: both;
+    }
+  </style>
+  <body>
+    <div id="parent">
+      <div id="child"></div>
+      <!-- 方法一  额外标签法 -->
+      <div id="clear"></div>
+    </div>
+  </body>
+<html>
+```
+
+**方法二: 父元素添加`overflow: hidden;`**
+
+通过触发BFC方式, 实现清除浮动
+
+- 优点: 代码简洁
+- 缺点: 内容增多的时候容易造成不会自动换行导致内容被隐藏掉, 无法显示要溢出的元素。
+
+```html
+<html>
+  <style>
+    #parent{
+      overflow: hidden;
+    }
+  </style>
+  <body>
+    <div id="parent">
+      <div id="child"></div>
+    </div>
+  </body>
+<html>
+```
+
+**方法三: 使用after伪元素清除浮动**
+
+- 优点: 符合闭合浮动思想, 结构语义化正确。
+- 缺点: ie6-7不支持伪元素: after, 使用zoom:1触发hasLayout。
+
+```html
+<html>
+  <style>
+    #parent:after {
+      content: "";
+      display: block;
+      height: 0;
+      clear:both;
+      visibility: hidden;
+    }
+
+    #parent {
+      /* 触发 hasLayout */ 
+      *zoom: 1; /* ie6清除浮动的方式 *号只有IE6-IE7执行, 其他浏览器不执行 */
+    }
+  </style>
+  <body>
+    <div id="parent">
+      <div id="child"></div>
+    </div>
+  </body>
+<html>
+```
+
+**方法四: 使用before和after双伪元素清除浮动**
+
+- 优点: 代码更简洁
+- 缺点: 用zoom:1触发hasLayout.
+
+```html
+<html>
+  <style>
+    #parent:after,
+    #parent:before {
+      content: "";
+      display: table;
+    }
+    #parent:after {
+      clear: both;
+    }
+    #parent {
+      *zoom: 1;
+    }
+  </style>
+  <body>
+    <div id="parent">
+      <div id="child"></div>
+    </div>
+  </body>
+<html>
+```
+
+**方法五: 为父元素设置高度**
+
+- 缺点: 需要手动添加高度, 如何后面的高度发生变化, 还要再次修改高度, 给后期的维护带来麻烦。
+- 优点: 简单粗暴直接有效, 清除了浮动带来的影响协议。
+
+---
+
+### 7.简述CSS隐藏元素的几种方法(至少说出三种)?
+
+[css中, 有哪些方式可以隐藏页面元素? 区别?](/css/hide_attributes)
+
+---
+
+### 8.CSS居中(包括水平居中和垂直居中)的方案有哪些 ?
+
+[元素水平垂直居中的方法有哪些? 如果元素不定宽高呢?](/css/center)
+
+---
+
+### 9.解释CSS的盒子模型?
+
+[说说你对盒子模型的理解?](/css/box)
+
+---
+
+### 10.解释什么是CSS Hack?  
+
+[说说什么是CSS Hack](/css/css_hack)
+
+---
+
+### 11.CSS position:absolute和float属性的异同
+
+- 共同点: 对内联元素设置float和absolute属性, 可以让元素脱离文档流, 并且可以设置其宽高。
+- 不同点: float仍会占据位置, absolute会覆盖文档流中的其他元素
+
+---
+
+### 12.CSS属性position的属性值有哪些, 描述它们的作用?
+
+1. `static`: css中所有的position默认属性都是static.例如两个页面中都有同一个div, 一个需要决定定位, 另一个不需要。那么可以设置为static
+2. `relative`: 相对定位, 设置relative之后, 就可以设置TRBL("left", "top", "right" 以及 "bottom" ),相对于自己本身的位置进行定位。设置relative, 没有TRBL设置, 则不会进行任何位置改变。移动之后所占的物理空间还是存在的, 相对定位后并不会影响相邻的元素。
+3. `absolute`: 绝对定位, 给定absolute之后, 会飘出文档流, 本身的物理空间也消失了。找最近的设置了relative的元素位置进行参照, 没有设置则以祖先元素html为参照。
+4. `fixed: `绝对定位, 相对于浏览器窗口进行绝对定位, 同样可以通过TRBL设置位置。
+5. `inherit`: 从父元素中继承position属性
+
+---
+
+### 13.使用 CSS 预处理器的优缺点有哪些?
+
+**优点**:
+
+1. css的语法不够强大, 需要重复书写很多重复的选择器.css预处理器刚好解决了这一问题。
+2. 提供变量和逻辑控制
+3. 合理的样式复用机制 减少代码的冗余
+4. 提高代码的可维护性
+5. mixin 混入
+
+**缺点**: 
+
+1. 学习成本有点高。
+2. 使用这个预处理团队的难度加大
+3. 个人感觉是css本来就是很简单的东西, 这样搞的更复杂
+
+---
+
+### 14.列出display的值, 说明他们的作用。position的值,  relative和absolute定位原点是?
+
+// TODO
+
+---
+
+### 15.你用过媒体查询, 或针对移动端的布局/CSS吗?
+
+[什么是响应式设计? 响应式设计的基本原理是什么? 如何做?](/css/responsive_layout)
+
+---
+
+### 16.如何优化网页的打印样式?
+
+其中media指定的属性就是设备, 显示器上就是screen, 打印机则是print, 电视是tv, 投影仪是projection。打印样式示例如下: 
+
+
+但打印样式表也应注意以下事项: 
+
+打印样式表中最好不要用背景图片, 因为打印机不能打印CSS中的背景。如要显示图片, 请使用html插入到页面中。
+最好不要使用像素作为单位, 因为打印样式表要打印出来的会是实物, 所以建议使用pt和cm。
+隐藏掉不必要的内容。`(@print div{display:none;})`
+打印样式表中最好少用浮动属性, 因为它们会消失。如果想要知道打印样式表的效果如何, 直接在浏览器上选择打印预览就可以了。
+
+---
+
+### 17.简述写高效CSS时会有哪些问题需要考虑?
+
+1. 样式是: 从右向左的解析一个选择器;
+2. ID最快, Universal最慢有四种类型的key selector, 解析速度由快到慢依次是: ID、class、tag和universal ;
+3. 不要tag-qualify(永远不要这样做ul#main-navigation{}ID已经是唯一的, 不需要Tag来标识, 这样做会让选择器变慢。);
+4. 后代选择器最糟糕(换句话说, 下面这个选择器是很低效的: html body ul li a{});
+5. 想清楚你为什么这样写;
+6. CSS3的效率问题(CSS3选择器(比如:nth-child)能够漂亮的定位我们想要的元素, 又能保证我们的CSS整洁易读。但是这些神奇的选择器会浪费很多的浏览器资源。);
+7. 我们知道#ID速度是最快的, 那么我们都用ID, 是不是很快。但是我们不应该为了效率而牺牲可读性和可维护性
+
+---
+
+### 18.解释下浏览器是如何判断元素是否匹配某个CSS选择器?
+
+从后往前判断。浏览器先产生一个元素集合, 这个集合往往由最后一个部分的索引产生(如果没有索引就是所有元素的集合)。然后向上匹配, 如果不符合上一个部分, 就把元素从集合中删除, 直到真个选择器都匹配完, 还在集合中的元素就匹配这个选择器了。举个例子, 有选择器: 
+
+`body.ready#wrapper>.lol233`
+
+先把所有class中有lol233的元素拿出来组成一个集合, 然后上一层, 对每一个集合中的元素, 如果元素的parent id不为#wrapper则把元素从集合中删去。再向上, 从这个元素的父元素开始向上找, 没有找到一个tagName为body且class中有ready的元素, 就把原来的元素从集合中删去。至此这个选择器匹配结束, 所有还在集合中的元素满足。大体就是这样, 不过浏览器还会有一些奇怪的优化。为什么从后往前匹配因为效率和文档流的解析方向。效率不必说, 找元素的父亲和之前的兄弟比遍历所哟儿子快而且方便。关于文档流的解析方向, 是因为现在的CSS, 一个元素只要确定了这个元素在文档流之前出现过的所有元素, 就能确定他的匹配情况。应用在即使html没有载入完成, 浏览器也能根据已经载入的这一部分信息完全确定出现过的元素的属性。为什么是用集合主要也还是效率。基于CSS Rule数量远远小于元素数量的假设和索引的运用, 遍历每一条CSS Rule通过集合筛选, 比遍历每一个元素再遍历每一条Rule匹配要快得多。
+
+---
+
+### 19.如何用DIV+CSS实现3栏布局(左右固定200pX, 中间自适应)?
+
+[如何实现两栏布局, 右侧自适应? 三栏布局中间自适应呢?](/css/column_layout)
+
+---
+
+### 20.解释一下 CSS Sprite(精灵图), 以及如何在页面或网站中使用它 ?
+
+CSS Sprite其实就是把网页中一些背景图片整合到一张图片文件中, 再利用CSS的`"background-image"`, `"background-repeat"`, `"background-position"`的组合进行背景定位, `background-position`可以用数字精确地定位出背景图片的位置。
+
+>注意: 在高级浏览器中, 可以基于图片的bose64编码存储, 将图片与其他类型的文件打包
+
+---
+
+### 21.简要描述CSS中 content属性的作用 ?
+
+content属性与`:before`及`:after`伪元素配合使用, 用来插入生成的内容, 可以在元素之前或之后放置生成的内容。可以插入文本、图像、引号, 并可以结合计数器, 为页面元素插入编号。比如, 查看如下代码。
+
+```css
+body{
+  counter-reset: chapter;
+}
+
+h1:before{
+  content: "第" counter(chapter)"章";
+}
+
+h1 {
+  counter-increment: chapter;
+}
+```
+
+使用 content属性, 并结合 :before选择器和计数器 counter, 可以在每个元素前插入新的内容。
+
+---
+
+### 22.CSS如何定义高度很小的容器?
+
+因为有一个默认的行高, 所以在IE6下无法定义小高度的容器。
+
+两种解决方案分别是 `overflow:hidden`或`font-size: 容器高度px`
+
+---
+
+### 23.如何在图片下方设置几像素的空白间隙?
+
+定义img为 `display: block`, 或定义父容器为`font-size: 0`
+
+---
+
+### 24.如何解决IE6双倍 margin的Bug?
+
+使用 `display:inline`
+
+---
+
+### 25.如何让超出宽度的文字显示为省略号?
+
+[如何实现单行／多行文本溢出的省略样式?](/css/single_multi_line)
+
+---
+
+### 26.CSS如何使英文单词发生词内断行? 
+
+`word-wrap: break-word`
+
+---
+
+### 27.如何实现IE6下的 position:fxed?
+
+```css
+html_ {
+  overflow: hidden;
+}
+body_ {
+  overflow: auto;
+  height: 100%;
+}
+.fixed{
+  position: fixed;
+  _position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  background: #000;
+}
+```
+
+---
+
+### 28.CSS如何让min-height兼容IE6?
+
+```css
+.min-height {
+  min-height: 100px;
+  _height: 100px;
+  background: red;
+}
+```
+
+---
+
+### 29.简述网页制作会用到哪些图片格式?
+
+用于网页制作的主流图像格式有JPG、PNG、GIF等。
+
+- JPG: 压缩率高, 文件小, 最常用。
+- PNG: 支持无损压缩, 色彩损失小, 保真度高, 文件稍大。
+- GIF: 支持动画显示, 但只支持256色显示, 目前已经被Fash大量取代
+
+---
+
+### 30.对行内元素设置 margin-top和 margin-bottom是否起作用?
+
+不起作用
+
+>需要注意行内元素的替换元素img、Input, 它们是行内元素, 但是可以设置它们的宽度和高度, 并且`margin`属性也对它们起作用, `margin-top`和`margin-botton`有着类似于`inline-block`的行为
+
+---
+
+### 31.简述div+css的布局较table布局有什么优点?
+
+1. 改版的时候更方便, 只须改动CSS文件。
+2. 页面加载速度更快、结构清晰、页面简洁。
+3. 表现与结构分离。
+4. 搜索引擎优化(SEO)更友好, 排名更靠前。
+
+---
+
+### 32.简述你对IFC规范的理解?
+
+[谈谈你对IFC的理解](/css/ifc)
+
+---
+
+### 33.简述GFC规范的理解 ?
+
+[谈谈你对GFC的理解](/css/gfc)
+
+---
+
+### 34.访问超链接后 hover样式就不出现的原因是什么?应该如何解决?
+
+因为访问过的超链接样式覆盖了原有的`hover`和`active`伪类选择器样式, 解决方法是将CSS属性的排列顺序改为L→V→H→A(link, visited, hover, active)
+
+---
+
+### 35.简述CSS什么是外边距重叠?重叠的结果是什么?
+
+外边距重叠就是 margin-collapse在CSS中, 相邻的两个盒子(可能是兄弟关系也可能是祖先关系)的外边距可以结合成一个单独的外边距。这种合并外边距的方式称为折叠, 因此而结合成的外边距称为折叠外边距。
+折叠结果遵循下列计算规则。
+
+(1)当两个相邻的外边距都是正数时, 折叠的结果是它们两者中较大的值
+
+(2)当两个相邻的外边距都是负数时, 折叠的结果是两者中绝对值较大的值。
+
+(3)当两个外边距一正一负时, 折叠的结果是两者相加的和
+
+---
+
+### 36.解释rgba()和opacity的透明效果有什么不同?
+
+`rgba()`和`opacity`都能实现透明效果, 但它们最大的不同是
+
+- `opacity`作用于元素, 并且可以设置元素内所有内容的透明度;
+- 而`rgba()`只作用于元素的颜色或其背景色(设置rgba透明的元素的子元素不会继承透明效果)
+
+---
+
+### 37.解释CSS中可以让文字在垂直和水平方向上重叠的两个属性是什么?
+
+- 垂直方向的属性是 `line-height`
+- 水平方向的属性是 `letter-spacing`
+
+---
+
+### 38.CSS中可以通过哪些属性定义, 使得一个DOM元素不显示在浏览器可视范围内?
+
+最基本的方式如下。
+
+设置display属性为none, 或者设置visibility属性为hidden技巧性的方式如下。
+
+设置宽高为0, 透明度为0, 设置z-index位置为-1000
+
+---
+
+### 39.简述常用的块属性标签及其特征有哪些?
+
+常用块标签有div、hl、h6、ol、ul、li、d、 table、p、br、form。块标签的特征有独占一行, 换行显示, 可以设置宽、高, 块可以套块和行
+
+---
+
+### 40.如何避免文档流中的空白符合并现象?
+
+空白符合并是标准文档流的特征之一, 可以通过设置`white-spac`修改这一特征, 属性值如下。
+
+- `pre`表示不会合并空白符, 渲染换行符, 不会自动换行, 相当于pre元素。
+- `pre-wrap`表示不会合并空白符, 渲染换行符, 自动换行pre-line表示合并空白符, 渲染换行符, 自动换行。
+- `nowrap`表示合并空白符, 不会渲染换行符, 不会自动换行。
+- `normal`表示默认值, 按照文档流特点渲染, 合并空白符, 不会渲染换行符, 自动换行
+
+---
+
+### 41.透明度具有继承性, 如何取消透明度的继承?
+
+使用rgba给元素的背景设置透明度的方式, 来替代使用opacity设置元素透明度的方式, 解决子元素继承父元素透明度的问题
+
+---
+
+### 42.简述CSS中, 自适应的单位都有哪些?
+
+自适应的单位有以下几个
+- 百分比: %
+- 相对于视口宽度的单位: ww
+- 相对于视口高度的单位: vh
+- 相对于视口宽度或者高度(取决于哪个小)的单位: Vm
+- 相对于父元素字体大小的单位: em
+- 相对于根元素字体大小的单位: rem
+
+---
+
+### 43.简述当使用`transform: translate`属性时会出现闪烁现象, 如何解决?
+
+解决方案如下。
+
+- `-webkit-backface-visibility:hidden;` 隐藏转换的元素的背面
+- `webkit-transform-style:preserve-3d;` 使被转换的元素的子元素保留其3D转换
+- `webkit-transtorm:translate3d(0,0,0);` 开启GPU硬件加速模式, 使用GPU代替CPU渲染动画
+
+>注意: 在某些Android系统中, 有时会有莫名其妙的Bug, 建议慎重使用
+
+---
+
+### 44.简述用两种方式实现div元素以每秒50px的速度左移100X?
+
+**方法一, 使用 jQuery**
+
+```js
+$('div').animate({'left': 100}, 2000);
+```
+
+**方法二, 使用 JavaScript+CSS3**
+
+CSS部分如下。
+```css
+div {
+  transition: all 2s linear; /* linear 规定以相同速度(匀速)开始至结束的过渡效果 */
+}
+```
+JavaScript部分如下: 
+
+```js 
+var div = dpcument.getElenmentById('div');
+div.style.left =(div offsetLeft + 100) + 'px';
+```
+
+---
+
+### 45.简述CSS3动画的优点?
+
+**优点如下**:
+
+(1)在性能上会稍微好一些, 浏览器会对CSS3的动画做一些优化。
+
+(2)代码相对简单。
+
+
+**缺点如下**:
+
+(1)在动画控制上不够灵活
+
+(2)兼容性不好。
+
+(3)部分动画功能无法实现
+
+---
+
+### 46.简述Animation与Transition的异同?
+
+Animation与Transition的功能相同, 都是通过改变元素的属性值来实现动画效果的。它们的区别在于, 使用Transition的功能时只能用指定属性的开始值和结束值, 然后在这两个属性值之间使用平滑过渡的方式实现动画效果, 因此不能实现比较复杂的动画效果。
+
+Animation功能通过定义多个关键帧, 以及定义每个关键帧中元素的属性值来实现更为复杂的动画效果。
+
+---
+
+### 47.如何把元素从左侧移动50像素, 从顶端移动100像素?
+
+```css
+div {
+  transform: translate(50px,100px);
+  -ms-transform: translate(50px, 100px); /* IE9 */
+  -webkit-transform: translate(50px, 100px); /* Safari 和 Chrome */
+  -o-transform: translate(50px, 100px); /* opera */
+  -moz-transform: translate(50px, 100px); /* Firefox */
+}
+```
+
+---
+
+### 48.CSS如何把一个元素旋转30°?
+
+```css
+div {
+  transform: rotate(30deg);
+  -ms-transfornm: rotate(30deg); /* IE9 */
+  -webkit-transform: rotate(30deg);/* Safar1和 Chrome */
+  -o-transform: rotate(30deg); /* opera */
+  -moz-transform: rotate(30deg); /* Firefox */
+}
+```
+
+---
+
+### 49.如何使用matrix将div元素旋转30°?
+
+```css
+div {
+  transform: matrix(0.866, 0.5, -0.5, 0.866, 0, 0);
+  -ms-transform: matrix(0.866, 0, 5=0, 5, 0, 866, 0, 0); /*IE9*/
+  -moz-transform: matrix(0.866, 0.5, -05, 0.866, 0, 0); /*Firefox */
+  -o-transform: matrix(0.866, 0.5, -0, 5, 0.866, 0, 0); /*Opera*/
+}
+```
+
+---
+
+### 50.如何利用CSS3制作淡入淡出的动画效果? 
+
+(1)定义动画关键帧, 名称为 fadeIn
+
+```css
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;/*初始状态, 透明度为0*/
+  }
+  to {
+    opacity: 1;/*结尾状态, 透明度为1*/
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;/*初始状态, 透明度为1*/
+  }
+  to {
+    opacity: 0;/*结尾状态, 透明度为0*/
+  }
+}
+```
+
+(2)为div增加如下动画代码。
+
+```css
+div {
+  -webkit-animation-name: fadeIn;/*动画名称*/
+  -webkit-animation-duration: 3s;/*动画持续时间*/
+  -webkit-animation-iteration-count: 1;/*动画次数*/
+  -webkit-animation-delay: 0s;/*延迟时间*/
+}
+```
+
+---
+
+### 51.简述CSS如何为盒子添加蒙版?
+
+代码如下。
+
+```css
+demo {
+  height: 144px;
+  width: 144px;
+  background: url(logo.png);
+  -webkit-mask-image: url(shadow.png);
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-repeat: no-repeat;
+}
+```
+
+蒙版复合属性的语法是`-webkit-mask: url(pro_pho_show_pic.png) 50% 50% no-repeat;`
+
+蒙版相关属性如下: 
+
+- -`webkit-mask-clip`, 即蒙版裁剪位置。
+- `-webkit-mask- origin`, 即蒙版原点位置
+
+---
+
+### 52.简述如何实现CSS3倒影?
+
+通过-webkit-box-reflect设置方向、距离。
+
+方向可以设置为 below、 above、left、 right。
+
+
+下面给出一段示例代码
+
+```css
+.demo {
+  height: 144px;
+  width: 144px;
+  background: url(logo.png);
+  -webkit-box-reflect: below 10px;
+}
+```
+
+---
+
+### 53.CSS当元素不面向屏幕时其可见性如何定义?
+
+`backface-visibility: visible | hidden`
+
+---
+
+### 54.简述CSS3中 transition属性值及含义 ?
+
+ransition属性是一个简写属性, 用于设置以下4个过渡属性。
+
+- `transition-property`, 哪个属性需要实现过渡
+- `transition-duration`, 完成过渡效果需要多少秒/毫秒
+- `transition-timing-function`, 速度效果的运动曲线, 如 linear、ease-in、ease、ease-out、 ease-in-out, cube-bezier。
+- `transition-delay,` 规定过渡开始前的延迟时间。
+
+---
+
+### 55.CSS如何实现文本换行?
+
+具体代码如下: 
+
+```css
+div{
+  width: 100px;
+  height: 50px;
+  background: #f30;
+  animation: move 3s;
+}
+@keyframes move{
+  from{
+    margin-left:0px;
+  }
+  to {
+    margin-left:200px;
+  }
+}
+```
+
+---
+
+### 56.如何解决通过transform进行skew变形、rotate旋转会出现锯齿现象的问题?
+
+// TODO
+
+---
+
+### 57.CSS如何禁止复制或选中文本?
+
+通过以下代码设置样式。
+
+```css
+div {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+```
+
+---
+
+### 58.以CSS3标准定义一个Webkit内核浏览器识别的圆角(尺寸随意)?
+
+```css
+div {
+  -moz-border-radius: 10px; 
+  -webkit-border-radius: 10px; 
+  border-radius: 10px;
+}
+```
+
+---
+
+### 59.简述CSS如何实现超出隐藏省略?
+
+1. 表格
+
+在表格中, 如果某一单元格的文本内容过长, 会导致整个表格变得难以阅读和排版。这时候我们可以使用超出隐藏省略技术来隐藏超出单元格范围的文本内容, 以保持表格的美观和易读性。
+
+示例代码如下: 
+
+```css
+td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+
+2. 列表
+
+在列表中, 如果列表项的文本内容过长, 同样会影响界面的排版和美观。使用超出隐藏省略技术可以将超出范围的文本内容隐藏并省略, 使列表更加整洁。
+
+示例代码如下: 
+
+```css
+li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+
+3. 标题
+
+在标题中, 如果标题过长, 同样会影响页面的美观和排版。使用超出隐藏省略技术可以将超出范围的标题内容隐藏并省略, 使标题更加简洁明了。
+
+示例代码如下: 
+
+```css
+h1 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+
+4. 导航菜单
+
+在导航菜单中, 如果某一项的文本内容过长, 会影响整个导航菜单的排版和美观。使用超出隐藏省略技术可以将超出范围的文本内容隐藏并省略, 使导航菜单更加整洁和易读。
+
+示例代码如下: 
+
+```css
+nav a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+```
+
+总结
+
+超出隐藏省略技术是CSS中一种非常实用的技术, 适用于多种场景, 能够有效地提高页面的美观和易读性。在前端开发中, 应该根据需要合理运用这种技术。同时, 我们也需要注意一些细节, 例如不要过多地省略文本, 以免影响页面的信息传递和用户阅读体验。
+
+---
+
+### 60.简述CSS怎么画一个大小为父元素宽度一半的正方形 ?
+
+// TODO
+
+---
+
+### 61.简述CSS实现自适应正方形、等宽高比矩形 ?
+
+// TODO
+
+---
+
+
+### 62.简述BFC会与float元素相互覆盖吗?为什么?举例说明 ?
+
+不会, 因为 BFC 是页面中一个独立的隔离容器, 其内部的元素不会与外部的元素相互影响, 比如两个div, 上面的 div 设置了 float, 那么如果下面的元素不是 BFC, 也没有设置 float, 会形成对上面的元素进行包裹内容的情况, 如果设置了下面元素为 overflow: hidden;属性那么就能够实现经典的两列布局, 左边内容固定宽度, 右边因为是 BFC 所以会进行自适应
+
+---
+
+### 63.简述两个div上下排列, 都设margin, 有什么现象?
+
+```
+都正取大
+一正一负相加
+问: 为什么会有这种现象?你能解释一下吗
+是由块级格式上下文决定的, BFC, 元素在 BFC 中会进行上下排列, 然后垂直距离由 margin 决定, 并且会发生重叠, 具体表现为同正取最大的, 同负取绝对值最大的, 一正一负, 相加BFC 是页面中一个独立的隔离容器, 内部的子元素不会影响到外部的元素。
+```
+
+---
+
+### 64.简述CSS利⽤边框绘制三⻆形?
+
+[CSS如何画一个三角形? 原理是什么?](/css/triangle)
+
+---
+
+### 65.简述什么是Grid布局?
+
+[介绍一下Grid网格布局](/css/grid)
+
+---
+
+### 66.简述深⼊理解设备像素、CSS像素、设备独⽴像素、 DPR、PPI之间的区别与适配⽅案 ?
+
+[说说设备像素、css像素、设备独立像素、dpr、ppi 之间的区别?](/css/dp_px_dpr_ppi)
+
+---
+
+### 67.简述CSS一行水平居中, 多行居左 ?
+
+```html
+<div>
+  <span>
+    我是多行文字。我是多行文字。我是多行文字。我是多行文字。我是多行文字。我是多行文
+    字。我是多行文字。我是多行文字。我是多行文字。我是多行文字。
+  </span>
+</div>
+<div>
+  <span>
+    我是一行文字
+  </span>
+</div>
+<style>
+  div {
+    text-align: center;
+  }
+  div span {
+    display: inline-block;text-align: left;
+  }
+</style>
+```
+
+---
+
+### 68.简述如何让 chrome 浏览器显示小于 12px 的文字 ?
+
+[让Chrome支持小于12px 的文字方式有哪些? 区别?](/css/less_12)
+
+---
+
+### 69.简述于关于JS和动画和 css3 ?
+
+// TODO

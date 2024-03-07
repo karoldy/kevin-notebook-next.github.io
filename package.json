@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:mdx": "markdownlint ./pages"
+    "lint:mdx": "markdownlint  ./src/pages/**/*.mdx"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
@@ -41,7 +41,7 @@
     }
   },
   "lint-staged": {
-    "docs/**/*.mdx": [
+    "src/pages/**/*.mdx": [
       "yarn lind:mdx ",
       "git add"
     ]
