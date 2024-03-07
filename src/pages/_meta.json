@@ -6,6 +6,11 @@
     },
     "display": "hidden"
   },
+  "html": "Html",
+  "css": "Css",
+  "javascript": "JavaScript",
+  "es6": "ES6",
+  "http": "Http",
   "interview": "面试题",
   "markdown": "Markdown",
   "markdown-link": "Markdown Link"
