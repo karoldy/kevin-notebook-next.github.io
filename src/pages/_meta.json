@@ -6,15 +6,8 @@
     },
     "display": "hidden"
   },
-  "html": "Html",
-  "css": "Css",
-  "javascript": "JavaScript",
-  "es6": "ES6",
-  "vue2": "Vue2",
-  "vue3": "Vue3",
-  "react": "React",
-  "http": "Http",
   "interview": "面试题",
+  "web_high_interview": "前端(高级)面试体系手册",
   "markdown": "Markdown",
   "markdown-link": "Markdown Link"
 }

@@ -1,0 +1,1818 @@
+# MongoDB 面试题
+
+## 面试官系列
+
+## 经典面试题
+
+### 简述什么是MongoDB？
+
+```
+MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。
+
+（1）在高负载的情况下，添加更多的节点，可以保证服务器性能。
+（2）MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。
+（3）MongoDB 将数据存储为一个文档，数据结构由键值(key=>value)对组成。
+（4）MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组
+```
+
+### MySQL与MongoDB之间最基本的差别是什么? 
+
+```
+MySQL与MongoDB都是开源的常用数据库，但是MySQL是传统的关系型数据库，MongoDB则是非关系型数据库，也叫文档型数据库，是一种NoSQL的数据库。它们各有各的优点，关键是看用在什么地方。所以我们所熟知的那些SQL语句就不适用于MongoDB了，因为SQL语句是关系型数据库的标准语言。
+
+一、关系型数据库-MySQL
+1、在不同的引擎上有不同的存储方式。
+2、查询语句是使用传统的sql语句，拥有较为成熟的体系，成熟度很高。
+3、开源数据库的份额在不断增加，mysql的份额页在持续增长。
+4、缺点就是在海量数据处理的时候效率会显著变慢。
+
+二、非关系型数据库-MongoDB
+非关系型数据库(nosql ),属于文档型数据库。先解释一下文档的数据库，即可以存放xml、json、bson类型系那个的数据。这些数据具备自述性，呈现分层的树状数据结构。数据结构由键值(key=>value)对组成。
+
+1、存储方式：虚拟内存+持久化。
+2、查询语句：是独特的MongoDB的查询方式。
+3、适合场景：事件的记录，内容管理或者博客平台等等。
+4、架构特点：可以通过副本集，以及分片来实现高可用。
+5、数据处理：数据是存储在硬盘上的，只不过需要经常读取的数据会被加载到内存中，将数据存储在物理内存中，从而达到高速读写。
+6、成熟度与广泛度：新兴数据库，成熟度较低，Nosql数据库中最为接近关系型数据库，比较完善的DB之一，适用人群不断在增长。
+```
+
+### MongoDB成为最好NoSQL数据库的原因是什么? 
+
+```
+1：与关系数据库相比，性能调整轻而易举。
+非常容易扩展。
+因为它是一个 NOSQL 数据库，它本质上是安全的，因为它不能执行 SQL 注入。
+MongoDB 支持的文档查询语言在支持动态查询方面起着至关重要的作用。
+MongoDB 不需要使用虚拟机。
+由于它将数据存储在内部存储器中，因此可以更快地访问数据。
+不需要将应用程序对象与数据对象相关联。
+MongoDB 也可以用作文件系统，这使得负载平衡更加容易。
+有大量可访问的文档。
+
+2：是什么让 MongoDB 流行起来？
+高性能：无论规模大小，NoSQL (MongoDB) 数据库都旨在在吞吐量和延迟方面提供出色的性能。
+灵活的数据模型：MongoDB 中的文档数据格式使存储和聚合任何类型的数据变得简单，而无需牺牲复杂的验证规则、数据访问或广泛的索引功能。
+一组集成功能：分析、文本搜索、地理定位、内存性能、数据可视化和全局复制使您能够在单个平台上可靠、安全地提供广泛的实时应用程序。为了成功实现这一目标，RDBMS 系统需要额外的、复杂的技术，这些技术需要单独的集成开销和支出。
+更低的 TCO：MongoDB 使应用程序开发团队的工作效率更高。管理就像单击按钮一样简单，这一事实意味着运营团队也是如此。MongoDB 在商用硬件上运行，显着降低了开支。
+跨多个数据中心的可扩展性：MongoDB 可以在地理上相距遥远的数据中心内外进行扩展，从而为表带来更高级别的可用性和可扩展性。随着部署在数据量和性能方面的增长，MongoDB 以最少的停机时间或对应用程序的更改快速增长。
+MongoDB 提供负担得起的年度订阅，包括一年 365 天、一周 7 天、一天 24 小时的全球支持。与使用关系数据库相比，您的应用程序的交付成本可能只有其十分之一
+```
+
+### 简述在哪些场景使用MongoDB？
+
+```
+传统的关系型数据库（如MySQL），在数据操作的“三高”需求以及应对Web2.0的网站需求面前，显得力不从心。其中“三高”是指：
+
+High performance - 对数据库高并发读写的需求。
+Huge Storage - 对海量数据的高效率存储和访问的需求。
+High Scalability && High Availability- 对数据库的高可扩展性和高可用性的需求。
+
+【适用场景】
+（1）社交场景，使用 MongoDB 存储存储用户信息，以及用户发表的朋友圈信息，通过地理位置索引实现附近的人、地点等功能。
+（2）游戏场景，使用 MongoDB 存储游戏用户信息，用户的装备、积分等直接以内嵌文档的形式存储，方便查询、高效率存储和访问。
+（3）物流场景，使用 MongoDB 存储订单信息，订单状态在运送过程中会不断更新，以 MongoDB 内嵌数组的形式来存储，一次查询就能将订单所有的变更读取出来。
+（4）物联网场景，使用 MongoDB 存储所有接入的智能设备信息，以及设备汇报的日志信息，并对这些信息进行多维度的分析。
+（5）视频直播，使用 MongoDB 存储用户信息、点赞互动信息等。
+
+适用场景特点：
+数据量大
+写入操作频繁（读写都很频繁）
+价值较低的数据，对事务性要求不高
+MongoDB架构选型：
+应用不需要事务及复杂 join 支持
+新应用，需求会变，数据模型无法确定，想快速迭代开发
+应用需要2000-3000以上的读写QPS（更高也可以）
+应用需要TB甚至 PB 级别数据存储
+应用发展迅速，需要能快速水平扩展
+应用要求存储的数据不丢失
+应用需要99.999%高可用
+应用需要大量的地理位置查询、文本查询
+上述有1个符合，可以考虑 MongoDB，2个及以上的符合，选择 MongoDB 绝不会后悔
+```
+
+### MongoDB支持哪些数据类型？ 
+
+```
+MongoDB支持以下数据类型：
+
+1. 字符串（String）：存储文本。
+2. 数字（Number）：整数或浮点数。
+3. 布尔值（Boolean）：只有两个值，即true和false。
+4. 对象ID（Object ID）：12字节的文档唯一标识符。
+5. 日期时间（Date）：存储日期和时间。
+6. 正则表达式（Regular Expression）：存储正则表达式。
+7. 数组（Array）：存储值的序列。
+8. 内嵌文档（Embedded Document）：嵌套在其他文档中的文档。
+9. Null：用于表示空或缺失的值。
+10. 二进制数据（Binary data）：存储二进制数据，如图像、音频和视频等。
+11. 代码（Code）：存储JavaScript代码。
+12. 代码（Code with Scope）：与Code类似，但也存储代码作用域。
+13. 时间戳（Timestamp）：用于内部使用，通常与操作日志一起使用。
+除了基本数据类型，MongoDB还支持地理位置（GeoJSON）和文本（Text）数据类型，可以实现空间数据存储和全文索引
+```
+
+### 简述MongoDb索引机制？ 
+
+```
+MongoDB索引是一种数据结构，可以帮助MongoDB在集合中快速查找数据。索引是一种特殊的文档，它包含集合中的字段值以及该值出现的位置。
+MongoDB支持多种类型的索引，包括单字段索引、复合索引、全文本索引等。
+
+索引的作用
+索引的作用是提高查询效率，MongoDB在进行查询操作时优先使用索引，从而减少查询时的扫描次数，提高查询效率。同时，索引可以降低MongoDB的写入性能，因为索引会占用磁盘空间和内存。
+MongoDB的索引分类
+MongoDB的索引可以分为以下几类：
+
+1：单字段索引
+单字段索引是最基本的索引类型，它可以把集合中的某个字段（如_id）的值与该字段所对应文档的位置关联起来。
+例如，以下代码用于在集合students中创建一个_id字段为单字段索引：
+db.students.ensureIndex({_id: 1})
+
+2：复合索引
+复合索引是将多个字段的索引合并到一起，形成一个新的索引。复合索引的查找速度比单字段索引更快。
+例如，以下代码用于在集合students中创建一个名字和年龄字段为复合索引：
+db.students.ensureIndex({name: 1, age: -1})
+在使用复合索引时，需要注意以下几点：
+索引键的顺序非常重要，它会直接影响索引的效率。
+复合索引包含了多个字段，查询时需要完全满足索引顺序才能进行查找。
+
+3：唯一索引
+唯一索引可以保证集合中某个或某些字段的值是唯一的。
+例如，以下代码用于在集合students中创建一个_id字段为唯一索引：
+db.students.ensureIndex({_id: 1}, {unique: true})
+
+4：稀疏索引
+稀疏索引只包含有索引键的文档，它可以跳过未包含索引键的文档。在某些场景下使用稀疏索引可以大大降低索引建立和查询所需空间。
+例如，以下代码用于在集合students中创建一个address字段为稀疏索引：
+db.students.ensureIndex({address: 1}, {sparse: true})
+
+5：全文本索引
+全文本索引是特殊的文本索引，它可以帮助MongoDB在文本数据中匹配出最相关的文档。
+例如，以下代码用于在集合articles中创建一个content字段为全文本索引：
+db.articles.ensureIndex({content: "text"})
+
+## 索引的使用
+在MongoDB中，除了创建索引之外，还需要在查询时使用正确的索引才能发挥出索引的优势。
+
+查询计划
+MongoDB为查询准备一个查询计划，利用该计划确定如何查询集合。查询计划如下：
+
+选择最优的索引，该索引必须包含查询条件中的所有字段。
+如果没有合适的索引， MongoDB会返回错误。如果查询条件只涉及到了集合中少量的数据，MongoDB会在查询计划中选择全集合扫描。
+如果在索引中查找到了结果，那么MongoDB会选择使用这个索引，这个索引就是所谓的“覆盖索引”。
+索引选择
+在选择索引时，应该使用查询条件中所有字段的索引，特别是在复合索引中。如果选择不正确的索引，将会导致查询效率低下。
+对于单字段索引，只要查询条件中包含该字段，MongoDB就会自动选择正确的索引。对于复合索引，MongoDB会优先选择索引键中最前面的字段。因此，在创建复合索引时，应该根据查询条件顺序考虑。
+例如，在以下查询中，mongodb将优先选择name字段的单字段索引：
+db.students.find({name: "zhangsan", age: 20})
+使用explain方法
+在进行查询优化时，可以使用MongoDB的explain方法查看查询计划。
+例如，在以下代码中使用explain方法查看查询计划：
+db.students.find({name: "zhangsan", age: 20}).explain()
+explain方法返回的结果中包含了查询计划的详细信息，可以帮助我们进行索引优化。
+
+示例说明
+下面给出两个示例：
+示例一：创建一个复合索引
+假设集合中有以下文档：
+{ "_id": "1", "name": "zhangsan", "age": 20, "sex": "male" }
+{ "_id": "2", "name": "lisi", "age": 21, "sex": "male" }
+{ "_id": "3", "name": "zhangsan", "age": 22, "sex": "female" }
+{ "_id": "4", "name": "wangwu", "age": 22, "sex": "male" }
+{ "_id": "5", "name": "zhangsan", "age": 20, "sex": "female" }
+创建一个name和age字段的复合索引：
+db.collection.ensureIndex({"name": 1, "age": 1})
+示例二：使用explain方法查看查询计划
+假设集合中有以下文档：
+{ "_id": "1", "name": "zhangsan", "age": 20, "sex": "male" }
+{ "_id": "2", "name": "lisi", "age": 21, "sex": "male" }
+{ "_id": "3", "name": "zhangsan", "age": 22, "sex": "female" }
+{ "_id": "4", "name": "wangwu", "age": 22, "sex": "male" }
+{ "_id": "5", "name": "zhangsan", "age": 20, "sex": "female" }
+使用explain方法查看查询计划：
+db.collection.find({"name": "zhangsan", "age": 20}).explain()
+explain方法返回的结果中，包含了查询计划的详细信息。我们可以从中发现，MongoDB选择了name和age字段的复合索引，也就是我们创建的索引，在查询时发挥了作用。
+```
+
+### 简述MongoDB五大特性 ？ 
+
+```
+1. 面向文档
+MongoDB是面向文档存储的数据库，它存储的是类似JSON的BSON格式的文档。文档是多个字段的键值对集合，可以包含多个值，如下面的示例：
+
+{
+"_id": ObjectId("541680b2c0e20c2cc5f5cf31"),
+"name": "MongoDB",
+"type": "document-oriented",
+"count": 1,
+"info": {
+"x": 203,
+"y": 102
+}
+}
+2. 动态Schema
+MongoDB是一种无模式的数据库，它允许存储的文档结构可以随意改变，为数据建模带来了很大的灵活性。例如，可以将一个文档中的文本字段替换为另一个文档的二进制对象，而不需要对现有数据进行修改。
+
+3. 支持多种查询和索引
+MongoDB支持丰富的查询语言，包括匹配、范围查询、正则表达式匹配等等。同时，它还支持多种类型的索引，如单键、复合键、全文索引等等，能够支持更加灵活的数据库查询。
+
+4. 高可扩展性
+MongoDB可以通过对集群进行分片和副本集的方式，来扩展数据库的存储容量和读写性能。MongoDB的副本集是将数据复制到多个服务器的数据库，而分片则是将数据分散到多个服务器上的数据库。
+
+5. 开源免费
+MongoDB是一款开源的数据库，可以免费使用。同时，MongoDB还提供企业版以及一些收费的增值服务，以便更好地支持企业级应用。
+```
+
+### 简述MongoDB内部构造？ 
+
+```
+MongoDB的内部构造包含以下内容：
+
+数据库
+MongoDB中的数据以数据库的形式存储，一个MongoDB实例可以包含多个数据库。
+
+集合
+集合是MongoDB中存储文档的地方，每个集合都有一个唯一的名称，集合中的文档可以采用不同的结构。
+
+文档
+MongoDB中的文档采用BSON（Binary JSON）格式，是一个包含键值对的文档，其中键值对是有序的，并且值可以是一个文档、数组或其他数据类型。
+
+索引
+MongoDB中的索引用于快速查找文档，提高查询性能。 MongoDB支持多种类型的索引，包括单字段、组合、哈希、全文本和地理空间等。
+```
+
+### 简述Java实现mongodb的数据库连接池？ 
+
+```
+1. 首先，需要导入MongoDB的Java驱动jar包及连接池jar包
+
+org.mongodb
+mongodb-driver-sync
+4.4.1
+
+
+com.mongodb
+mongodb-driver-sync
+4.4.1
+
+
+org.mongodb
+mongodb-driver-core
+4.4.1
+
+
+com.zaxxer
+HikariCP
+3.4.1
+
+2. 接下来，在代码中配置HikariCP连接池
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerAddress;
+import com.mongodb.MongoCredential;
+import com.mongodb.client.MongoClients;
+
+import com.zaxxer.hikari.HikariDataSource;
+
+public class MongoDBConfig {
+
+private static final String DATABASE_NAME = "test";
+private static final String USERNAME = "username";
+private static final String PASSWORD = "password";
+private static final String HOST = "localhost";
+private static final int PORT = 27017;
+
+public static HikariDataSource getDataSource() {
+MongoClientSettings settings = MongoClientSettings.builder()
+.applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(HOST, PORT))))
+.credential(MongoCredential.createCredential(USERNAME, DATABASE_NAME, PASSWORD.toCharArray()))
+.build();
+MongoDatabase database = MongoClients.create(settings).getDatabase(DATABASE_NAME);
+HikariDataSource hikariDataSource = new HikariDataSource();
+hikariDataSource.setJdbcUrl("jdbc:mongodb://" + HOST + ":" + PORT + "/" + DATABASE_NAME);
+hikariDataSource.setDataSourceClassName("org.mongodb.jdbc.MongoDataSource");
+hikariDataSource.setUsername(USERNAME);
+hikariDataSource.setPassword(PASSWORD);
+return hikariDataSource;
+}
+
+public static MongoDatabase getMongoDatabase() {
+HikariDataSource dataSource = getDataSource();
+return dataSource.unwrap(MongoDatabase.class);
+}
+
+public static MongoCollection getMongoCollection(String collectionName) {
+MongoDatabase database = getMongoDatabase();
+return database.getCollection(collectionName);
+}
+}
+3. 最后，在代码中调用连接池获取MongoDB的数据库连接
+MongoCollection collection = null;
+try (Connection connection = MongoDBConfig.getDataSource().getConnection()) {
+collection = MongoDBConfig.getMongoCollection("collectionName");
+// do something with the collection
+} catch (SQLException e) {
+e.printStackTrace();
+} finally {
+if (collection != null) collection.close();
+}
+手动实现MongoDB的数据库连接池
+1. 首先，需要导入MongoDB的Java驱动jar包
+
+org.mongodb
+mongodb-driver-sync
+4.4.1
+
+
+com.mongodb
+mongodb-driver-sync
+4.4.1
+
+
+org.mongodb
+mongodb-driver-core
+4.4.1
+
+2. 接下来，在代码中手动实现连接池
+import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoDatabase;
+import org.apache.commons.pool2.PooledObjectFactory;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+
+import java.util.Arrays;
+
+public class MongoDBPool {
+
+private static final String DATABASE_NAME = "test";
+private static final String USERNAME = "username";
+private static final String PASSWORD = "password";
+private static final String HOST = "localhost";
+private static final int PORT = 27017;
+private static final int MAX_TOTAL = 8;
+private static final int MAX_IDLE = 4;
+
+private static final GenericObjectPool mongoPool;
+
+static {
+MongoClientSettings settings = MongoClientSettings.builder()
+.applyToClusterSettings(builder -> builder.hosts(Arrays.asList(new ServerAddress(HOST, PORT))))
+.credential(MongoCredential.createCredential(USERNAME, DATABASE_NAME, PASSWORD.toCharArray()))
+.build();
+PooledObjectFactory pooledObjectFactory = new MongoDBPoolFactory(settings);
+GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig<>();
+genericObjectPoolConfig.setMaxTotal(MAX_TOTAL);
+genericObjectPoolConfig.setMaxIdle(MAX_IDLE);
+mongoPool = new GenericObjectPool<>(pooledObjectFactory, genericObjectPoolConfig);
+}
+
+public static MongoDatabase borrowObject() {
+try {
+return mongoPool.borrowObject();
+} catch (Exception e) {
+throw new RuntimeException("Error: Could not borrow connection from MongoDB connection pool");
+}
+}
+
+public static void returnObject(MongoDatabase database) {
+mongoPool.returnObject(database);
+}
+}
+3. 最后，在代码中调用连接池获取MongoDB的数据库连接
+MongoDatabase database = null;
+try {
+database = MongoDBPool.borrowObject();
+MongoCollection collection = database.getCollection("collectionName");
+// do something with the collection
+} finally {
+if (database != null) {
+MongoDBPool.returnObject(database);
+}
+}
+```
+
+### MongoDb的如何创建索引 ？
+
+```
+>db.test.createIndex({“username”:1})
+创建索引只需几秒的时间，除非集合特别大。如果 createIndex调用在几秒后没有返回，则可以运行 db.currentOp()（在另一个 shell 中）或检查 mongod 的日志以查看索引创建的进度。
+MongoDB 索引的工作原理与典型的关系数据库索引几乎相同
+```
+
+### 简述什么是MongoDb复合索引 ？ 
+
+```
+索引的目的是使查询尽可能高效。对于许多查询模式来说，在两个或更多的键上创建索引是必要的。索引会将其所有值按顺序保存，因此按照索引键对文档进行排序的速度要快得多。然而，索引只有在作为排序的前缀时才有助于排序。
+1、“username” 上的索引对下面这种排序就没什么帮助：
+>db.test.createIndex({“age”:1,“username”:1})
+2、如果查询中有多个排序方向或者查询条件中有多个键，那么这个索引会非常有用。复合索引是创建在多个字段上的索引。
+如果有集合如下：
+{“username”:“u0”,“age”:11}
+{“username”:“u1”,“age”:13}
+{“username”:“u2”,“age”:12}
+{“username”:“u3”,“age”:15}
+如果使用 {“age” : 1, “username” : 1} 在这个集合中创建索引，那么这个索引会是下面这个样子：
+[11,“u0”]->234324324
+[12,“u2”]->234324323
+[13,“u1”]->234324322
+每个索引项都包含年龄和用户名，并指向一个记录标识符.存储引擎在内部使用记录标识符来定位文档数据。注意，“age” 字段严格按升序排列，在每个年龄中，用户名也按升序排列
+>db.test.find({“age”:21}).sort({“username”:-1})
+这是等值查询，用于查找单个值。可能有多个文档具有该值。多亏了索引中的第二个字段，结果已经按照正确的顺序排序：MongoDB 可以从 {“age” : 21} 的最后一个匹配项开始，然后依次遍历索引。
+这种类型的查询非常高效：MongoDB 可以直接跳转到正确的年龄，并且不需要对结果进行排序，因为只要遍历索引就会以正确的顺序返回数据。
+这种类型的查询非常高效：MongoDB 可以直接跳转到正确的年龄，并且不需要对结果进行排序，因为只要遍历索引就会以正确的顺序返回数据。
+3、范围查询导致索引失效
+>db.test.find({“age”:{“$gt”:21,“$lt”:30}}).sort(“username”:1)
+与上一个方式类似，这是多值查询，但这次需要对结果进行排序。和之前一样，MongoDB 会使用索引来匹配查询条件。不过，索引不会按照顺序返回用户名，而查询要求按用户名对结果进行排序。这意味着 MongoDB 需要在返回结果之前在内存中对结果进行排序，而不是简单地遍历已经按需排好序的索引。因此，这种类型的查询通常效率较低。
+4、MongoDB查询速度取决于有多少结果与查询条件相匹配：如果结果集中只是几个文档，那么 MongoDB 将不会耗费多少时间进行排序；如果结果比较多，那么速度就会很慢或者根本不能工作。如果结果超过了 32MB，MongoDB 就会报错，拒绝对这么多数据进行排序。
+要避免这个问题，则必须创建一个支持此排序操作的索引，或者将 limit 与 sort 结合使用以使结果低于 32MB。
+在上一个示例中，可以使用的另一个索引是按相反顺序排列的相同键：{“username” : 1, “age” : 1}。MongoDB 会遍历所有索引项，但会按照希望的顺序返回。然后它会使用索引的 "age"部分来挑选匹配的文档
+```
+
+### 讲述$运算符如何使用索引 ？ 
+
+```
+1、低效的运算符
+取反的效率是比较低的。“$ne” 查询可以使用索引，但不是很有效。由于必须查看所有索引项，而不只是 “$ne” 指定的索引项，因此基本上必须扫描整个索引。
+
+“$not” 有时能够使用索引，但通常它并不知道要如何使用。它可以对基本的范围（比如将 {“key” : {“$lt” : 7}} 变为 {“key” :{“$gte” : 7}}）和正则表达式进行反转。然而，大多数使用"$not" 的查询会退化为全表扫描 1。而 “$nin” 总是使用全表扫描。
+
+如果需要快速执行这些类型的查询，可以尝试看看是否能找到另一个使用索引的语句，将其添加到查询中，这样就可以在MongoDB 进行无索引匹配时先将结果集的文档数量减少到一个比较小的数量。
+
+2、范围
+复合索引使 MongoDB 能够高效地执行具有多个子句的查询。当设计基于多个字段的索引时，应该将用于精确匹配的字段（如 “x” : 1）放在最前面，将用于范围匹配的字段（如 “y”:{“$gt” : 3, “$lt” : 5}）放在最后面。这样可以使查询先用第一个索引键进行精确匹配，然后再用第二个索引范围在这个结果集内部进行搜索。
+
+3、OR查询
+MongoDB 在一次查询中仅能使用一个索引。也就是说，如果在 {“x” : 1} 上有一个索引，在 {“y” : 1} 上有另一个索引，然后在 {“x” : 123, “y” : 456} 上进行查询时，MongoDB 会使用其中一个索引，而不是两个一起使用。唯一的例外是 “ o r " ， 每 个 " or"，每个 " or"，每个"or” 子句都可以使用一个索引，因为实际上 “$or” 是执行两次查询然后将结果集合并。
+
+但是执行两次查询再将结果合并的效率不如单次查询高，因此应该尽可能使用 “$in” 而不是 “$or”。
+
+如果不得不使用 “$or”，则要记住 MongoDB 需要检查两次查询的结果集并从中移除重复的文档（那些被多个 “$or” 子句匹配到的文档）。
+
+除非使用排序，否则在用 “$in” 查询时无法控制返回文档的顺序。例如，{“x” : {“$in” : [1, 2, 3]}} 与 {“x” : {“$in” : [3, 2, 1]}}返回的文档顺序是相同的。
+
+4、索引对象和数组
+MongoDB 允许深入文档内部，对内嵌字段和数组创建索引。内嵌对象和数组字段可以和顶级字段一起在复合索引中使用。
+创建内嵌文档索引：
+>db.test.createIndex({“user.address”:1})
+注：对整个子文档创建索引只会提高针对整个子文档进行查询的速度。
+
+对数组创建索引：(phone为数组)
+>db.test.createIndex({“user.phones”:1})
+注：对数组创建索引实际上就是对数组的每一个元素创建一个索引项。如果用户有2个电话，那么他就有2个索引项。如果数组元素多，这使得数组索引的代价比单值索引要高：对于单次的插入、更新或删除，每一个数组项可能都需要更新（也许会有上千个索引项）。
+
+与内嵌文档不同的是，内嵌文档可以对整个文档建立索引，而对数组创建索引就是对数组中的每个元素创建索引，而不是对数组本身创建索引。
+
+所以数组元素上的索引并不包含任何位置信息：要查找特定位置的数组元素（如 “phones.4”），查询是无法使用索引的。对某个特定的数组项进行索引是可以的,比如：
+>db.test.createIndex({“user.10.phones”:1})
+这个索引只有在精确匹配第 11 个数组元素的时候才会起作用（数组索引从 0 开始）
+
+5、多键索引的影响
+如果一个文档有被索引的数组字段，则该索引会立即被标记为多键索引。可以从 explain 的输出中看到一个索引是否为多键索引：如果使用了多键索引，则 “isMultikey” 字段的值会是true。一旦一个索引被标记为多键，就再也无法变成非多键索引了，即使在该字段中包含数组的所有文档都被删除了也一样。恢复非多键索引的唯一方法是删除并重新创建这个索引。
+
+多键索引可能会比非多键索引慢一些。可能会有许多索引项指向同一个文档，因此 MongoDB 在返回结果之前可能需要做一些删除重复数据的操作。
+
+6、索引基数
+基数（cardinality）是指集合中某个字段有多少个不同的值，通常来说，一个字段的基数越高，这个字段上的索引就越有用。这是因为这样的索引能够迅速将搜索范围缩小到一个比较小的结果集。对于基数比较低的字段，索引通常无法排除大量可能的匹配项。
+通常来说，应该在基数比较高的键上创建索引，或者至少应该把基数比较高的键放在复合索引的前面（在低基数的键之前）。
+```
+
+### 简述MongoDB Explain慢查询 ？ 
+
+```
+explain 可以为查询提供大量的信息。对于慢查询来说，它是最重要的诊断工具之一。通过查看一个查询的 explain输出，可以了解查询都使用了哪些索引以及是如何使用的。对于任何查询，都可以在末尾添加一个 explain 调用（就像添加sort 或 limit 一样，但是 explain 必须是最后一个调用）。
+重要字段的详细介绍：
+“isMultiKey” : false
+本次查询是否使用了多键索引
+“nReturned” : 8449
+本次查询返回的文档数量。
+“totalDocsExamined” : 8449
+MongoDB 按照索引指针在磁盘上查找实际文档的次数。如果查询中包含的查询条件不是索引的一部分，或者请求的字段没有包含在索引中，MongoDB 就必须查找每个索引项所指向的文档。
+“totalKeysExamined” : 8449
+如果使用了索引，那么这个数字就是查找过的索引条目数量。如果本次查询是一次全表扫描，那么这个数字就表示检查过的文档数量。
+“stage” : “IXSCAN”
+MongoDB 是否可以使用索引完成本次查询。如果不可以，那么会使用 “COLLSCAN” 表示必须执行集合扫描来完成查询。
+“needYield” : 0
+为了让写请求顺利进行，本次查询所让步（暂停）的次数。如果有写操作在等待执行，那么查询将定期释放它们的锁以允许写操作执行。在本次查询中，由于并没有写操作在等待，因此查询永远不会进行让步。
+“executionTimeMillis” : 15
+数据库执行本次查询所花费的毫秒数。这个数字越小越好。“executionTimeMillis” 报告了查询的执行速度，即从服务器接收请求到发出响应的时间。然而，这可能并不总是你希望看到的值。如果 MongoDB 尝试了多个查询计划，那么"executionTimeMillis" 反映的是所有查询计划花费的总运行时间，而不是所选的最优查询计划所花费的时间。
+“indexBounds” : {…}
+这描述了索引是如何被使用的，并给出了索引的遍历范围。
+
+如果发现 MongoDB 正在使用的索引与自己希望的不一致，则可以用 hint 强制其使用特定的索引。
+
+注：如果查询没有使用你希望其使用的索引，而你使用了 hint强制进行更改，那么应该在部署之前对这个查询执行 explain。如果强制 MongoDB 在它不知道如何使用索引的查询上使用索引，则可能会导致查询效率比不使用索引时还要低。
+```
+
+### MongoDB何时不使用索引 ？
+
+```
+每个索引占据一定的存储空间，在进行插入，更新和删除操作时也需要对索引进行操作。所以，如果你很少对集合进行读取操作，建议不使用索引。
+```
+
+### 简述MongoDB索引类型 ？ 
+
+```
+1、唯一索引
+唯一索引确保每个值最多只会在索引中出现一次。如果想保证不同文档的 “firstname” 键拥有不同的值，则可以使用partialFilterExpression 仅为那些有 name 字段的文档创建唯一索引
+>db.test.createIndex({“name”:1},{“unique”:true,“partialFilterExpression”:{“name”:{“$exists”:true}}})
+partialFilterExpression 仅为那些有 name存在字段的文档创建唯一索引
+注：如果一个键不存在，那么索引会将其作为 null 存储。这意味着如果对某个键创建了唯一索引并试图插入多个缺少该索引键的文档，那么会因为集合中已经存在了一个该索引键值为null 的文档而导致插入失败。
+在某些情况下，一个值可能不会被索引。索引桶（indexbucket）的大小是有限制的，如果某个索引项超过了它的限制，这个索引项就不会被包含在索引中。这可能会造成一些困惑，因为这会使一个文档对使用此索引的查询“不可见”。在MongoDB 4.2 之前，索引中包含的字段必须小于 1024 字节。在 MongoDB 4.2 及以后的版本中，这个限制被去掉了。如果一个文档的字段由于大小限制不能被索引，那么 MongoDB 就不会返回任何类型的错误或警告。这意味着大小超过 8KB 的键不会受到唯一索引的约束：比如，你可以插入多个相同的 8KB字符串。
+
+2、复合唯一索引
+还可以创建复合唯一索引。在复合唯一索引中，单个键可以具有相同的值，但是索引项中所有键值的组合最多只能在索引中出现一次。
+
+当尝试在现有集合中创建唯一索引时，如果存在任何重复值，则会导致创建失败,通常，需要对数据进行处理（可以使用聚合框架），并找出重复的数据，然后想办法解决。
+
+3、部分索引
+唯一索引会将 null 作为值，因此无法在多个文档缺少键的情况下使用唯一索引。然而，在很多情况下，你可能希望仅在键存在时才强制执行唯一索引。如果一个字段可能存在也可能不存在，但当其存在时必须是唯一的，那么可以将 “unique” 选项与 “partial” 选项组合在一起使用。
+
+要创建部分索引，需要包含 “partialFilterExpression” 选项。部分索引提供了稀疏索引功能的超集，使用一个文档来表示希望在其上创建索引的过滤器表达式。如果有一个电子邮件地址字段是可选的，但是如果提供了这个字段，那么它的值就必须是唯一的。
+
+部分索引不必是唯一的。要创建非唯一的部分索引，只需去掉"unique" 选项即可。
+
+比如有如下文档
+{“id”:0}
+{“id”:1,“x”:2}
+{“id”:1,“x”:3}
+{“id”:1,“x”:4}
+>db.test.find({“x”:{“$ne”:2}}) ,此时会返回：
+{“id”:0}
+{“id”:1,“x”:3}
+{“id”:1,“x”:4}
+如果在 “x” 上创建一个部分索引，那么 “_id” : 0 的文档将不会被包含在索引中。执行查询会有如下结果：
+{“id”:1,“x”:3}
+{“id”:1,“x”:4}
+
+【其他定义来说包括】
+
+单字段索引(Single Field Indexes)
+复合索引(Compound Indexes)
+多键索引(Multikey Indexes)
+全文索引(text Indexes)
+Hash 索引(Hash Indexes)
+通配符索引(Wildcard Index)
+2dsphere索引(2dsphere Indexes)
+```
+
+### 简述MongoDB查询操作 ？ 
+
+```
+MongoDB使用db.collection.find()方法来执行查询操作。这个方法可以接受一系列的选项，以匹配需要查询的数据。
+
+具体来说，我们可以使用以下操作符来执行匹配操作：
+
+$eq：等于
+$ne：不等于
+$gt：大于
+$gte：大于等于
+$lt：小于
+$lte：小于等于
+$in：在某个列表中
+$regex：匹配一个正则表达式
+下面是一个查询示例，假设我们需要查询students集合中age大于22的文档：
+
+查询语句：
+
+db.students.find({
+age: {
+$gt: 22
+}
+})
+查询结果：
+
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c8f"),
+"name": "Alice",
+"age": 23
+}
+```
+
+### 简述MongoDB分页操作与命令 ？
+
+```
+分页操作是指将数据按照指定的数量划分为多个页面进行展示，通常我们需要在前端页面显示分页导航，让用户可以切换不同的页面。MongoDB实现分页操作时，我们需要使用skip()和limit()方法。
+
+其中，skip()方法是指跳过指定数量的记录，limit()方法是指限制返回的记录数量。下面是一个分页示例，假设我们需要在students集合中按照age递增顺序进行分页查询，每页返回2个文档。
+
+查询语句：
+
+db.students.find().sort({
+age: 1
+}).skip(2).limit(2)
+查询结果：
+
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c90"),
+"name": "Bob",
+"age": 24
+},
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c91"),
+"name": "Charlie",
+"age": 26
+}
+```
+
+### 简述MongoDB排序操作与命令 ？
+
+```
+排序操作是指按照指定的字段对查询结果进行排序。在MongoDB中，我们可以使用sort()方法来实现排序操作。sort()方法可以接受一个参数，该参数应该是一个包含排序规则的对象。
+
+下面是一个排序示例，假设我们需要在students集合中按照age递增顺序进行查询。
+
+查询语句：
+
+db.students.find().sort({
+age: 1
+})
+查询结果：
+
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c8f"),
+"name": "Alice",
+"age": 23
+},
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c90"),
+"name": "Bob",
+"age": 24
+},
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c92"),
+"name": "Dave",
+"age": 28
+},
+{
+"_id": ObjectId("5edf5c17d1f70a8447c26c91"),
+"name": "Charlie",
+"age": 26
+}
+```
+
+### 简述MongoDB集合的创建与删除操作方式 ？
+
+```
+MongoDB 中使用 createCollection() 方法来创建集合。
+语法格式：
+db.createCollection(name, options)
+参数说明：
+name: 要创建的集合名称
+options: 可选参数, 指定有关内存大小及索引的选项
+options 可以是如下参数：
+字段 类型 描述
+capped 布尔 （可选）如果为 true，则创建固定集合。固定集合是指有着固定大小的集合，当达到最大值时，它会自动覆盖最早的文档。
+当该值为 true 时，必须指定 size 参数。
+autoIndexId 布尔 （可选）如为 true，自动在 _id 字段创建索引。默认为 false。
+size 数值 （可选）为固定集合指定一个最大值，以千字节计（KB）。
+如果 capped 为 true，也需要指定该字段。
+max 数值 （可选）指定固定集合中包含文档的最大数量。
+
+
+MongoDB 中使用 drop() 方法来删除集合。
+语法格式：
+db.collection.drop()
+返回值
+如果成功删除选定集合，则 drop() 方法返回 true，否则返回 false。
+```
+
+### 简述MongoDB中文档的增删改查 ？
+
+```
+插入文档
+MongoDB 使用 insert() 或 save() 方法向集合中插入文档，语法如下：db.COLLECTION_NAME.insert(document)
+
+更新文档
+update() 方法 用于更新已存在的文档
+save() 方法通过传入的文档来替换已有文档
+
+删除文档
+remove()函数是用来移除集合中的数据。
+
+查询文档
+find() 方法以非结构化的方式来显示所有文档。
+
+MongoDB中条件操作符有：
+
+(>) 大于 - $gt
+(<) 小于 - $lt
+(>=) 大于等于 - $gte
+(<= ) 小于等于 - $lte
+```
+
+### 简述MongoDB聚合？ 
+
+```
+聚合操作能够处理数据记录并返回计算结果。聚合操作能将多个文档中的值组合起来，对成组数据执行各种操作，返回单一的结果。它相当于 SQL 中的 count(*) 组合 group by。对于 MongoDB 中的聚合操作，应该使用aggregate()方法。
+
+db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
+
+聚合又分为
+1：单目的聚合
+2：聚合管道
+```
+
+### 简述MongoDB中什么是副本集（避免单点故障）？ 
+
+```
+MongoDB复制是将数据同步在多个服务器的过程。
+
+复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。
+
+复制还允许您从硬件故障和服务中断中恢复数据。
+
+mongodb的复制至少需要两个节点。其中一个是主节点，负责处理客户端请求，其余的都是从节点，负责复制主节点上的数据。
+
+mongodb各个节点常见的搭配方式为：一主一从、一主多从。
+
+主节点记录在其上的所有操作oplog，从节点定期轮询主节点获取这些操作，然后对自己的数据副本执行这些操作，从而保证从节点的数据与主节点一致。
+```
+
+### MongoDB中什么是master或primary？ 
+
+```
+副本集只能有一个主节点能够确认写入操作来接收所有写操作，并记录其操作日志中的数据集的所有更改(记录在oplog中)。在集群中，当主节点（master）失效，Secondary节点会变为master
+```
+
+### 简述MongoDB 复制选举原理？ 
+
+```
+MongoDB在副本集中，会自动进行主节点的选举，主节点选举的触发条件：
+
+主节点故障
+主节点网络不可达（默认心跳信息为10秒）
+人工干预（rs.stepDown(600)）
+一旦触发选举，就要根据一定规则来选主节点。
+
+选举规则是根据票数来决定谁获胜：
+
+票数最高，且获得了“大多数”成员的投票支持的节点获胜
+
+“大多数”的定义为：假设复制集内投票成员数量为N，则大多数为 N/2 + 1。例如：3个投票成员，
+则大多数的值是2。当复制集内存活成员数量不足大多数时，整个复制集将无法选举出Primary，
+复制集将无法提供写服务，处于只读状态。
+若票数相同，且都获得了“大多数”成员的投票支持的，数据新的节点获胜
+
+数据的新旧是通过操作日志oplog来对比的。
+
+在获得票数的时候，优先级（priority）参数影响重大
+
+可以通过设置优先级（priority）来设置额外票数。优先级即权重，取值为0-1000，相当于可额外增加
+0-1000的票数，优先级的值越大，就越可能获得多数成员的投票（votes）数。指定较高的值可使成员更有资格成为主要成员，更低的值可使成员更不符合条件
+
+默认情况下，优先级的值是1
+```
+
+### MongoDB如何查看oplog日志？ 
+
+```
+maomao:PRIMARY> db.oplog.rs.find()
+其中每个文档都代表主节点上执行的一个操作，oplog会包含所有对数据有修改的操作（查询操作不会记录）
+```
+
+### MongoDB 复制集如何实现切换 ？ 
+
+```
+MongoDB 复制集可以实现集群的高可用，当其中主节点出现故障时，会自动切换到其他节点。管理员也可以手动进行复制集的主从切换
+
+【故障自动切换】
+我们将主节点关闭
+[root@mongodb bin]# mongod -f mongod-27017.conf --shutdown
+killing process with pid: 3097
+[root@mongodb bin]# ss -ntl
+State Recv-Q Send-Q Local Address:Port Peer Address:Port
+LISTEN 0 128 192.168.188.101:27018 *:*
+LISTEN 0 128 192.168.188.101:27019 *:*
+LISTEN 0 128 192.168.188.101:27020 *:*
+发现20718节点成为主节点
+查看状态
+maomao:PRIMARY> rs.status()
+可以发现原"_id"为0的主节点出现故障之后，主节点自动切换到"_id"为1的节点上了
+然后将之前的主节点恢复 结果发现旧的主节点成为了从节点
+[root@mongodb bin]# mongod -f mongod-27017.conf
+maomao:SECONDARY>
+
+【手动主从切换】
+原理是进入到主数据库使得数据库进行短暂的休眠，并且主动交出主节点位置
+暂停30s不参加竞选
+maomao:PRIMARY> rs.freeze(30)
+{
+"ok" : 0,
+"errmsg" : "cannot freeze node when primary or running for election. state: Primary",
+"code" : 95,
+"codeName" : "NotSecondary"
+}
+
+交出主节点位置，维持从节点状态不少于60s，同时等待30s，使主节点和从节点日志同步
+maomao:PRIMARY> rs.stepDown(60,30)
+2021-04-20T02:38:16.098-0400 E QUERY [thread1] Error: error doing query: failed: network error while att
+empting to run command 'replSetStepDown' on host '192.168.188.101:27018' :DB.prototype.runCommand@src/mongo/shell/db.js:132:1
+DB.prototype.adminCommand@src/mongo/shell/db.js:150:16
+rs.stepDown@src/mongo/shell/utils.js:1351:12
+@(shell):1:1
+2021-04-20T02:38:16.101-0400 I NETWORK [thread1] trying reconnect to 192.168.188.101:27018 (192.168.188.10
+1) failed2021-04-20T02:38:16.101-0400 I NETWORK [thread1] reconnect 192.168.188.101:27018 (192.168.188.101) ok
+然后发现27018成为了从节点
+maomao:SECONDARY>
+27019成为了主节点
+maomao:SECONDARY>
+maomao:PRIMARY>
+```
+
+### 如何配置MongoDB复制集的优先级 ？ 
+
+```
+三类节点
+标准（host）节点：存储数据，只有标准节点才可能被选为活跃（primary）节点，有选举权
+被动（passive）节点：被动节点有完整副本，不可能成为活跃节点，有选举权
+仲裁（arbiter）节点：负责选举，不存储数据，不能充当主从节点
+重新配置4个节点的MongoDB 复制集，设置两个标准节点，一个被动节点和一个仲裁节点
+
+比如说：
+"members" : [
+{
+"_id" : 0,
+"host" : "192.168.188.101:27017",
+"priority" : 0
+},
+{
+"_id" : 1,
+"host" : "192.168.188.101:27018",
+"priority" : 100
+},
+{
+"_id" : 2,
+"host" : "192.168.188.101:27019",
+"priority" : 100
+},
+{
+"_id" : 3,
+"host" : "192.168.188.101:27020",
+"arbiterOnly" : true
+}
+```
+
+### MongoDB如何模拟主节点故障？
+
+```
+主节点故障 另一个标准节点将会成为新的主节点
+
+mongod -f /usr/local/mongodb/bin/mongod-27019.conf --shutdown
+
+maomao:PRIMARY> rs.status()
+查看信息
+
+当主节点为第一个标准节点出现故障后，MongoDB复制集会选举第二个标准节点为主节点
+如果所有标准节点都故障，被动节点也不能成为主节点
+```
+
+### MongoDB如何查看复制状态信息？ 
+
+```
+可以使用rs.printReplicationInfo()和rs.printSlaveReplicationInfo() 命令来查看复制集状态
+
+maomao:SECONDARY> rs.printReplicationInfo()
+configured oplog size: 2048MB
+log length start to end: 3597secs (1hrs)
+oplog first event time: Tue Apr 20 2021 02:11:44 GMT-0400 (EDT)
+oplog last event time: Tue Apr 20 2021 03:11:41 GMT-0400 (EDT)
+now: Tue Apr 20 2021 03:11:43 GMT-0400 (EDT)
+maomao:SECONDARY> rs.printSlaveReplicationInfo()
+source: 192.168.188.101:27017
+syncedTo: Tue Apr 20 2021 03:12:01 GMT-0400 (EDT)
+0 secs (0 hrs) behind the primary
+source: 192.168.188.101:27019
+syncedTo: Tue Apr 20 2021 03:12:01 GMT-0400 (EDT)
+0 secs (0 hrs) behind the primary
+```
+
+### 简述如何优化MongoDB查询性能？ 
+
+```
+MongoDB查询性能可以优化的方法包括：
+
+为查询字段创建索引：在查询频繁的字段上创建索引，能够提高查询速度。
+限制查询结果的数量：可以使用skip()和limit()方法分页，减少查询结果大小。
+只查询需要的字段：使用projection或者特定字段查询的方式，避免查询所有字段，减少网络传输带宽。
+使用聚合查询：使用聚合查询代替多个单独的查询语句，可以提高性能。
+为数据结构优化设计：为了优化结构设计，尽可能减少重复的数据。
+```
+
+### 如何理解MongoDB中的GridFS机制，MongoDB为何使用GridFS来存储文件？
+
+```
+GridFS是一种将大型文件存储在MongoDB中的文件规范。使用GridFS可以将大文件分隔成多个小文档存放，这样我们能够有效的保存大文档，而且解决了BSON对象有限制的问题
+```
+
+### MongoDB 复制集节点类型有哪些？ 
+
+```
+1 优先级0型(Priority 0)节点
+2 隐藏型(Hidden)节点
+3 延迟型(Delayed)节点
+4 投票型(Vote)节点以及不可投票节点
+```
+
+### 简述MongoDB 分片的概念 ？ 
+
+```
+分片是指将数据拆分,将其分散存在不同机器上的过程.有时也叫分区.将数据分散在不同的机器上,不需要功能
+强大的大型计算机就可以存储更多的数据,处理更大的负载.
+使用几乎所有数据库软件都能进行手动分片,应用需要维护与若干不同数据库服务器的连接,每个连接还是完全独立的.应用程序管理不同服务器上的不同数据,存储查村都需要在正确的服务器上进行.这种方法可以很好的工作,但是也难以维护,比如向集群添加节点或从集群删除节点都很困难,调整数据分布和负载模式也不轻松.
+
+MongoDB支持自动分片,可以摆脱手动分片的管理.集群自动切分数据,做负载均衡.
+
+1 为什么使用分片
+2 复制所有的写入操作到主节点
+3 延迟的敏感数据会在主节点查询
+4 单个副本集限制在12个节点
+5 当请求量巨大时会出现内存不足。
+6 本地磁盘不足
+7 垂直扩展价格昂贵
+```
+
+### MongoDB 什么时候需要分片？ 
+
+```
+a.机器的磁盘不够用了
+b.单个mongod已经不能满足些数据的性能需要了
+c.想将大量数据放在内存中提高性能
+一般来说,先要从不分片开始,然后在需要的时候将其转换成分片.
+```
+
+### 简述什么是片键 ？
+
+```
+设置分片时,需要从集合里面选一个键,用该键的值作为数据拆分的依据.这个键成为片键.
+
+假设有个文档集合表示的是人员,如果选择名字"name"做为片键,第一篇可能会存放名字以A-F开头的文档.
+
+第二片存G-P开头的文档,第三篇存Q-Z的文档.随着增加或删除片,MongoDB会重新平衡数据,是每片的流量比较
+
+均衡,数据量也在合理范围内(如流量较大的片存放的数据或许会比流量下的片数据要少些)
+```
+
+### MongoDB 如何将已有的集合分片？分片策略是什么？ 
+
+```
+假设有个存储日志的集合,现在要分片.我们开启分片功能,然后告诉MongoDB用"timestamp"作为片键,就要所有数据放到
+
+了一个片上.可以随意插入数据,但总会是在一个片上.
+
+然后,新增一个片.这个片建好并运行了以后,MongoDB就会把集合拆分成两半,成为块.每个块中包含片键值在一定
+
+范围内的所有文档,假设其中一块包含时间戳在2011.11.11前的文档,则另一块含有2011.11.11以后的文档.其中
+
+一块会被移动到新片上.如果新文档的时间戳在2011.11.11之前,则添加到第一块,否则添加到第二块.
+```
+
+### MongoDB 分片中选择递增片键还是随机片键？ 
+
+```
+片键的选择决定了插入操作在片之间的分布.
+如果选择了像"timestamp"这样的键,这个值可能不断增长,而且没有太大的间断,就会将所有数据发送到一个片上
+(含有2011.11.11以后日期的那片).如果有添加了新片,再拆分数据,还是会都导入到一台服务器上.添加了新片,
+MongoDB肯能会将2011.11.11以后的拆分成2011.11.11-2021.11.11.如果文档的时间大于2021.11.11以后,
+所有的文档还会以最后一片插入.这就不适合写入负载很高情况,但按照片键查询会非常高效.
+如果写入负载比较高,想均匀分散负载到各个片,就得选择分布均匀的片键.日志例子中时间戳的散列值,没有模式的"logMessage"
+都是复合这个条件的.
+不论片键随机跳跃还是稳定增加,片键的变化很重要.如,如果有个"logLevel"键的值只有3种值"DEBUG","WARN","ERROR",
+MongoDB无论如何也不能把它作为片键将数据分成多于3片(因为只有3个值).如果键的变化太少,但又想让其作为片键,
+可以把这个键与一个变化较大的键组合起来,创建一个复合片键,如"logLevel"和"timestamp"组合.
+选择片键并创建片键很像索引,以为二者原理相似.事实上,片键也是最常用的索引.
+```
+
+### 简述MongoDB 片键对查询操作的影响？ 
+
+```
+最终用户应该无法区分是否分片,但是要了解选择不同片键情况下的查询有何不同.
+
+假设还是那个表示人员的集合,按照"name"分片,有3个片,其名字首字母的范围是A-Z.下面以不同的方式查询:
+
+db.people.find({"name":"Refactor"})
+mongos会将这个查询直接发送给Q-Z片,获得响应后,直接转发给客户端
+
+db.people.find({"name":{"$lt":"L"}})
+mongos会将其先发送给A-F和G-P片,然后将结果转发给客户端.
+
+db.people.find().sort({"email":1})
+mongos会在所有片上查询,返回结果时还会做归并排序,确保结果顺序正确.
+
+mongos用游标从各个服务器上获取数据,所以不必等到全部数据都拿到才向客户端发送批量结果.
+
+db.people.find({"email":re@msn.cn})
+mongos并不追踪"email"键,所以也不知道应该将查询发给那个片.所以他就向所有片顺序发送查询.
+
+如果是插入文档,mongos会依据"name"键的值,将其发送到相应的片上.
+```
+
+### 简述MongoDB 监控命令或内置工具有哪些？ 
+
+```
+MongoDB中提供了mongostat 和 mongotop 两个命令来监控MongoDB的运行情况。
+
+mongostat 命令
+mongostat是mongodb自带的状态检测工具，在命令行下使用。它会间隔固定时间获取mongodb的当前运行状态，并输出。如果你发现数据库突然变慢或者有其他问题的话，你第一手的操作就考虑采用mongostat来查看mongo的状态。
+
+启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongostat命令，如下所示：
+D:\set up\mongodb\bin>mongostat
+以上命令输出结果如下：
+
+
+mongotop 命令
+mongotop也是mongodb下的一个内置工具，mongotop提供了一个方法，用来跟踪一个MongoDB的实例，查看哪些大量的时间花费在读取和写入数据。 mongotop提供每个集合的水平的统计数据。默认情况下，mongotop返回值的每一秒。
+启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongotop命令，如下所示：
+D:\set up\mongodb\bin>mongotop
+```
+
+### MongoDB 名字空间(namespace)是什么?
+
+```
+MongoDB存储BSON对象在集(collection)中。数据库名字和集名字以句点连结起来叫做名字空间(namespace)。
+```
+
+### MongoDB 允许空值null吗? 
+
+```
+对对象成员而言，是的。但是用户不能够添加空值(null)到数据库猬集(collection)由于空值不是对象。但是用户能够添加空对象{}。
+```
+
+### MongoDB 中更新操作立刻 fsync 到磁盘吗？  
+
+```
+更新操作不会立刻fsync到磁盘，磁盘写操作默认是延迟执行的。
+写操作可能在两三秒（默认在60秒内）后到达磁盘。例如，如果一秒内数据库收到一千个对一个对象递增的操作，仅刷新磁盘一次。
+注意：fsync选项在命令行和经过getLastError_old是有效的
+```
+
+### MongoDB 中启用备份故障恢复需要多久？
+
+```
+从备份数据库声明主数据库宕机到选出一个备份数据库作为新的主数据库将花费10到30秒时间。
+
+这期间在主数据库上的操作将会失败，包括写入和强一致性读取（strong consistent read）操作。
+
+注意的是在slaveOk模式下，第二数据库上可以执行最终一致性查询（eventually consistent query）
+```
+
+### MongoDB getLastError的作用？
+
+```
+获取数据库最后一条错误信息；
+获取最后一条错误操作的相关信息。
+使用方法
+使用getLastError()函数需要遵循如下步骤：
+
+连接到MongoDB数据库
+执行数据库操作
+执行getLastError()函数
+以下是一个使用示例：
+
+from pymongo import MongoClient
+client = MongoClient('mongodb://localhost:27017/')
+db = client.test
+# 向test集合插入单条数据
+db.test.insert_one({"name": "test1"})
+# 获取最后一条错误信息
+error = db.command({"getLastError": 1})
+print(error)
+在上面的示例中，我们向test集合中插入了一条数据，并且使用getLastError()函数获取了最后一条错误信息。
+示例
+在正常操作过程中使用getLastError()函数来获取错误信息。
+from pymongo import MongoClient
+client = MongoClient('mongodb://localhost:27017/')
+db = client.test
+# 向test集合插入单条数据
+db.test.insert_one({"name": "test1"})
+# 获取最后一条错误信息
+error = db.command({"getLastError": 1})
+print(error)
+```
+
+### MongoDB支持主键外键关系吗 ？ 
+
+```
+默认MongoDB不支持主键和外键关系。 用Mongodb本身的API需要硬编码才能实现外键关联，不够直观且难度
+较大
+```
+
+### 简述集合Collection、文档Document,以及与关系型数据库术语类比 ？ 
+
+```
+• 集合Collection位于单独的一个数据库MongoDB 文档Document集合，它类似关系型数据库（RDBMS）中的表Table。一个集合Collection内的多个文档Document可以有多个不同的字段。通常情况下，集合Collection中的文档Document有着相同含义。
+• 文档Document由key-value构成。文档Document是动态模式,这说明同一集合里的文档不需要有相同的字段和结构。类似于关系型数据库中table中的每一条记录。
+• 与关系型数据库术语类比
+mongodb ->关系型数据库
+Database ->Database
+Collection-> Table
+Document ->Record/Row
+Filed-> Column
+Embedded Documents ->Table join
+```
+
+### 简述什么是”Mongod“,以及MongoDB命令？
+
+```
+mongod是处理MongoDB系统的主要进程。它处理数据请求，管理数据存储，和执行后台管理操作。当我们运行mongod命令意味着正在启动MongoDB进程,并且在后台运行。
+MongoDB命令：
+命令
+说明
+use database_name
+切换数据库
+db.myCollection.find().pretty()
+格式化打印结果
+db.getCollection(collectionName).find()
+修改Collection名称
+```
+
+### "Mongod"默认参数有?
+
+```
+• 传递数据库存储路径，默认是"/data/db"
+• 端口号 默认是 "27017"
+```
+
+### MongoDB 如何执行事务/加锁? 
+
+```
+mongodb没有使用传统的锁或者复杂的带回滚的事务,因为它设计的宗旨是轻量,快速以及可预计的高性能.可以把它类比成mysql mylsam的自动提交模式.通过精简对事务的支持,性能得到了提升,特别是在一个可能会穿过多个服务器的系统里.
+```
+
+### MongoDB在`A:{B,C}`上建立索引，查询`A:{B,C}`和`A:{C,B}`都会使用索引吗？ 
+
+```
+由于MongoDB索引使用B-tree树原理，只会在A:{B,C}上使用索引
+MongoDB索引详情可看文章【MongoDB系列--轻松应对面试中遇到的MongonDB索引(index)问题】，其中包括很多索引的问题：
+• 创建索引，需要考虑的问题
+• 索引限制问题
+• 索引类型详细解析
+• 索引的种类问题
+```
+
+### 如果块移动操作(moveChunk)失败了，我需要手动清除部分转移的文档吗?
+
+```
+不需要，移动操作是一致(consistent)并且是确定性的(deterministic)。
+• 一次失败后，移动操作会不断重试。
+• 当完成后，数据只会出现在新的分片里(shard)
+```
+
+### 数据在什么时候才会扩展到多个分片(Shard)里?
+
+```
+MongoDB 分片是基于区域(range)的。所以一个集合(collection)中的所有的对象都被存放到一个块(chunk)中,默认块的大小是 64Mb。当数据容量超过64 Mb，才有可能实施一个迁移，只有当存在不止一个块的时候，才会有多个分片获取数据的选项
+```
+
+### 简述什么是MongoDB Chunk ？ 
+
+```
+MongoDB中，在使用到分片的时候，常常会用到chunk的概念，chunk是指一个集合数据中的子集，也可以简单理解成一个数据块，每个chunk都是基于片键的范围取值，区间是左闭右开。例如，我们的片键是姓名的第二个字母，包含了A-Z这26中可能，理想情况下，划分为26个chunk，其中每个字母开头的姓名记录即为一个chunk。
+
+在数据写入的时候，mongos根据片键shard key的值来写入对应的chunk中，chunk可以表示的最小范围是单个唯一的shard key的值，只包含具体的单个片键值文档的chunk不能被分割，这个也比较容易理解，如果某个chunk只包含一个片键的值，如果对它进行分割，则代表一个片键值映射了2个chunk，下次遇到这个片键的文档时，mongos就不知道应该存放在哪个chunk当中了。
+
+chunk的大小如何确定？？？
+在MongoDB中，chunk的默认大小是64MB，可以增加或者减少chunk的大小。
+
+chunk的大小不宜过小，如果chunk过小，好处是可以让数据更加均匀的分布，但是会导致chunk之间频繁的迁移，有一定的性能开销；同样的，chunk的大小不宜过大，过大的chunk size会导致数据分布不均匀，
+
+
+chunk的分裂
+当某个chunk的值达到了chunk所能表示的最大值的时候，这个时候chunk不能无限增长，需要通过分割的方法来减少chunk的大小，例如一个64MB的chunk分割成2个32MB的chunk，这样虽然增加了chunk的数量，但是带来的收益是单个chunk的缩小。
+```
+
+### 简述Chunk的迁移？ 
+
+```
+在分片+复制集的架构中，当某个服务器上的数据记录不停的增多，它上面分割的chunk就会变多，当集群中每个服务器上的chunk数量严重失衡的时候，mongodb会自动进行chunk的迁移工作，这个自动迁移的工作，是通过balancer来进行的。如果balancer发现各个shard之间的chunk数差异超过了提前规定的阈值，则会进行chunk的迁移工作
+
+MongoDB自动触发迁移的阈值表如下：
+
+chunk数量： <20，迁移阈值：2
+chunk数量：20~79，迁移阈值：4
+chunk数量： >80，迁移阈值：8
+
+chunk的迁移一般使用锁来实现，从MongoDB3.4版本起，chunk的迁移分为7个步骤：
+
+1、balancer进程将moveChunk的命令发送到源shard中
+2、源shard使用内部moveChunk命令开始移动，迁移过程中，该chunk的操作依旧在源shard上进行，源shard依旧负责该chunk的写入操作
+3、目标shard开始创建所需索引
+4、目标shard开始请求chunk中的文档并开始接收数据的复制
+5、接收完源shard的最后一个文档之后，目标shard启动一个同步进程，这个进程会拉取迁移期间的日志，将迁移期间对该chunk的操作更新到目标chunk中。
+6、当完全同步时，源shard连接到config数据库并更新chunk的位置元数据。
+7、完成数据更新后，一旦在源shard上没有对该chunk的操作，源shard会异步删除chunk。当然，用户可以设置_waitforDelete参数为true，让源shard在chunk迁移完成后同步删除chunk数据
+
+
+通常情况下，chunk迁移由下面三种场景触发：
+
+1、多个shard上分布不均匀
+2、用户调用removeShard之后，被移除的shard上的chunk就要被迁移到其他的shard上
+3、MongoDB的shard tag功能，可以对shard或者shard key range打标签，系统会自动将对应的range的数据迁移到拥有相同tag的shard上。
+```
+
+### 更新一个正在被迁移的块（Chunk）上的文档时会发生什么？ 
+
+```
+更新操作会立即发生在旧的块（Chunk）上，然后更改才会在所有权转移前复制到新的分片上
+```
+
+### 如果一个分片（Shard）停止或很慢的时候，发起一个查询会怎样？
+
+```
+如果一个分片停止了，除非查询设置了 “Partial” 选项，否则查询会返回一个错误。如果一个分片响应很慢，MongoDB 会等待它的响应。
+```
+
+### 简述什么是MongoDB Arbiter？
+
+```
+仲裁节点不维护数据集。 仲裁节点的目的是通过响应其他副本集节点的心跳和选举请求来维护副本集中的仲裁
+```
+
+### MongoDB raft选举过程，投票规则？ 
+
+```
+选举过程：
+当系统启动好之后，初始选举后系统由1个Leader和若干个Follower角色组成。然后突然由于某个异常原因，Leader服务出现了异常，导致Follower角色检测到和Leader的上次RPC更新时间超过给定阈值时间时。此时Follower会认为Leader服务已出现异常，然后它将会发起一次新的Leader选举行为，同时将自身的状态从Follower切换为Candidate身份。随后请求其它Follower投票选择自己。
+投票规则：
+• 当一个候选人获得了同一个任期号内的大多数选票，就成为领导人。
+• 每个节点最多在一个任期内投出一张选票。并且按照先来先服务的原则。
+• 一旦候选人赢得选举，立刻成为领导，并发送心跳维持权威，同时阻止新领导人的诞生
+```
+
+### 简述MongoDB 原子操作 ？ 
+
+```
+mongodb不支持事务，所以，在你的项目中应用时，要注意这点。无论什么设计，都不要要求mongodb保证数据的完整性。
+但是mongodb提供了许多原子操作，比如文档的保存，修改，删除等，都是原子操作。
+所谓原子操作就是要么这个文档保存到Mongodb，要么没有保存到Mongodb，不会出现查询到的文档没有保存完整的情况。
+原子操作数据模型
+考虑下面的例子，图书馆的书籍及结账信息。
+
+实例说明了在一个相同的文档中如何确保嵌入字段关联原子操作（update：更新）的字段是同步的。
+
+book = {
+_id: 123456789,
+title: "MongoDB: The Definitive Guide",
+author: [ "Kristina Chodorow", "Mike Dirolf" ],
+published_date: ISODate("2010-09-24"),
+pages: 216,
+language: "English",
+publisher_id: "oreilly",
+available: 3,
+checkout: [ { by: "joe", date: ISODate("2012-10-15") } ]
+}
+你可以使用 db.collection.findAndModify() 方法来判断书籍是否可结算并更新新的结算信息。
+
+在同一个文档中嵌入的 available 和 checkout 字段来确保这些字段是同步更新的:
+
+db.books.findAndModify ( {
+query: {
+_id: 123456789,
+available: { $gt: 0 }
+},
+update: {
+$inc: { available: -1 },
+$push: { checkout: { by: "abc", date: new Date() } }
+}
+} )
+原子操作常用命令
+$set
+用来指定一个键并更新键值，若键不存在并创建。
+
+{ $set : { field : value } }
+$unset
+用来删除一个键。
+
+{ $unset : { field : 1} }
+$inc
+$inc可以对文档的某个值为数字型（只能为满足要求的数字）的键进行增减的操作。
+
+{ $inc : { field : value } }
+$push
+用法：
+
+{ $push : { field : value } }
+把value追加到field里面去，field一定要是数组类型才行，如果field不存在，会新增一个数组类型加进去。
+
+$pushAll
+同$push,只是一次可以追加多个值到一个数组字段内。
+
+{ $pushAll : { field : value_array } }
+$pull
+从数组field内删除一个等于value值。
+
+{ $pull : { field : _value } }
+$addToSet
+增加一个值到数组内，而且只有当这个值不在数组内才增加。
+
+$pop
+删除数组的第一个或最后一个元素
+
+{ $pop : { field : 1 } }
+$rename
+修改字段名称
+
+{ $rename : { old_field_name : new_field_name } }
+$bit
+位操作，integer类型
+
+{$bit : { field : {and : 5}}}
+偏移操作符
+> t.find() { "_id" : ObjectId("4b97e62bf1d8c7152c9ccb74"), "title" : "ABC", "comments" : [ { "by" : "joe", "votes" : 3 }, { "by" : "jane", "votes" : 7 } ] }
+
+> t.update( {'comments.by':'joe'}, {$inc:{'comments.$.votes':1}}, false, true )
+
+> t.find() { "_id" : ObjectId("4b97e62bf1d8c7152c9ccb74"), "title" : "ABC", "comments" : [ { "by" : "joe", "votes" : 4 }, { "by" : "jane", "votes" : 7 } ] }
+```
+
+### 简述MongoDB ObjectId ？ 
+
+```
+MongoDB中存储的文档必须有一个"_id"键。这个键的值可以是任何类型的，默认是个ObjectId对象。
+
+在一个集合里面，每个文档都有唯一的"_id"值，来确保集合里面每个文档都能被唯一标识。
+
+MongoDB采用ObjectId，而不是其他比较常规的做法（比如自动增加的主键）的主要原因，因为在多个 服务器上同步自动增加主键值既费力还费时。
+
+创建新的ObjectId
+使用以下代码生成新的ObjectId：
+
+>newObjectId = ObjectId()
+上面的语句返回以下唯一生成的id：
+
+ObjectId("5349b4ddd2781d08c09890f3")
+你也可以使用生成的id来取代MongoDB自动生成的ObjectId：
+
+>myObjectId = ObjectId("5349b4ddd2781d08c09890f4")
+创建文档的时间戳
+由于 ObjectId 中存储了 4 个字节的时间戳，所以你不需要为你的文档保存时间戳字段，你可以通过 getTimestamp 函数来获取文档的创建时间:
+
+>ObjectId("5349b4ddd2781d08c09890f4").getTimestamp()
+以上代码将返回 ISO 格式的文档创建时间：
+
+ISODate("2014-04-12T21:49:17Z")
+ObjectId 转换为字符串
+在某些情况下，您可能需要将ObjectId转换为字符串格式。你可以使用下面的代码：
+
+>new ObjectId().str
+以上代码将返回Guid格式的字符串：：
+
+5349b4ddd2781d08c09890f3
+```
+
+### 简述MongoDB 固定集合（Capped Collections）？ 
+
+```
+MongoDB 固定集合（Capped Collections）是性能出色且有着固定大小的集合，对于大小固定，我们可以想象其就像一个环形队列，当集合空间用完后，再插入的元素就会覆盖最初始的头部的元素！
+
+创建固定集合
+我们通过createCollection来创建一个固定集合，且capped选项设置为true：
+
+>db.createCollection("cappedLogCollection",{capped:true,size:10000})
+还可以指定文档个数,加上max:1000属性：
+
+>db.createCollection("cappedLogCollection",{capped:true,size:10000,max:1000})
+判断集合是否为固定集合:
+
+>db.cappedLogCollection.isCapped()
+如果需要将已存在的集合转换为固定集合可以使用以下命令：
+
+>db.runCommand({"convertToCapped":"posts",size:10000})
+以上代码将我们已存在的 posts 集合转换为固定集合。
+
+固定集合查询
+固定集合文档按照插入顺序储存的,默认情况下查询就是按照插入顺序返回的,也可以使用$natural调整返回顺序。
+
+>db.cappedLogCollection.find().sort({$natural:-1})
+固定集合的功能特点
+可以插入及更新,但更新不能超出collection的大小,否则更新失败,不允许删除,但是可以调用drop()删除集合中的所有行,但是drop后需要显式地重建集合。
+
+在32位机子上一个cappped collection的最大值约为482.5M,64位上只受系统文件大小的限制。
+
+固定集合属性及用法
+属性
+属性1:对固定集合进行插入速度极快
+属性2:按照插入顺序的查询输出速度极快
+属性3:能够在插入最新数据时,淘汰最早的数据
+用法
+用法1:储存日志信息
+用法2:缓存一些少量的文档
+```
+
+### 如何实现MongoDB 自动增长 ？ 
+
+```
+MongoDB 中没有像 SQL 中那样可以赋予某个字段自动递增的功能，默认情况下 MongoDB 的 _id 字段是系统自动生成的 12 字节的唯一标识，但是在某些情况下我们可能需要在 MongoDB 的某个字段上实现类似 SQL 中的自动递增功能。
+
+因为 MongoDB 中没有实现这个功能，所以我们需要通过编程的方式来实现。本节中我们将通过两个集合（counters 和 tutorials）来实现自动递增功能，其中 counters 集合用来记录自动递增的数值，tutorials 集合用来存储具体的数据。
+使用 counters 集合
+假如有以下文档，我们希望 _id 字段以 1、2、3、...、n 的自动递增整数顺序排列。
+{
+"_id":1,
+"tutorials_name": "MongoDB 教程",
+"url": "http://www.123.net/mongodb/index.html",
+"author": "编程帮"
+}
+为此，我们需要创建一个 counters 集合，并使用该集合来实现自动递增的功能：
+> db.createCollection("counters")
+{ "ok" : 1 }
+我们将在 counters 集合中插入以下文档：
+> db.counters.insert({_id:"productid",sequence_value:0})
+WriteResult({ "nInserted" : 1 })
+其中 _id 字段的值为 productid，sequence_value 字段的值默认为零，用来保存自动增长后的一个值。
+```
+
+### MongoDB 用什么方法可以格式化输出结果?
+
+```
+使用pretty() 方法可以格式化显示结果
+>db.collectionName.find().pretty()
+```
+
+### 如何使用"AND"或"OR"条件循环查询集合中的文档?
+
+```
+在 find() 方法中，如果传入多个键，并用逗号( , )分隔它们，那么 MongoDB 会把它看成是AND条件。
+
+>db.mycol.find({key1:value1, key2:value2}).pretty()
+若基于OR条件来查询文档，可以使用关键字$or。
+
+>db.mycol.find(
+{
+$or: [
+{key1: value1}, {key2:value2}
+]
+}
+).pretty()
+```
+
+### 简述MongoDB运行日志实现自动分割的方法实例？ 
+
+```
+方法一：使用logrotate进行分割
+logrotate是一个Linux系统下常用的日志切割工具，可以对指定的日志进行按大小或按时间的切割，并可对切割前或切割后执行命令。下面是使用logrotate对MongoDB运行日志进行按时间切割的配置文件：
+
+# /etc/logrotate.d/mongodb
+
+/var/log/mongodb/mongod.log {
+daily # 每天切割日志
+rotate 7 # 保留过去7天的日志
+compress # 压缩旧日志
+delaycompress # 等待下一个切割周期再压缩
+missingok # 如果日志不存在也不报错
+notifempty # 如果日志为空也不切割
+postrotate
+# 向MongoDB发送SIGUSR1信号，切换到新的日志文件
+/bin/kill -SIGUSR1 `cat /var/run/mongodb/mongod.pid` >/dev/null 2>&1 || true
+endscript
+}
+该配置文件将MongoDB的运行日志指定为/var/log/mongodb/mongod.log，按天进行日志切割，保留过去7天的日志文件，切割时压缩旧日志，等待下一个切割周期再进行压缩，如果日志不存在也不报错，如果日志为空也不切割。在切割后，利用postrotate指定的脚本向MongoDB发送SIGUSR1信号，切换到新的日志文件，以便MongoDB能够继续将日志记录到新的文件中。
+
+方法二：使用Mongod的logRotate命令进行分割
+MongoDB的logRotate命令可以实现类似于logrotate的功能，用于对运行中的日志进行切割。下面是一个使用logRotate命令进行日志切割的示例：
+
+db.runCommand({logRotate:1})
+该命令将会对运行中的MongoDB日志进行切割，并将最新的日志文件命名为mongod.log，旧日志文件将被重命名为mongod.log.xxx，其中xxx为编号，递增依次为001、002、003等。需要注意的是，该命令必须在MongoDB的管理终端中执行，因此要先连接到MongoDB服务器上。
+```
+
+### 如何实现Mongodb中按天进行聚合查询？
+
+```
+MongoDB 是一个 document-oriented 的数据库，支持强大的聚合查询功能。聚合查询可以对文档进行筛选、排序、分组、计算等操作，比较适合统计和分析类的需求。在实际开发中经常需要按天、按小时等时间维度来聚合数据，本文将详细介绍如何在 MongoDB 中进行按天聚合查询。
+
+示例1: 按日期聚合查询
+假设我们有一个名为 orders 的订单文档集合，其中每个订单文档包含以下字段：order_id (订单号，唯一标识符)，order_date (订单日期，格式 YYYY-MM-DD)，product_name (产品名称)，product_price (产品价格)，quantity (产品数量)。
+
+现在需要统计每天的订单总量和销售金额，可以使用 MongoDB 的聚合查询实现。
+
+步骤1：筛选数据
+首先需要筛选出需要统计的数据，即满足以下条件的订单文档：
+
+order_date 字段不为空。
+order_date 字段格式为 YYYY-MM-DD。
+可以使用 $match 管道操作符来实现：
+
+{
+$match: {
+$and: [
+{ order_date: { $exists: true, $ne: "" } },
+{ order_date: { $regex: /^\d{4}-\d{2}-\d{2}$/ } }
+]
+}
+}
+这个查询条件使用了 MongoDB 的 $exists 和 $ne 操作符来筛选出存在 order_date 字段且不为空的文档，同时使用了正则表达式来检查 order_date 字段的格式是否为 YYYY-MM-DD。
+
+步骤2：按日期分组求和
+根据订单日期来分组，然后对每组数据求和，可以使用 $group 管道操作符来实现：
+
+{
+$group: {
+_id: { $dateToString: { format: "%Y-%m-%d", date: "$order_date" } },
+order_count: { $sum: 1 },
+total_amount: { $sum: { $multiply: [ "$product_price", "$quantity" ] } }
+}
+}
+这个查询条件使用了 MongoDB 的 $dateToString 操作符，将 order_date 字段转换成格式为 YYYY-MM-DD 的字符串，作为 _id 属性的值。然后使用 $sum 操作符来分别统计订单总量和销售金额（计算方式为：价格乘以数量）。
+```
+
+### 如何解决MongoDB 排序超过内存限制的问题？ 
+
+```
+确认问题
+首先，我们需要确认 MongoDB 排序超过内存限制的问题是否真的存在。当我们对大量数据进行排序时，MongoDB 的默认行为是将所有数据加载到内存中进行排序。如果排序的数据量超出了系统内存大小，就会出现内存不足的情况，导致查询失败或系统崩溃。为了确认是否存在这个问题，我们可以使用以下命令查询：
+
+db.collection.find().sort({ field: 1 }).explain("executionStats")
+其中 db.collection 是指需要排序的集合，field 是指需要排序的字段。该命令会返回查询的执行计划，并且包含排序操作的统计信息。我们可以查看 executionStats 字段下的 totalMemoryUsage 来确认排序操作使用的内存大小是否超过了系统内存限制。
+
+解决方法
+如果确认了 MongoDB 排序超过内存限制的问题存在，我们可以采取以下两种解决方法：
+
+2.1 限制排序数据量
+
+一种解决方法是限制排序数据量。我们可以使用 limit 和 skip 命令来分页获取数据，然后对每页数据进行排序。这种方法可以避免将所有数据加载到内存中进行排序，从而减少内存消耗。示例如下：
+
+db.collection.find().sort({ field: 1 }).skip(0).limit(100).toArray()
+db.collection.find().sort({ field: 1 }).skip(100).limit(100).toArray()
+
+其中 skip 命令用于指定查询的偏移量，limit 命令用于指定每页数据的数量。通过多次查询，我们可以逐页获取所有数据并进行排序。
+
+2.2 利用索引进行排序
+
+另一种解决方法是利用索引进行排序。我们可以在集合上创建一个排序所需的索引，从而避免将所有数据加载到内存中进行排序。示例如下：
+
+db.collection.createIndex({ field: 1 })
+db.collection.find().sort({ field: 1 }).toArray()
+其中 createIndex 命令用于创建索引，field 是需要排序的字段。这样，MongoDB 就可以利用该索引对数据进行排序，而不是加载所有数据到内存中进行排序。
+
+总结：
+
+针对 MongoDB 排序超过内存限制的问题，我们可以通过限制排序数据量和利用索引进行排序来解决。限制排序数据量的方法适用于数据量较小的情况，而利用索引进行排序的方法则适用于数据量较大的情况。
+```
+
+### 详细阐述MongoDB中的MapReduce ？ 
+
+```
+MongoDB中的MapReduce
+
+MapReduce是一种用于处理大量数据的算法，它在MongoDB中可以被用作数据处理引擎。下面我们将详细介绍MongoDB中的MapReduce操作。
+
+什么是MapReduce？
+
+MapReduce是一种分布式数据处理算法。它将大量数据分解成多个数据块进行并行处理，最后将结果汇总。MapReduce包含两个操作阶段，即“Map”和“Reduce”。在“Map”阶段，算法将数据转换为键值对的形式；在“Reduce”阶段，算法将键值对按照指定的方式进行归并处理。MapReduce算法可以在各种数据处理场景中运用。
+
+MongoDB中的MapReduce
+
+MongoDB的MapReduce功能旨在帮助用户处理海量数据。它可以将大量数据分别传递给不同计算机节点进行并行处理。MongoDB中的MapReduce操作通常需要使用JavaScript进行编写。
+
+示例1：计算集合中的总和
+
+假设有一个集合students，其中包含每个学生的姓名和数字分数。我们想要计算所有学生的分数总和。可以使用下面这段MapReduce查询代码：
+
+db.students.mapReduce(
+function() {
+emit(1, this.score);
+},
+function(key, values) {
+return Array.sum(values);
+},
+{
+out: "total_score"
+}
+);
+
+这段代码将集合中所有文档中的score字段名称和分数作为键值对进行“map”操作，并将它们传递给reduce函数进行处理。在reduce函数中，使用了一个MongoDB数组函数Array.sum()，将所有分数求和并作为结果返回。最后，结果会存储在集合total_score中。
+
+示例2：计算不同词汇的出现频率
+
+假设有一个集合text，其中包含一些文本段落。我们想要计算不同词汇在文本中出现的次数。
+
+db.text.mapReduce(
+function() {
+var words = this.text.split(" ");
+for (var i = 0; i < words.length; i++) {
+emit(words[i], 1);
+}
+},
+function(key, values) {
+return Array.sum(values);
+},
+{
+out: "word_count"
+}
+);
+这段代码将集合中的每个文档根据空格拆分成一个字符串数组，然后将数组中的每个单词作为键值对进行“map”操作。最后将结果传递给reduce函数进行统计。reduce函数中同样使用了Array.sum()函数来求和。运行完成后，结果会存储在集合word_count中。
+```
+
+### 简述实现mongoDB的多条件查询 ？ 
+
+```
+1. MongoDB多条件查询的基本概念
+MongoDB是一种NoSQL数据库，它使用BSON（Binary JSON）格式保存数据。在MongoDB中，我们可以使用多种条件查询来满足不同的查询需求。
+
+常见的查询条件包括：
+
+等于（$eq）：查询某个字段等于给定值的文档
+不等于（$ne）：查询某个字段不等于给定值的文档
+大于（$gt）：查询某个字段大于给定值的文档
+小于（$lt）：查询某个字段小于给定值的文档
+大于等于（$gte）：查询某个字段大于等于给定值的文档
+小于等于（$lte）：查询某个字段小于等于给定值的文档
+包含（$in）：查询某个字段包含给定值中任意一个的文档
+不包含（$nin）：查询某个字段不包含给定值中任意一个的文档
+正则表达式匹配（$regex）：查询某个字段符合正则表达式的文档
+2. Java调用MongoDB多条件查询的基本方法
+在Java程序中，我们可以使用MongoDB的Java驱动程序来调用多条件查询。在使用Java驱动程序时，我们需要首先创建MongoClient对象，它负责连接到MongoDB服务器，并提供对MongoDB的所有操作功能。
+
+然后，我们可以使用MongoClient对象创建一个MongoDatabase对象，该对象表示MongoDB数据库。接着，我们可以使用MongoDatabase对象创建MongoCollection对象，该对象表示度MongoDB集合，用于对MongoDB进行实际的操作。
+
+
+最后，我们可以使用MongoCollection对象的find()方法来执行多条件查询。在find()方法中，我们可以使用Filter对象来指定查询条件。Filter对象提供了多种方法，可以用于创建不同类型的查询条件，如eq()、ne()、gte()、lte()等。
+
+3. 两条示例说明
+现在，我将介绍两个使用Java调用MongoDB多条件查询的示例。
+
+示例一：查询年龄大于等于30岁且性别为男性的用户信息
+// 创建MongoClient对象
+MongoClient mongoClient = new MongoClient("localhost", 27017);
+
+// 创建MongoDatabase对象
+MongoDatabase database = mongoClient.getDatabase("mydb");
+
+// 创建MongoCollection对象
+MongoCollection collection = database.getCollection("users");
+
+// 创建查询条件
+Bson ageFilter = Filters.gte("age", 30);
+Bson genderFilter = Filters.eq("gender", "male");
+Bson filter = Filters.and(ageFilter, genderFilter);
+
+// 执行查询
+FindIterable results = collection.find(filter);
+
+// 输出查询结果
+for (Document doc : results) {
+System.out.println(doc.toJson());
+}
+
+// 关闭MongoClient对象
+mongoClient.close();
+在上面的示例中，我们使用gte()方法创建了一个大于等于30的查询条件，使用eq()方法创建了一个等于“male”的查询条件，然后使用and()方法把这两个条件合并成一个复合条件，并传递给find()方法进行查询。
+
+示例二：查询名字包含“John”且地址为纽约的用户信息
+// 创建MongoClient对象
+MongoClient mongoClient = new MongoClient("localhost", 27017);
+
+// 创建MongoDatabase对象
+MongoDatabase database = mongoClient.getDatabase("mydb");
+
+// 创建MongoCollection对象
+MongoCollection collection = database.getCollection("users");
+
+// 创建查询条件
+Bson nameFilter = Filters.regex("name", "John");
+Bson addressFilter = Filters.eq("address", "New York");
+Bson filter = Filters.and(nameFilter, addressFilter);
+
+// 执行查询
+FindIterable results = collection.find(filter);
+
+// 输出查询结果
+for (Document doc : results) {
+System.out.println(doc.toJson());
+}
+
+// 关闭MongoClient对象
+mongoClient.close();
+在上面的示例中，我们使用regex()方法创建了一个正则表达式查询条件，用于查询所有名字中包含“John”的用户信息；然后使用eq()方法创建了一个地址等于“New York”的查询条件，最后使用and()方法把这两个条件合并成一个复合条件，并传递给find()方法进行查询。
+```
+
+### 简述MongoDB作为Redis式的内存数据库的使用方法 ？ 
+
+```
+将MongoDB作为Redis式的内存数据库可以通过使用MongoDB的TTL（Time to Live）和内存映射来实现。以下是详细的攻略。
+
+步骤一：安装MongoDB
+在此之前，需要确保MongoDB已经被安装在本地计算机上。如果没有安装MongoDB，则可以前往MongoDB的官网下载安装包并进行安装。
+
+步骤二：创建MongoDB集合
+可以通过以下命令在MongoDB中创建一个集合：
+
+use mydb
+db.createCollection("mycollection", { capped: true, size: 10000 })
+其中，mydb是要创建集合的数据库名称，mycollection是要创建的集合名称，capped表示创建的集合的大小是固定的，size表示该集合的大小是10000字节。
+
+步骤三：使用MongoDB的TTL
+可以通过以下命令在MongoDB中设置TTL并定期删除过期数据：
+
+db.mycollection.createIndex( { "expireAt": 1 }, { expireAfterSeconds: 0 } )
+其中，mycollection是要设置TTL的集合名称，expireAt是一个日期字段，用于标记文档的过期时间，expireAfterSeconds是一个可选的参数，设置文档过期的秒数。例如，如果将其设置为0，则文档将立即过期。
+
+步骤四：使用内存映射
+内存映射是一种将文件映射到内存中的技术。可以使用Node.js的mmap文件将MongoDB中的集合映射到内存中。以下是一个使用mmap文件的示例：
+
+const mmap = require('mmap-file')
+const fs = require('fs')
+const path = require('path')
+const mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient
+const url = 'mongodb://localhost:27017'
+const dbName = 'mydb'
+const collectionName = 'mycollection'
+
+MongoClient.connect(url, function (err, client) {
+if (err) throw err
+const db = client.db(dbName)
+const collection = db.collection(collectionName)
+
+const fd = fs.openSync(path.join(__dirname, 'mappedfile'), 'w+')
+const fileSize = collection.stats().size
+fs.writeSync(fd, Buffer.alloc(fileSize), 0, fileSize, 0)
+
+const mmapedBuffer = mmap(fd, fileSize, mmap.PROT_READ | mmap.PROT_WRITE, mmap.MAP_SHARED)
+collection.find().forEach(doc => {
+if (doc.value) {
+mmapedBuffer.write(doc.value, doc.offset, 'utf8')
+} else {
+// 数据已被删除
+mmapedBuffer.write('', doc.offset, 'utf8')
+}
+})
+
+// 构建类似于Redis的API
+const redis = {
+get: function (key) {
+const doc = collection.findOne({ key })
+if (doc && !doc.isExpired && doc.value) {
+return mmapedBuffer.toString('utf8', doc.offset, doc.offset + doc.value.length)
+} else {
+return null
+}
+},
+set: function (key, value, ttl) {
+const timestamp = new Date().getTime()
+const expireTime = timestamp + ttl * 1000
+
+collection.deleteOne({ key }) // 删除旧的条目
+const result = collection.insertOne({
+key,
+value,
+timestamp,
+expireTime,
+offset: -1, // 将偏移量设置为-1，稍后将进行计算
+length: value.length
+})
+
+// 计算偏移量并写入到mmap文件中
+result.then(({ insertedId }) => {
+const doc = collection.findOne({ _id: insertedId })
+const offset = mmapedBuffer.indexOf(`key${doc.key}`, 0)
+collection.updateOne({ _id: insertedId }, { $set: { offset } })
+mmapedBuffer.write(`${doc.key}${doc.value}`, offset, 'utf8')
+})
+},
+del: function (key) {
+collection.deleteOne({ key })
+},
+ttl: function (key) {
+const doc = collection.findOne({ key })
+return doc ? Math.round((doc.expireTime - new Date().getTime()) / 1000) : null
+},
+keys: function (pattern) {
+return collection.find({ key: { $regex: pattern } }).toArray().map(({ key }) => key)
+}
+}
+
+// 测试
+redis.set('name', 'mrxia', 10)
+console.log(redis.get('name'))
+setTimeout(() => {
+console.log(redis.get('name'))
+}, 10000)
+
+})
+步骤五：使用Redis API
+可以通过以上代码中类似于Redis的API来使用MongoDB作为Redis式的内存数据库。根据需求来选择TTL和内存映射来实现过期数据的删除和快速存储。
+```
+
+### 简述MongoDB的日志系统 ？ 
+
+```
+Mongodb中主要有四种日志。分别是系统日志、Journal日志、oplog主从日志、慢查询日志等。这些 日志记录着Mongodb数据库不同方便的踪迹。下面分别介绍这四种日志：
+
+1.系统日志
+系统日志在Mongdb数据中很中重要，它记录mongodb启动和停止的操作，以及服务器在运行过程中发生的任何异常信息；配置系统日志也非常简单，在运行mongod时候增加一个参数logpath，就可以设置；
+例如：mongod -logpath='/data/db/log/server.log' -logappend.
+vcr9vt3WtNDQuPy4xKGjxvS2r8r9vt2/4rXESm91cm5hbLmmxNy3x7OjvPK1paOs1rvQ6NTabW9uZ29kuvPD5ta4tqhqb3VybmFsss7K/by0v8mjuzwvcD4KPHA+v6rG9Le9yr2jum1vbmdvZCAtam91cm5hbCA8L3A+CjxwPjxpbWcgc3JjPQ=="http://www.2cto.com/uploadfile/Collfiles/20141202/2014120209233968.png" alt="\">
+
+3. Oplog主从日志
+Mongodb的高可用复制策略有一个叫做Replica Sets.ReplicaSet复制过程中有一个服务器充当主服务器，而一个或多个充当从服务器，主服务将更新写入一个本地的collection中，这个collection记录着发生在主服务器的更新操作。并将这些操作分发到从服务器上。这个日志是Capped Collection。利用如下命令可以配置
+mongod -oplogSize=1024 单位是M　\
+
+4. 慢查询日志
+慢查询记录了执行时间超过了所设定时间阀值的操作语句。慢查询日志对于发现性能有问题的语句很有帮助，建议开启此功能并经常分析该日志的内容。
+要配置这个功能只需要在mongod启动时候设置profile参数即可。例如想要将超过5s的操作都记录，可以使用如下语句：
+mongod --profile=1 --slowms=5
+```

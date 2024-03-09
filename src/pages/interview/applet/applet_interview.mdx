@@ -12,3 +12,888 @@
 - [说说微信小程序的实现原理? ](/interview/applet/webview_jscore)
 
 ## 经典面试题
+
+### 请简述微信小程序主要目录和文件的作用？ 
+
+```
+微信小程序主要目录和文件的作用：
+
+（1）project.config.json：项目配置文件，用的最多的就是配置是否开启https校验
+（2）App.js：设置一些全局的基础数据等
+（3）App.json：底部tab，标题栏和路由等设置
+（4）App.wxss：公共样式，引入iconfont等
+（5）pages：里面包含一个个具体的页面
+（6）index.json：配置当前页面标题和引入组件
+（7）index.wxml：页面结构
+（8）index.wxss：页面样式表
+（9）index.js：页面的逻辑，请求和数据处理
+```
+
+### 简述wxml与标准的Html的异同？
+
+```
+1.标签名称不同
+HTML（div，span，img，a）
+WXML（2view，text，image，navigator）
+
+2.属性节点不同
+HTML :超链接
+WXML :
+
+3.WXML中提供了类似于Vue中的模板语法
+数据绑定
+列表渲染
+条件渲染
+WXML可以通过上述模板语法快速实现一些功能
+```
+
+### 请简述WXSS和CSS的异同？ 
+
+```
+两者都是用来描述页面
+1：WXSS具有CSS大部分的特性，也做了一些扩充和修改
+2：WXSS新增了尺寸单位，WXSS在底层支持新的尺寸单位rpx
+3：WXSS仅支持部分CSS选择器
+4：WXSS提供全局样式与局部样式
+5：WXSS背景图片只能引入外链，不能使用本地图片
+6：小程序样式使用 @import 引入 外联样式文件，地址为相对路径。
+7：尺寸单位为 rpx , rpx 是响应式像素,可以根据屏幕宽度进行自适应。
+```
+
+### 简述如何怎么封装微信小程序的数据请求的？
+
+```
+方式一：
+1、在小程序的目录下新建一个 api 的文件夹
+2：在 api 文件夹中新建一个 config.js 文件，用于存放公共的服务器地址，内容如下：
+const baseUrl = 'https://www.baidu.com/';
+export {
+baseUrl
+}
+
+3：在 api 文件夹中新建一个 request.js 文件，用于存放封装的api请求，内容如下：
+import { baseUrl } from './http.js'
+module.exports = {
+/*
+* url:请求的接口地址
+* methodType:请求方式
+* data: 要传递的参数
+*/
+request : function(url, methodType, data){
+let fullUrl = `${baseUrl}${url}`
+let token = wx.getStorageSync('token') ? wx.getStorageSync('token') : ''
+wx.showLoading({ title: "加载中" });
+return new Promise((resolve,reject)=>{
+wx.request({
+url: fullUrl,
+method:methodType,
+data,
+header: {
+'content-type': 'application/json', // 默认值
+'x-api-key': token,
+},
+success: (res) => {
+if (res.data.status == 200) {
+resolve(res.data)
+}else{
+wx.showToast({
+title: res.data.msg,
+icon:'none'
+})
+reject(res.data.message)
+}
+},
+fail: () => {
+wx.showToast({
+title: '接口请求错误',
+icon:'none'
+})
+reject('接口请求错误')
+},
+complete: () => {
+setTimeout(() => {
+wx.hideLoading()
+}, 100)
+}
+})
+})
+}
+}
+4：在 api 文件夹中新建一个 index.js 文件，用于存放api请求的地址，内容如下：
+import { request } from './request'
+
+module.exports = {
+// 获取企业列表
+getCompanyList: (data) => request('/company/getlist', 'GET', data),
+}
+5：在文件中使用，内容如下：
+// 引入 api 下的 index 文件
+const $api = require('../../api/index')
+
+// 在方法中调用
+goList(){
+let data = {
+aaa: this.data.cardCur,
+bbb: this.data.notice,
+}
+$api.getCompanyList(data).then((res) => {
+console.log(res,'res');
+})
+},
+方式二：
+前3步是一样的，区别就是封装请求的不同
+封装所有请求 api/http.js
+
+//引入封装的reuest请求
+const {
+request
+} = require('./request.js')
+
+//基于业务封装的接口
+module.exports = {
+// 登录
+getLogin: (data) => {
+return request('/***/***/***/login', 'POST', data);
+},
+// 获取企业信息
+getCompanyList: (data) => {
+return request('/***/***/***/Company', 'GET', data);
+},
+}
+使用
+
+// 引入登录接口
+import {
+getLogin
+} from '../../api/http.js'
+
+Page({
+data: {
+username: '',
+pwd: ''
+},
+
+onLoad() {
+let params = {
+username: this.data.username,
+pwd: this.data.pwd
+}
+// 登录
+getLogin(params).then(res => {
+wx.setStorageSync('Cookie', res.cookies[0])
+wx.switchTab({
+url: '../index/index'
+})
+})
+},
+
+// 退出登录
+handleLogOut() {
+wx.clearStorageSync()
+wx.navigateTo({
+url: '../login/login'
+})
+},
+})
+```
+
+### 微信小程序的双向绑定和Vue区别 ？ 
+
+```
+小程序 直接使用this.data.key = value 是 不能更新到视图当中的。
+必须使用 this.setData({ key ：value }) 来更新值。
+```
+
+### 简述微信小程序的生命周期函数 ？ 
+
+```
+onLoad : 页面加载时触发。一个页面只会调用一次，可以在 onLoad的参数中获取打开当前页面路径中的参数
+onShow : 页面显示 / 切入前台时触发调用。
+onReady : 页面初次渲染完成时触发,一个页面只会调用一次。
+onHide : 页面隐藏 / 切入后台时触发，如 navigateTo 或底部 tab切换到其他页面，小程序切入后台等
+onUnload : 页面卸载时触发。如 redirectTo或 navigateBack 到其他页面时
+```
+
+### 小程序页面之间有哪些（传值）传递数据的方法？
+
+```
+使用全局遍历实现数据传递
+页面跳转或重定向时，使用url带参数传递数据
+使用组件模板 template传递参数
+使用缓存传递参数
+使用数据库传递参数
+或
+给html元素添加data-*属性来传递值，然后通过e.currentTarget.dataset或onload的param参数获取（data- 名称不能有大写字母，不可以存放对象）
+设置id 的方法标识来传值，通过e.currentTarget.id获取设置的id值，然后通过设置全局对象的方式来传递数据
+在navigator中添加参数数值
+```
+
+### 简述微信小程序原理和架构 ？ 
+
+```
+小程序本质就是一个单页面应用，所有的页面渲染和事件处理，都在一个页面内进行，但又可以通过微信客户端调用原生的各种接口；
+它的架构，是数据驱动的架构模式，它的UI和数据是分离的，所有的页面更新，都需要通过对数据的更改来实现；
+它从技术讲和现有的前端开发差不多，采用JavaScript、WXML、WXSS三种技术进行开发；
+功能可分为webview和APPService两个部分，webview主要用来展示UI，appservice用来处理业务逻辑，数据及接口调用，它们在两个进程中进行，通过系统层JSBridge实现通信，实现UI的渲染，事件处理；
+webview用来展现UI，appService有来处理业务逻辑、数据及接口调用；
+两个部分在两个进程中运行，通过系统层JSBridge实现通信，实现UI的渲染、事件的处理等。
+javaScript的代码是运行在微信App中的，因此一些h5技术的应用需要微信APP提供对应的API支持
+wxml 微信自己基于xml语法开发的，因此在开发时只能使用微信提供的现有标签，html的标签是无法使用的
+wxss具有css的大部分特性，但并不是所有都支持，没有详细文档（wxss的图片引入需要使用外链地址，没有body，样式可以使用import导入）
+```
+
+### 描述下微信小程序的相关文件类型 ?
+
+```
+wxml 模板文件，是框架设计的一套标签预言，结合基础组件，事件系统，可以构建出页面的结构
+wxss 样式文件，是一套样式语言，用于描述WXML的组件样式
+js脚本逻辑文件。逻辑处理网络请求
+json配置文件，小程序设置，如页面注册，页面标题及tabBar
+app.json 整个小程序的全局配置，包括：
+pages:[所有页面路径]
+网络设置（网络超时事件）
+页面表现（页面注册）
+window：（背景色，导航样式，默认标题）
+底部tab等
+app.js 监听并处理小程序的生命周期函数，声明全局变量
+app.wxss 全局配置的样式文件
+```
+
+### 简述微信小程序的优劣势？
+
+```
+优势：
+
+容易上手，基础组件库比较全，基本不需要考虑兼容问题
+开发文档比较完善，开发社区比较活跃，支持插件式开发
+良好的用户体验，无需下载，通过搜索和扫一扫就可以打开，打开速度快，安卓上可以添加到桌面，与原生APP差不多
+开发成本比APP要低
+为用户提供良好的保障（小程序发布，严格是审查流程）
+
+劣势：
+
+限制较多，页面大小不能超过1M，不能打开超过5个层级的页面
+样式单一，部分组件已经是成型的，样式不可修改，例如：幻灯片，导航
+推广面窄，不能分享朋友圈，只能通过分享给朋友，附加小程序推广
+依托与微信，无法开发后台管理功能
+后台调试麻烦，因为api接口必须https请求且公网地址
+真机测试，个别安卓和苹果表现迥异，例如安卓的定位功能加载很慢
+```
+
+### 简述微信小程序和H5的区别？
+
+```
+运行环境不同（小程序在微信运行，h5在浏览器运行）
+开发成本不同（h5需要兼容不同的浏览器）
+获取系统权限不同（系统级权限可以和小程序无缝衔接）
+应用在生成环境的运行速度流程（h5需不断对项目优化来提高用户体验）
+```
+
+### 小程序关联微信公众号如何确定用户的唯一性？
+
+```
+使用wx.getUserlnfo方法 withCredentials为true时，可获取encryptedData，里面有union_id，后端需要进行对称解密
+```
+
+### 小程序使用webview直接加载要注意那些事项？ 
+
+```
+必须要在小程序后台使用管理员添加业务域名
+h5页面跳转至小程序的脚步必须是1.3.1以上
+微信分享只可以是小程序的主名称，如要自定义分享内容，需小程序版本在1.7.1以上
+h5的支付不可以是微信公众号的appid，必须是小程序的appid，而且用户的openid也必须是用户和小程序的
+```
+
+### 微信小程序调用后台接口遇到那些问题？
+
+```
+1.数据的大小有限制，超过范围会直接导致整个小程序崩溃，除非重启小程 序；
+2.小程序不可以直接渲染文章内容页这类型的 html 文本内容，若需显示要借住插件，但插件渲染会导致页面加载变慢，所以最好在后台对文章内容的 html 进行过滤，后台直接处理批量替换 p 标签 div 标签为 view 标签，然后其它的标签让插件来做，减轻前端的时间
+```
+
+### 微信小程序如何实现下拉刷新？ 
+
+```
+用view代替scroll-view，设置onPullDownRefresh函数实现
+```
+
+### 简述Webview中的页面怎么跳转回小程序 
+
+```
+wx.miniProgram.navigateTo({
+url:'pages/login/login'+'$params'
+})
+//跳转到小程序导航页面
+wx.miniProgram.switchTab({
+url:'/pages/index/index'
+})
+```
+
+### 简述微信小程序bindtap和catchtap的区别？
+
+```
+1、什么是事件
+   (1) 事件是视图层到逻辑层的通讯方式。
+   (2) 事件可以将用户的行为反馈到逻辑层进行处理。
+   (3) 事件可以绑定在组件上，当达到触发事件，就会执行逻辑层中对应的事件处理函数。
+   (4) 事件对象可以携带额外信息，如 id,dataset,touches
+2、如何使用事件
+   (1) 简单来说就是将事件绑定到组件上面，bindtap和catchtap都属于点击事件，绑定了之后点击组件可以触发这个函数。
+   (2) 函数tapName会接受一个参数event，event里面存储了一些函数调用的上下文信息
+   (3) 标签元素
+1
+Click me!
+   (4) 绑定事件
+Page( {
+tapName: function(event) {
+console.log(event)
+}
+}
+)
+3、bindtap和catchtap的区别
+   (1) 相同点：首先他们都是作为点击事件函数，就是点击时触发。在这个作用上他们是一样的，可以不做区分。
+   (2) 不同点：他们的不同点主要是bindtap是冒泡的，catchtap是非冒泡的。
+4、小程序中事件分为冒泡事件和非冒泡事件。
+   (1) 本文以冒泡事件tap（手指触摸后马上离开，也就是点击事件）为例子来区别bind和catch事件
+   (2) bindtap? 事件绑定不会阻止冒泡事件向上冒泡
+   (3) catchtap? 事件绑定可以阻止冒泡事件向上冒泡
+```
+
+### 微信小程序与原生App那个好？
+
+```
+小程序的优点：
+基于微信平台开发，享受微信自带的流量，这个优点最大
+无需安装，只要打开微信就能用，不占手机内存，体验好
+开发周期段，一般最多一个月就可以上线完成
+开发所需的资金少，所需资金是开发原生APP的一半不到
+小程序名称是唯一的，在微信的搜索里权重很高
+容易上手，只要之前有HTML+CSS+JS基础知识，写小程序基本没有大问题
+基本不需要考虑兼容性问题，只要微信可以正常运行的机器，就可以运行小程序
+发布，审核高效，基本上午发布审核，下午就审核通过，升级简单，支持灰度发布
+开发文档完善，社区活跃
+支持插件式开发，一些基本功能可以开发成插件，供多个小程序使用
+
+缺点：
+局限性很强（比如页面大小不能超过1M，不能打开超过5个层级的页面，样式单一，小程序的部分组件已经是成型的了，样式不能修改，比如幻灯片，导航）只能依赖于微信依托与微信，无法开发后台管理功能
+不利于推广，推广面窄，不能分享朋友圈，只能分享给朋友，附近小程序推广，其中附加小程序也收到微信限制
+后台调试麻烦，因为API接口必须https请求，且公网地址，也就是说后台代码必须发布到远程服务器上；当然我们可以修改host进行dns映射把远程服务器转到本地，或者开启tomcat远程调试；不管怎么说终归调试比较麻烦
+前台测试有诸多坑，最头疼莫过于模拟器与真机显示不一致
+js引用只能使用绝对路径，不能操作DOM
+原生App优点：
+原生的相应速度快
+对于有无网络操作时，譬如离线操作基本选用原生开发
+需要调用系统硬件的功能（摄像头，拨号，短信蓝牙…）
+在无网络或者弱网情况下体验好
+
+原生App缺点：
+开发周期长，开发成本高，需要下载
+```
+
+### 简述微信小程序授权登录流程 ？ 
+
+```
+1、当用户进入微信小程序时，首先我们先判断用户是否授权过此小程序
+2、如果没有授权，我们通过一个按钮来实现授权登录
+3、通过bindgetuserinfo事件，我们可以获取到个人的信息、加密偏移数据、加密用户信息（e.detail获取）
+4.用户可以授权登录，也可以取消授权
+5、根据登录接口返回的code码，判断用户是否时新用户
+6、当用户注册成功后，在调登录接口，保存token。在有些页面需要使用token
+7、在步骤1中，当我们授权过时，我们要看token是否存在
+8、当token存在时，我们直接执行逻辑代码
+9、当token不存在时，我们就需要登录，登录后判断返回的code码，在根据code码判断用户是否是新用户。最后保存token
+```
+
+### 简述下 wx.navigateTo(), wx.redirectTo(), wx.switchTab(), wx.navigateBack(), wx.reLaunch() 区别 ？
+
+```
+wx.navigateTo() : 保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面
+wx.redirectTo() : 关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面
+wx.switchTab() : 跳转到 TabBar 页面，并关闭其他所有非 tabBar 页面
+wx.navigateBack() : 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层
+wx.reLaunch() : 关闭所有页面，打开到应用的某个页面
+```
+
+### 简述微信小程序 wx:if 和 hidden 的区别 ？
+
+```
+wx:if : 有更高的切换消耗。
+hidden : 有更高的初始渲染消耗。
+使用
+频繁切换使用 hidden, 运行时条件变化使用 wx: if
+```
+
+### 简述小程序app.json 全局配置文件描述 ？
+
+```
+pages : 用于存放当前小程序的所有页面路径
+window : 小程序所有页面的顶部背景颜色，文字颜色配置。
+tabBar : 小程序底部的 Tab ,最多5个，最少2个
+```
+
+### 请用代码显示如何封装小程序请求 ？ 
+
+```
+封装 wx.request 请求传递需要的参数( url , data , method , success 成功回调 ， fail 失败回调 ) , 封装常用方法 POST , GET , DELETE , PUT .... 最后导出这些方法
+然后新建一个 api.js 文件，导入封装好的方法，然后调取相应的方法，传递数据。
+wx.request 封装
+var app = getApp();
+//获取小程序全局唯一app实例
+var host = '******************';
+//接口地址
+//POST请求
+function post(url, data, success,fail) {
+request(url, postData, "POST", doSuccess, doFail);
+}
+//GET请求
+function get(url, data, success, fail) {
+request(url, postData, "GET", doSuccess, doFail);
+}
+function request(url, data, method, success, fail) {
+wx.showLoading( {
+title: "正在加载中...",
+}
+)
+wx.request( {
+url: host + url, //请求地址
+method: method, //请求方法
+header: {
+//请求头
+"Content-Type": "application/json;charset=UTF-8"
+}
+,
+data: data, //请求参数
+dataType: 'json', //返回数据格式
+responseType: 'text', //响应的数据类型
+success: function(res) {
+wx.hideLoading();
+//成功执行方法，参数值为res.data,直接将返回的数据传入
+success(res.data);
+}
+,
+fail: function() {
+//失败执行方法
+fail();
+}
+,
+}
+)
+}
+module.exports = {
+postRequest: post,
+getRequest: get,
+}
+组件使用 封装好的请求
+var http = require('../../utils/request.js');
+//相对路径
+var params = {
+//请求参数
+id:this.data.userId
+}
+http.postRequest("user/delUser", params, function(res) {
+console.log("修改成功！");
+}
+, function(res) {
+console.log("修改失败！！！")
+}
+)
+```
+
+### 简述小程序什么时候会主动销毁？ 
+
+```
+小程序在进入后台之后，客户端会帮我们在一定时间内维持我们的一个状态，超过五分钟后，会被微信主动销毁.
+官方也没有明确说明 什么时候销毁， 在不同机型表现也不一样，
+2019年开发时：时间官方文档没有说明，但是经过询问一般指5分钟内
+2020年开发时：时间官方文档没有说明，实测安卓没有固定时间，内存足够情况下，有时候一天了还在，有时候几分钟就没了
+```
+
+### 微信小程序的原生组件有哪些？
+
+```
+以微信小程序为例，可以分成容器组件、基础组件、表单组件、媒体组件、开放能力组件等
+```
+
+### 简述小程序的兼容问题有哪些？ 
+
+```
+遇到的如下：
+1，ios下的zIndex层级问题，主要发生在iphone7和iphoneX下 绝对定位必须有一个共同的父元素。
+2，左右边框不生效 当边框的宽度设置为奇数的时候，可能会不生效 解决方法：将宽度设置为偶数的时候，在ios下就可以解决
+3，还有尽量不要用margin-bottom ，当元素是在整个页面的最底部的时候，在ios下可能margin-bottom会失效，所以建议，都使用padding-bottom
+new Date跨平台兼容性问题
+在Andriod使用new Date(“2018-05-30 00:00:00”)木有问题，但是在ios下面识别不出来。
+因为IOS下面不能识别这种格式，需要用2018/05/30 00:00:00格式。可以使用正则表达式对做字符串替换，将短横替换为斜杠。var iosDate= date.replace(/-/g, '/');
+
+wx.getUserInfo()接口更改问题
+微信小程序最近被吐槽最多的一个更改，就是用户使用wx.getUserInfo（开发和体验版）时不会弹出授权，正式版不受影响。现在授权方式是需要引导用户点击一个授权按钮，然后再弹出授权
+```
+
+### 微信小程序中如何进行接口请求？会不会跨域，为什么 ？
+
+```
+微信小程序有自带的api接口，wx.request();
+不会跨域，因为微信小程序不是浏览器，没有同源策略的约束；
+
+wx.request({
+url: 'https://xxxxxxx.com/api',
+method: "POST",
+data: {
+pageNum: 1,
+pageSize: 10
+},
+header: {
+"content-type": "application/x-www-form-urlencoded"
+},
+success: res => {
+console.log(res)
+}
+})
+```
+
+### 简述小程序的常用命令有哪些 ？ 
+
+```
+引用数据 {{}}
+逻辑渲染 wx:if wx:elif wx:else hidden
+列表渲染 wx:for wx:for-item wx:for-index wx:key，使用 wx:for-item 指定数组当前元素的变量名，使用 wx:for-index 指定数组当前下标的变量名。
+
+驱动视图 this.setData({})
+事件绑定 bind
+```
+
+### 微信小程序中的数据渲染与浏览器中有什么不同 ？ 
+
+```
+浏览器中渲染是单线程的;
+而在小程序中的运行环境分成渲染层和逻辑层， WXML 模板和 WXSS 样式工作在渲染层，JS 脚本工作在逻辑层
+```
+
+### 简述微信小程序中如何进行事件的定义，传参方式 ？
+
+```
+程序中使用bind关键字绑定事件，但小程序中不能在绑定事件的同时为事件处理函数传递参数，可以为组件提供 data-* 自定义属性传参，其中 * 代表的是参数的名字。
+事件传参
+接收传递到的参数：
+tapTap(e){
+console.log(e.currentTarget.dataset.param)
+// 打印结果为：事件传参
+}
+```
+
+### 微信小程序如何进行页面的跳转传参以及接收数据 ？ 
+
+```
+最常用的两个页面的跳转和传参方式：①wx.navigateTo ②navigator标签
+wx.navigateTo( {
+url: `/pages/details?id=$ {
+xxx
+}
+`
+}
+);
+跳转到新页面
+1
+跳转页接收参数：
+onLoad (options) {
+console.log(options)
+this.setData( {
+goodsId:options.id,
+goodsName:options.name
+}
+)
+}
+其他方式：
+wx.switchTab() 用来 跳转至tabBar页面，并关闭其他所有非 tabBar 页面
+wx.redirectTo() 和 wx.navigateTo() 一样，都 跳转至非tabBar页面，但会关闭当前页面
+wx.reLaunch() 也是 跳转至非tabBar页面，并且会关闭其他所有页面
+wx.navigateBack() 用来返回上一页面或多级页面，并关闭当前页面。
+wx.navigateBack( {
+delta: 2 //返回的页面数，1为返回上一页，如果delta大于现有页面数，则返回到首页。
+}
+)
+```
+
+### 微信小程序如何进行本地存储？ 
+
+```
+小程序提供了读写本地数据缓存的接口，通过 wx.getStorage/wx.getStorageSync读取本地缓存，通过 wx.setStorage/wx.setStorageSync写数据到缓存，其中带Sync后缀的接口表示是同步接口
+// 同步存储
+wx.setStorageSync('key', 'value')
+// 异步存储，并且开启加密存储
+wx.setStorage({
+key: "key",
+data: "value",
+encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
+success() {
+wx.getStorage({
+key: "key",
+encrypt: true, // 若开启加密存储，setStorage 和 getStorage 需要同时声明 encrypt 的值为 true
+success(res) {
+console.log(res.data)
+}
+})
+}
+})
+// 同步读取缓存
+var value = wx.getStorageSync('key')
+// 异步读取缓存
+wx.getStorage({
+key: 'key',
+success (res) {
+console.log(res.data)
+}
+})
+小程序宿主环境会管理不同小程序的数据缓存，不同小程序的本地缓存空间是分开的，每个小程序的缓存空间上限为10MB，如果当前缓存已经达到10MB，再通过wx.setStorage写入缓存会触发fail回调。
+
+小程序的本地缓存不仅仅通过小程序这个维度来隔离空间，考虑到同一个设备可以登录不同微信用户，宿主环境还对不同用户的缓存进行了隔离，避免用户间的数据隐私泄露。
+
+由于本地缓存是存放在当前设备，用户换设备之后无法从另一个设备读取到当前设备数据，因此用户的关键信息不建议只存在本地缓存，应该把数据放到服务器端进行持久化存储
+```
+
+### 简述微信小程序如何实现数据驱动视图 ? 
+
+```
+微信小程序中使用 setData 函数把变量渲染到视图层
+
+注意：
+
+直接修改this.data，而不调用this.setData()，是无法改变当前页面的状态的，会导致数据不一致
+仅支持可以JSON化的数据
+单次设置的数据不能超过1024KB，尽量避免一次设置过多的数据
+不要把data中的任何一项的value设为undefined，否则这一项将不能被设置，可能会有潜在的问题
+示例：
+Page({
+data: {
+testOne: 1,
+testTwo: 2
+},
+onLoad: function() {},
+onShow () {
+this.setData({
+test02:8
+})
+console.log(this.data.testTwo)
+}
+},
+})
+```
+
+### 简述并列举微信小程序中常见的开放能力API ？
+
+```
+获取网络状态（2G/3G/4G/5G/WIFI…）
+
+Page({
+// 点击“预览文档”的按钮，触发tap回调
+tap: function() {
+wx.getNetworkType({
+success: function(res) {
+// networkType字段的有效值：
+// wifi/2g/3g/4g/5g/unknown(Android下不常见的网络类型)/none(无网络)
+if (res.networkType == 'wifi') {
+// 从网络上下载文档
+wx.downloadFile({
+url:' https://lark-temp.oss-cn-hangzhou.aliyuncs.com/__temp/464110/docx/bb5d8e7d-97bc-406b-be94-ca2b4724c0e6.docx?OSSAccessKeyId=LTAI4GKnqTWmz2X8mzA1Sjbv&Expires=1644944885&Signature=qUYOtNWZOaopjkEFbcKpvgmn%2B1U%3D',
+success: function (res) {
+// 下载成功之后进行预览文档
+wx.openDocument({
+filePath: res.tempFilePath
+})
+}
+})
+} else {
+wx.showToast({ title: '当前为非Wifi环境' })
+}
+}
+})
+}
+})
+扫码能力
+
+Page({
+// 点击“扫码订餐”的按钮，触发tapScan回调
+tapScan: function() {
+// 调用wx.login获取微信登录凭证
+wx.scanCode({
+success: function(res) {
+var num = res.result // 获取到的num就是餐桌的编号
+}
+})
+}
+})
+分享能力（分享到朋友圈或个人聊天等）
+Page({
+onShareAppMessage(){
+// 我们要记录转发的记录
+return {
+// 分享的标题
+title:'网友热议',
+// 分享的封面， 默认为当前页面的截图
+imageUrl:"/assets/icon/index.png",
+// 点击分享跳转的路径，默认是当前路径，也可以自定义配置，添加额外的跳转参数 path:"/pages/index/index?userId=10&entry=share"
+}
+}, // 省略了别的属性 ...})
+
+wx.canIUse(string schema)
+判断小程序的API、回调、参数、组件等是否在当前版本可用
+
+wx.getSystemInfoSync() | wx.getSystemInfo()
+获取系统信息
+
+wx.getUserProfile(Object object)
+获取用户信息。页面产生点击事件（例如 button 上 bindtap 的回调中）后才可调用，每次请求都会弹出授权窗口，用户同意后返回 userInfo。该接口用于替换 wx.getUserInfo
+```
+
+### 简述微信小程序的父子传参和vue中的有什么区别？ 
+
+```
+父传子的不同点是：微信小程序在子组件中接受父组件传 用 propertites 进行接收，而不是 props
+properties: {
+msg:{
+// type 要接收的数据的类型
+type:String,
+// value 默认值
+value:""
+},
+},
+子传父的不同点是：微信小程序在子组件中使用 triggerEvent 抛出自定义事件名，而不是 this.$emit()
+
+methods: {
+sendData() {
+console.log(this.data.msg)
+this.triggerEvent('eventName', '要传递的参数')
+}
+}
+```
+
+### 简述微信小程序中对behavior的理解 ？ 
+
+```
+behaviors 是用于组件间代码共享的特性，类似于一些编程语言中的 mixins 或 traits。
+每个 behavior 可以包含一组属性、数据、生命周期函数和方法。组件引用它时，它的属性、数据和方法会被合并到组件中，生命周期函数也会在对应时机被调用。 每个组件可以引用多个 behavior ，behavior 也可以引用其它 behavior 。
+组件引用时，在 behaviors 定义段中将它们逐个列出即可。
+代码示例：
+// my-component.js
+var myBehavior = require('my-behavior')
+Component({
+behaviors: [myBehavior],
+properties: {
+myProperty: {
+type: String
+}
+},
+data: {
+myData: 'my-component-data'
+},
+created: function () {
+console.log('[my-component] created')
+},
+attached: function () {
+console.log('[my-component] attached')
+},
+ready: function () {
+console.log('[my-component] ready')
+},
+methods: {
+myMethod: function () {
+console.log('[my-component] log by myMethod')
+},
+}
+})
+```
+
+### 如何优化首次加载微信小程序的速度？
+
+```
+包体积优化
+分包加载（优先采用，大幅降低主包体积）。
+图片优化（1.使用tinypng压缩图片素材； 2.服务器端支持，可采用webp格式）。
+组件化开发（易维护）。
+减少文件个数及冗余数据。
+请求优化
+关键数据尽早请求(onLoad()阶段请求,次要数据可以通过事件触发再请求)；整合请求数据，降低请求次数。
+采用cdn缓存静态的接口数据（如判断用户登录状态，未登录则请求缓存接口数据），cdn稳定且就近访问速度快（针对加载总时长波动大）。
+缓存请求的接口数据。
+首次渲染优化
+图片懒加载（节省带宽）。
+setData优化（不要一次性设置过多的数据等）。
+DOM渲染优化（减少DOM节点）
+```
+
+### 微信小程序如何实现瀑布流效果？ 
+
+```
+思路：把屏幕分为左右两个容器，根据容器的高度决定下一个元素应该放在哪个容器内（高度相对较低的容器）
+代码如下：
+// 处理数据
+initList(list) {
+this.data.finish = false
+// 临界值
+if (list.length == 0) {
+this.data.finish = true
+return
+}
+let item = list.shift()
+wx.getImageInfo({
+src: item.coverImgUrl,
+success: (res) => {
+if (this.data.leftHeight <= this.data.rightHeight) {
+// 默认从左往右渲
+this.data.leftList.push(item)
+this.data.leftHeight += res.height / res.width
+} else {
+this.data.rightList.push(item)
+this.data.rightHeight += res.height / res.width
+}
+this.setData({
+leftList: this.data.leftList,
+rightList: this.data.rightList,
+})
+},
+complete: () => {
+this.initList(list)
+}
+})
+```
+
+### 简述小程序视图渲染结束后如何回调 ？
+
+```
+使用 setData(data, callback)，在 callback 回调方法中添加后续操作代码。
+```
+
+### 简述一下小程序中常见的界面跳转的方式，以及区别？
+
+```
+wx.navigateTo
+wx.navigateTo( {
+url: 'test?id=1',
+}
+)
+保留当前页面，只能打开非 tabBar 页面。
+wx.redirectTo
+wx.redirectTo( {
+url: 'test?id=1'
+}
+)
+关闭卸载当前页面，只能打开非 tabBar 页面。
+wx.switchTab
+wx.switchTab( {
+url: '/index'
+}
+)
+关闭所有非tabbar页面， 只能打开 tabBar 页面。
+wx.reLaunch
+wx.reLaunch( {
+url: 'test?id=1'
+}
+)
+关闭卸载所有页面，可以打开任意页面。
+wx.navigateBack
+wx.navigateBack( {
+delta: 2 //返回的页面数，如果 delta 大于现有页面数，则返回到首页。
+}
+)
+返回前面的页面，可以指定返回多少页，如果用过redirectTo，那么被关闭的页面将返回不去
+```

@@ -1,0 +1,362 @@
+# 移动混合开发 面试题
+
+## 面试官系列
+
+## 经典面试题
+
+### 前端点击事件在移动端会有300毫秒延迟，为什么,怎么解决？
+
+```
+<!DOCTYPE html><br />
+<html lang="en"><br />
+<body><br />
+    <div id="targetDiv" style="width: 200px; height: 200px; background-color: gray"></div><br />
+    <script><br />
+        const Div = document.getElementById("targetDiv");<br />
+        Div.addEventListener("touchstart", function () {<br />
+            console.log("触发了touchstart事件");<br />
+        });<br />
+        Div.addEventListener("click", (e) => {<br />
+            console.log("触发了click事件");<br />
+        });<br />
+    </script><br />
+</body> <br />
+</html><br />
+
+300ms延迟的产生缘由 #
+移动端浏览器的默认显示宽度是980px(不同机型各异，但相差不大)，而不是屏幕的宽度(320px或其他)。为了对早期普通网页更好的体验，iphone设计了双击放大显示的功能–这就是300ms延迟的来源：如果用户一次点击后300ms内没有其他操作，则认为是个单击行为；否则为双击放大行为
+
+解决方法 #
+设置不能缩放：user-scalable=no。 不能缩放就不会有双击缩放操作，因此click事件也就没了300ms延迟，这个是Chrome首先在Android中提出的。
+设置显示宽度：width=device-width。Chrome 开发团队不久前宣布，在 Chrome 32 这一版中，他们将在包含 width=device-width 或者置为比 viewport 值更小的页面上禁用双击缩放。当然，没有双击缩放就没有 300毫秒点击延迟。
+IE的指针事件 (Pointer Events)：设置touch-action:none，根据规范，touch-action 属性决定 “是否触摸操作会触发用户代理的默认行为。这包括但不限于双指缩放等行为”。从实际应用的角度来看，touch-action决定了用户在点击了目标元素之后，是否能够进行双指缩放或者双击缩放。因此，这也相当完美地解决了300 毫秒点击延迟的问题 鉴于上述的3种解决方案，现在较为通用的meta设置为： "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+使用插件 fastclick(react项目中使用的就是fastclick插件)
+1. 安装 npm i fastclick --save
+2. 全局引入 import fastclick from 'fastclick'
+3. 配置 fastClick.attach(document.body);
+```
+
+### 在旋转屏幕时，如何解决字体大小自动调整的问题？
+
+```
+通过以下代码设置样式
+html, body, form, fieldset, p, div, hl, h2， h3， h4， h5， h6 {
+-webkit-text-size-adjust：100%;
+}
+```
+
+### 如何解决移动端 click事件有300ms延迟的问题？ 
+
+```
+<br />
+移动端click事件会有300ms延时，原因是移动端屏幕双击会缩放页面。<br />
+三种解决方案如下：<br />
+1.禁用缩放，浏览器禁用默认的双击缩放行为并且去掉 300ms 的点击延迟<br />
+<meta name="viewport" content="user-scalable=no"><br />
+2.利用 touch 事件自己封装这个事件解决 300ms 延迟。<br />
+原理就是：<br />
+当我们手指触摸屏幕，记录当前触摸时间<br />
+当我们手指离开屏幕，用离开的时间减去触摸的时间<br />
+如果时间小于 150ms，并且没有滑动过屏幕，那么我们就定义为点击<br />
+//封装tap,解决click300ms延时<br />
+function tap(obj, callback) {<br />
+	var isMove = false;<br />
+	var startTime = 0;<br />
+	obj.addEventListener("touchstart", function (e) {<br />
+		startTime = Date.now();<br />
+		//记录触摸时间<br />
+	}<br />
+	);<br />
+	obj.addEventListener("touchmove", function (e) {<br />
+		isMove = true;<br />
+		//看是否有滑动，有滑动算拖拽，不算点击<br />
+	}<br />
+	);<br />
+	obj.addEventListener('touchend',function(e) {<br />
+		if(!isMove&&(Date.now()=startTime)<150) {<br />
+			//如果手指触摸和离开时间小于150ms 算点击<br />
+			callback&&callback();<br />
+			//执行回调函数<br />
+		}<br />
+		isMove=false;<br />
+		//取反 重置<br />
+		startTime=0;<br />
+	}<br />
+	);<br />
+}<br />
+//调用<br />
+tap(div,function() {<br />
+}<br />
+)<br />
+3.使用插件，fastclick 插件解决 300m 延迟<br />
+js 插件是 js 文件，它遵循一定规范编写，方便程序展示效果，拥有特定功能且方便调用，如轮播图和瀑布流插件。 特点：它一般为了解决某个问题而专门存在，其功能单一，并且比较小。<br />
+fastclick 插件解决 300ms 延迟，使用延时。<br />
+Github 官网地址：https://github.com/ftlabs/fastclick<br />
+使用方法：<br />
+引入 fastclick 插件文件：<br />
+<script src="fastclick.js"></script><br />
+在 HTML 中使用：<br />
+ <script><br />
+        if ('addEventListener' in document) {<br />
+	document.addEventListener('DOMContentLoaded', function () {<br />
+		FastClick.attach(document.body);<br />
+	}<br />
+	, false);<br />
+}<br />
+var div = document.querySelector('div');<br />
+div.addEventListener('click', function () {<br />
+	alert(11);<br />
+}<br />
+)<br />
+    </script><br />
+```
+
+### 如何解决移动端HTML5中date类型的input标签不支持 placeholder属性的问题？ 
+
+```
+代码如下。
+< input placeholder = "请输入日期 " type="text" onfocus="（this .type='date'）" name="date">
+```
+
+### 如何通过HTML5调用 Android或iOS的拨号功能？
+
+```
+HTML5提供了自动调用拨号的标签，只要在a标签的href中添加tel：协议就可以了。
+拨打固定电话的代码如下
+< a href="te1:021-12345678">单击拨打021-12345678
+拨打手机号码的代码如下
+< a href="te1:12345678901">单击拨打12345678901
+```
+
+### 如何解决上下拖动滚动条时的卡顿问题？
+
+```
+通过以下代码设置样式。
+body {
+-webkit-overflow-scrolling:touch;
+overflow-scrolling:touch；
+Android3+和iOS5+支持CSS3的新属性 overflow- scrolling，该属性也可以解决上述问题。
+```
+
+### 如何确保 InAppBrowser能被完整调用？
+
+```
+在调用外部资源的HTML文件中的标签中要加入
+type=" text/javascript" charset="utf-8" src="cordova. js">
+以确保 InAppBrowser插件能够被完整调用，否则会出现底部返回按钮无法出现的情况
+```
+
+### 如何利用 InAppBrowser插件调用外部资源？
+
+```
+在 config. xml文件中加入href="*"/>（即将任何外部资源放入白名单中），就可以利用 InAppBrowser插件调用外部资源了
+```
+
+### 在混合开发中，如何实现上拉刷新。下拉刷新和加载？你遇到过什么问题？
+
+```
+用 iscroll实现上拉刷新、下拉刷新和加载，效果比较差，在页面上只能上下滑动，不能左右滑动。如果把页面嵌入到客户端的tab底下，就会阻止客户端的左右滑动。如果要实现左右切换，就要把 iscroll插件中的
+onBeforeScrollStart:function（e）{ e.preventDefault ( )；}
+改为
+onBeforeScrollStart:null
+缺点：虽然实现了上拉刷新、下拉刷新，但是效果不是很好，有时候会“弹”不回去，和原生的有一些差距。
+```
+
+### HTML5和 Native的交互如何实现？ 
+
+```
+WebView本来就支持 JavaScript和Java相互调用，只需要开启 WebView的 JavaScript脚本执行功能，并通过代码 mWebView. addJavascriptInterface（new JsBridge( )，" bxbxbai"）向HTML5页面中注入一个Java对象，然后就可以在HTML5页面中调用 Native的功能了
+```
+
+### 微信是用 Hybrid开发做得最好的App，它是如何做交互的？
+
+```
+在微信开发者文档中可以看到，微信JS-SDK封装了微信的各种功能，比如分享到朋友圈、图像接口、音频接口、支付接口、地理位置接口等。
+开发者只需要调用微信JS-SDK中的函数，然后统一由JS-SDK调用微信中的功能这样的好处就是，开发者写了一个HTML5的应用或网页，在 Android和iOS版本的微信中都可以正常运行
+```
+
+### 简述Hybrid开发适用于哪些功能 ？
+
+```
+Hybrid开发就是在 Native客户端中嵌入了 HTML App的功能，这方面微信应该是做得最好的。
+由于HTML5的效率以及耗电问题，可能用户对 Web App的体验不满意，Hybrid App也只适用于某些场景。
+把一些基础的功能（比如调用手机的摄像头、获取地理位置、登录注册等）做成 Native的功能，让HTML5来调用更好，这样的体验也更好。
+如果把一个登录和注册功能也做成HTML5版本的App，在弱网络环境下，这个体验应该会非常差，或许用户等半天还没加载出页面。
+一些活动页面（比如“秒杀”、团购等）适合采用HTML5开发，因为这些页面可能设计得非常炫而且复杂。HTML5开发非常简单，并且这些页面时效性短，更新更快，因为一个活动说不定就一周时间，下周就下线了。而如果用 Native开发，成本是很高的
+```
+
+### 简述Web App和混合App的区别 ？ 
+
+```
+区别如下。
+（1） Web App指采用HTML5语言写的App，需要安装触屏版网页应用。
+优点包括：开发成本低，迭代速度快，能够跨平台终端。
+缺点包括：入口临时，获取系统级别的通知和提醒效率低，用户留存率低，设计受限制，体验较差。
+（2）混合App指半原生半Web的混合App，需要安装它才能访问Web内容。
+例如新闻类App、视频类App普遍采取Native框架web内容，混合App极力打造类似于原生App的体验，但仍受限于技术和网速等诸多因素
+```
+
+### 简述什么是 Android混合开发？如何申请权限？ 
+
+```
+Android混合开发使用Java和H5共同开发界面，通过 JsBridge进行通信，一部分界面首先在本地写好，然后通过网络请求获取数据，进行展示。当然，也可以完全是H5界面，在 WebView中进行展示。
+权限可以在 Manifest.xml中申请， Android 6.0以上版本可以通过代码动态申请。
+```
+
+### 简述移动端混合开发的概念和理解 ？ 
+
+```
+混合开发（HTML5开发）相当于一种框架开发。该模式通常由“HTML5云网站+App应用客户端”两部分构成，App应用客户端只须安装应用的框架部分，而在每次打开App的时候，从云端取数据并呈现给手机用户混合开发的另一种形式是套壳App。
+套壳App就是用H5的网页打包成App。
+虽然App能安装到手机上，但是每个界面都是通过HTML5开发的网页。这种App数据都保存在云端，用户每次访问都需要从云端调取全部内容，这样就容易导致反应慢，每打开个网页或单击一个按钮，加载网页都需要等很长时间
+```
+
+### 简述混合App开发的优势 ？
+
+```
+优势如下。
+时间短。基本都是直接嵌套模板或打包成App，这会节省很大一部分时间。
+价格便宜。代码不需要重新写，界面不用重新设计，这些都是固定的，可替换的地方很少，所以价格相对便宜。
+```
+
+### 简述混合App开发的劣势缺陷 ？
+
+```
+（1）功能、界面无法自定义。所有内容都是固定的，所以要换一个界面，或增加个功能，都是不可以的。
+（2）加载缓慢、网络要求高。混合App数据全部需要从服务器调取，每个页面都需要重新下载，所以打开速度慢，占用的网络带宽高，缓冲时间长，容易让用户反感。
+（3）安全性比较低。代码都是以前的代码，不能很好地兼容最新的手机系统，且安全性较低。网络发展快，病毒多，如果不实时更新，定期检查，容易产生漏洞，造成经济损失
+```
+
+### 简述开发原生App还是混合App选择因素 ？ 
+
+```
+选择方法如下。
+（1）根据预算选择：现在预算有多少？在应用转型上打算花多少金钱、时间、精力？
+如果预算在几千元到一万元之间，建议选择混合App。混合App有它存在的道理，并非一文不值，很多混合App发展好了再转型成原生App。
+（2）根据需要选择：如果只是简单地卖个小商品，那么可以选择混合App；如果想做类似淘宝的大型店铺，有很多用户、很多店、很多现金流，可以选择原生App
+```
+
+### 如何判断App是原生App、混合App还是 Web App？ 
+
+```
+（1）看断网情况。
+通过断开网络，刷新页面，观察内容缓存情况，可以有一个大致的判断，可以正常显示的就是原生App，显示404或者错误页面的就是 Web App。
+（2）看页面布局编辑。
+如果页面布局比较简单，可能是原生App；如果页面布局很复杂，页面动画很多，可能是 Web App。
+（3）看复制文章的提示，需要通过对比才能得出结果。
+比如，长按文章信息页面，如果出现文字选择、粘贴功能的是 Web App，否则是原生App。
+有些原生App开放了复制、粘贴功能或者关闭了这些功能，而 Web App中HTML5中的CSS屏蔽了复制、选择功能等，需要通过对目标测试App进行对比才能分辨。
+（4）看加载方式。
+如果在打开新页面的导航栏下面有一条加载线，这个页面就是 Web App；如果没有，就是原生的App。
+（5）看App顶部导航栏是否会关闭按钮。
+如果App顶部导航栏中出现了关闭按钮或者关闭图标，那么当前App是 Web App，原生App中不会出现（除非设计开发者特意设计）、美团、大众点评、微信的App。当加载H5页面过多的时候，左上角会出现“关闭”两个字。
+（6）看页面刷新情况。
+如果页面没有明显刷新现象就是原生App，如果有明显刷新现象（比如闪一下）就是 Web App，比如淘宝的众筹页面等。
+在下拉页面的时候显示网址提供方的一定是 Web App。
+（7）利用系统开发人员工具。
+在手机的“设置”中，选择“开发者选项”→“显示布局边界”，选择开启后再次查看App整体布局边界，这样所有应用控件的布局就会一目了然。
+```
+
+### 简述混合应用程序的实现原理？
+
+```
+在本地应用程序中添加 Web View来显示HTML5（CSS、 JavaScript）部分的内容，集中在 JavaScript和本地代码中实现逻辑操作。通过 JavaScript来实现本地代码和HTML5之间的交互操作
+```
+
+### 简述React与 ReactNative的区别？ 
+
+```
+ReactNative和 React共用一些抽象层，但具体有很多差异，且目标平台不同。
+
+React用于开发web页面，为了使前端的视图层组件化，并能更好地得以复用，它能够使用简单的HTML标签创建许多自定义组件标签。
+
+在组件内部绑定事件，只需要操作数据就会改变相应的DOM渲染结果。
+
+ReactNative目前只能开发iOS/Android App，它是程序员能够使用前端的技术去开发运行在不同平台（如iOS、 Android等）上的项目框架。
+
+ReactNative在 JavaScript中用 React抽象 Android、iOS原生的UI组件，代替DOM元素来渲染，比如用取代
+
+，用替代等
+```
+
+### ReactNative中，如何动态设置 TextInput的高度，以便适配响应式页面布局？
+
+```
+使用
+```
+
+### 简述ReactNative与原生 Android常用的通信方式有几种？ 
+
+```
+常用的通信方式如下。
+（1）通过 RCTDeviceEventEmitter事件通信。
+（2）通过回调函数异步通信。
+（3）通过 Promise规范实现通信。
+（4）通过原生 Android直接向 ReactNative传递常量数据
+```
+
+### 怎样处理 移动端 1px 被 渲染成 2px 问题 ？
+
+```
+meta 标签中的 viewport 属性 ，initial-scale 设置为 1
+rem 按照设计稿标准走，外加利用 transfrome 的 scale(0.5) 缩小一倍即可； 2 全局处理
+meta 标签中的 viewport 属性 ，initial-scale 设置为 0.5
+rem 按照设计稿标准走即可
+```
+
+```
+解释
+UI 设计师设计的时候，画的 1px（真实像素）实际上是 0.5px(css) 的线或者边框。但是他不这么认为，他认为他画的就是 1px 的线，因为他画的稿的尺寸本身就是屏幕尺寸的 2 倍。假设手机视网膜屏的宽度是 320x480 宽，但实际尺寸是 640x960 宽，设计师设计图的时候一定是按照 640x960 设计的。但是前端工程师写代码的时候，所有 css 都是按照 320x480 写的，写 1px(css)，浏览器自动变成 2px（真实像素）。
+那么前端工程师为什么不能直接写 0.5px(css) 呢？因为在老版本的系统里写 0.5px(css) 的话，会被浏览器解读为 0px(css)，就没有边框了。所以只能写成 1px(css)，实际在屏幕上显示出来就是设计师画的1px（真实像素）的 2 倍那么宽，所以设计师会觉得这个线太粗了，和他的设计稿不一样。在新版的系统里，已经开始逐渐支持 0.5px(css) 这种写法。所以如果设计师在大图上设计了一个 1px（真实像素）的线的话，前端工程师直接除以 2，写 0.5px(css) 就好了。
+
+另外一种解释
+事实就是它并没有变粗，就是 css 单位中的 1px，对于 dpr 为 2 的设备，它实际能显示的最小值是0.5px。
+设计师口中说的 1px 是针对设备物理像素的，换算成 css 像素就是 0.5px。
+一句话总结，background:1px solid black 在任何屏幕上都是一样粗的，但是 retina 屏可以显示比这更细的边框，然后设计师就不乐意了，让你改。
+```
+
+### 简述如何解决移动端 Retina 屏 1px 像素问题 ？
+
+```
+1. 伪元素 + transform scaleY(.5)
+2. border-image
+3. background-image
+4. box-shadow
+```
+
+### 简述如何把一个字符串的大小写取反（大写变小写小写 变大写），例如 ’AbC' 变成 'aBc' ？
+
+```
+function processString (s) {
+var arr = s.split('');
+var new_arr = arr.map((item) => {
+return item === item.toUpperCase() ? item.toLowerCase() :
+item.toUpperCase();
+});
+Return
+new_arr.join('');}console.log(processString('AbC'));function
+swapString(str) {
+var result = ''
+for (var i = 0; i < str.length; i++) {
+var c = str[i]
+if (c === c.toUpperCase()) {
+result += c.toLowerCase()
+} else {
+result += c.toUpperCase()
+}
+}
+return result}swapString('ADasfads123!@$!@#') // =>
+'adASFADS123!@$!@#'
+```
+
+### 简述移动设备中的适配⽅案 ？ 
+
+```
+在移动设备开发中，为了确保⻚⾯在不同设备上显示良好，我们需要考虑设备的DPR和P P I，以及设备独⽴像素。以下是⼀些常⽤的适配⽅案：
+1. 使⽤r e m单位：r e m单位是相对于根元素（h t m l元素）的字体⼤⼩进⾏计算的⻓度单位。通过动态设置根元素的字体⼤⼩，可以根据不同设备的DPR进⾏适配。
+2. 使⽤v i ewp o rt标签：通过设置v i ewp o rt标签，可以控制⻚⾯的缩放和布局。设置 < m e t a n a m e = " v i e w p o rt" c o n t e n t= " w i d t h = d e v i c e - w i d t h , i n i t i a l- s c a l e = 1 . 0 " > 可以让⻚⾯宽度等于
+设备宽度，并且不进⾏缩放。
+3. 使⽤媒体查询：媒体查询可以根据不同设备的宽度、⾼度、DPR等条件来应⽤不同的CS S样式，从⽽实现⻚⾯的适配。
+4. 使⽤fl e x b o x和g ri d布局：fl e x b o x和g ri d布局可以更加灵活地进⾏⻚⾯布局，适应不同设备的屏幕尺⼨和分辨率。
+5. 使⽤图⽚的@2 x和@3 x版本：对于⾼分辨率设备，提供相应的⾼清晰度图⽚，以确保图⽚显示效果清晰。
+```
