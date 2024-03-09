@@ -14,3 +14,820 @@
 - [webpack类似的工具还有哪些?区别?](/interview/webpack/rollup_parcel_snowpack_vite)
 
 ## 经典面试题
+
+### 简述前端自动化构建工具 ？ 
+
+```
+前端自动化构建工具有：
+Bower，Gulp，Grunt，node，yeoman
+
+自动化构建是作为前端工程化中重要的部分，承担着若干需要解决的环节。包括流程管理、版本管理、资源管理、组件化、脚手架工具等。
+
+1：流程管理
+完整的开发流程包括本地开发，mock调试，前后端联调，提测，上线等。在每个团队的基础设施当中(如cms系统，静态资源推送系统等)，都会存在一定程度将前端开发流程割裂。如何运用自动化的手段，对开发流程进行改善将可以大幅减低时间成本。
+
+2：版本管理
+web应用规模愈加复杂，迭代速度也愈加频繁。而前端界面作为一种远程部署，运行时增量下载的特殊GUI软件，如何使用自动化构建工具，对不同版本的资源文件进行管理，并让用户第一时间感知版本的回撤以及升级(尤其是在浏览器缓存以及cdn广泛使用的今天），将对企业有更好的安全保障，对用户有更佳的使用体验。
+
+3：资源管理
+随着每个团队业务复杂程度的加深，对于功能模块封装的粒度必将愈加精细。衍生出来的，将会是资源数量以及依赖关系等的管理问题。以人工的方式考虑单个页面或单个功能的资源优化是片面的，并且效率低下。通过工程化的手段，在前端构建过程中自动化地以最优方式处理资源的合并以及依赖，是提升性能以及解放人力资源的重要途径。
+
+4：组件化
+组件化方案，是以页面的小部件为单位进行开发，在系统内可复用。如何以最优化方式实现组件化（js、css、html片段，以就近原则进行文件组织，以数据绑定方式进行代码开发，业务逻辑上相对外部独立，暴露约定的接口）；并且随着组件化的程度加深，如何对组件库进行管理，合并打包以及多人共同维护等，都是无法避免的问题。
+
+5：脚手架工具
+我们希望每次研发新产品不是从零开始，不同团队不同项目之间能有【可复用的模块】沉淀下来。对于前端而言，【可复用的模块】除了【组件】，另外就是【脚手架工具】。运用脚手架工具，一键安装，自动化搭建不同类型项目的完整目录结构，工程师将有更多时间专注在业务逻辑代码的编写上。
+```
+
+### 常使用的库有哪些？常用的前端开发工具？开发过什么应用或组件？ 
+
+```
+* 使用率较高的框架有jQuery、YUI、Prototype、Dojo、Ext.js、Mootools等。尤其是jQuery，超过91%。
+* 轻量级框架有Modernizr、underscore.js、backbone.js、Raphael.js等。（理解这些框架的功能、性能、设计原理）
+* Sublime Text 、Eclipse、Notepad、Firebug、HttpWatch、Yslow。
+* 城市选择插件，汽车型号选择插件、幻灯片插件。弹出层。（写过开源程序，加载器，js引擎更好）
+```
+
+### 简述前端模块化开发的认识理解 ？
+
+```
+1：webpack中是这样定义的：
+在模块化编程中，开发者将程序分解成离散功能块(discrete chunks of functionality)，并称之为模块。每个模块具有比完整程序更小的接触面，使得校验、调试、测试轻而易举。精心编写的模块提供了可靠的抽象和封装界限，使得应用程序中每个模块都具有条理清楚的设计和明确的目的。
+模块应该是职责单一、相互独立、低耦合的、高度内聚且可替换的离散功能块。
+
+2：模块化的概念
+模块化是一种处理复杂系统分解成为更好的可管理模块的方式，它可以把系统代码划分为一系列职责单一，高度解耦且可替换的模块，系统中某一部分的变化将如何影响其它部分就会变得显而易见，系统的可维护性更加简单易得。
+模块化是一种分治的思想，通过分解复杂系统为独立的模块实现细粒度的精细控制，对于复杂系统的维护和管理十分有益。模块化也是组件化的基石，是构成现在色彩斑斓的前端世界的前提条件。
+
+3：为什么需要模块化
+前端开发和其他开发工作的主要区别，首先是前端是基于多语言、多层次的编码和组织工作，其次前端产品的交付是基于浏览器，这些资源是通过增量加载的方式运行到浏览器端，如何在开发环境组织好这些碎片化的代码和资源，并且保证他们在浏览器端快速、优雅的加载和更新，就需要一个模块化系统。
+
+4：模块化的好处
+可维护性。 因为模块是独立的，一个设计良好的模块会让外面的代码对自己的依赖越少越好，这样自己就可以独立去更新和改进。
+命名空间。 在 JavaScript 里面，如果一个变量在最顶级的函数之外声明，它就直接变成全局可用。因此，常常不小心出现命名冲突的情况。使用模块化开发来封装变量，可以避免污染全局环境。
+重用代码。 我们有时候会喜欢从之前写过的项目中拷贝代码到新的项目，这没有问题，但是更好的方法是，通过模块引用的方式，来避免重复的代码库。我们可以在更新了模块之后，让引用了该模块的所有项目都同步更新，还能指定版本号，避免 API 变更带来的麻烦。
+```
+
+### 简述CommonJS和AMD的理解 ？
+
+```
+（1）CommonJS
+NodeJS是CommonJS规范服务器端的实现，webpack也是CommonJS的形式书写。同步加载，服务器端从磁盘中读取速度快，运行在服务器端没有问题。
+
+（2）AMD
+AMD是Asynchronous Module Definition异步模块定义。
+基于CommonJS规范的node.JS是服务端模块化的实现。实现浏览器端的模块化就是AMD，且能与服务器端兼容最好。同一个模块在服务器端和浏览器端都可以维护运行，简单方便很多，效率也提高了不少。
+浏览器不能兼容CommonJS，于是AMD就出现了。浏览器不能兼容CommonJS的根本原因在于缺少node.JS的四个环境变量：module、exports、requrie、global。
+为什么服务器端可以同步加载，浏览器端不能同步加载，需要异步加载？
+
+var math = require('math');
+math.add(2,3)
+解析：第二行代码在第一行之后运行，必须等到math.js加载完成后运行，如果加载时间特别特别长，整个程序就会卡顿。这里的这里的requrie是同步加载的。浏览器的模块都在服务器端，等待时间取决于网络速度的快慢，等待的时间越长，浏览器响应的时间越长，甚至造成“假死”的状态。服务器端的模块放在本地硬盘中，同步加载读取的时间很快，几乎不会产生什么影响。
+
+（3）CMD
+AMD推崇依赖前置，CMD推崇依赖就近，延迟加载。
+
+（4）ES6模块化
+ES6模块化采用静态编译，在编译的时候就能确定依赖关系，以及输入和输出的变量。
+CommonJS和AMD模块只能运行时确定。
+
+二、AMD规范与CMD规范的区别
+①CMD推崇依赖就近，AMD推崇依赖前置
+②CMD延迟执行，AMD是提前执行
+③CMD性能好，按需加载，当用户有需要在执行。AMD用户体验好，不延迟执行，依赖模块提前加载完毕
+//AMD默认推荐的是
+define(['./a', './b'], function (a, b) { //依赖前置，必须一开始就写好
+a.doSomething()
+b.doSomething()
+})
+//CMD默认推荐的是
+define(function (require, exports, module) {
+var a = require('./a')
+a.doSomething()
+var b = require('./b') //依赖就近，按需加载，需要哪个写哪个
+b.doSomething()
+})
+
+AMD和CMD最大的区别是对依赖模块的执行时机处理不同，注意不是加载的时机或者方式不同
+
+①AMD和CMD都是异步加载模块。AMD依赖前置，js可以提前知道所有的依赖模块，立即加载。CMD就近依赖，模块解析为字符串后才能知道依赖哪些模块。CMD性能好，按需加载，用户需要才加载。AMD用户体验好，模块全部提前加载好。
+②AMD加载完模块之后就会立即执行它，所有模块加载完之后进入require回调函数，执行主逻辑。依赖模块的执行顺序和开发人员写的不一样，哪一个模块网速好先下载哪个就先执行，但是主逻辑一定是所有模块加载完成后才执行。
+③CMD加载完某个模块后并不执行，只是下载，在所有模块加载完成后进入主逻辑，遇到require语句的时候才执行对应的模块。依赖模块的执行顺序和开发人员写的一样。
+
+三、ES6模块和CommonJS规范区别
+①CommonJS支持动态导入，ES6不支持，是静态编译。
+②CommonJS同步加载，用于服务端，文件放在本地磁盘，读取速度快。同步导入卡住主线程也并无影响。ES6是异步加载，用于浏览器端，不能同步加载，会导致页面渲染，用户体验差。
+③CommonJS模块输出的是值拷贝，内部的变化影响不到值的变化。ES6模块输出的是值引用，原始值变化，加载的值也会跟着变化，ES6模块是动态引用，并且不会缓存值。
+④CommonJS模块是运行时加载，ES6模块是编译时输出接口。CommonJS模块就是对象，输入时先加载整个模块，生成一个对象，然后从对象读取方法。ES6模块不是对象，export输出指定代码，import导入加载某个值，而不是整个模块。
+⑤关于模块顶层的this指向问题，在CommonJS顶层，this指向当前模块；而在ES6模块中，this指向undefined。
+⑥ES6模块当中，是支持加载CommonJS模块的。但是反过来，CommonJS并不能requireES6模块，在NodeJS中，两种模块方案是分开处理的。
+
+四、加载模式的总结
+（1）CommonJS加载模式—同步/运行时加载
+CommonJS加载模块是同步的。输入的时候加载整个模块，生成一个对象，从这个对象上读取方法。子模块完成加载，才能执行后面的操作。输入的值是被输出的值的拷贝，父模块引入子模块，引入的是子模块的值拷贝，模块的内部变化无法影响这个值。
+（2）AMD加载模式—异步加载、依赖前置
+AMD在浏览器端异步加载，AMD推崇依赖前置，加载完模块之后就会立即执行它。
+（3）CMD加载模式—异步加载、依赖就近
+CMD在浏览器端异步加载，CMD推崇依赖就近，加载完模块不会立即执行，只是加载，等到需要的时候才会执行。
+（4）ES6加载模式—静态编译
+ES6静态编译，在编译的时候就能确定依赖，编译的时候输出接口。export输出指定代码，import某个值不是整个模块。
+
+五、ES6、CommonJS循环引用问题
+什么是循环引用？循环加载指的是a脚本的执行依赖b脚本，b脚本的执行依赖a脚本。
+①CommonJS模块是加载时执行。一旦出现某个模块被“循环加载”，就只输出已经执行的部分，没有执行的部分不会输出。
+②ES6模块对导出模块，变量，对象是动态引用，遇到模块加载命令import时不会去执行模块，只是生成一个指向被加载模块的引用
+```
+
+### 简述前端模块化开发的好处是什么？ 
+
+```
+模块化开发可以带来以下好处：
+
+1：提高代码的复用性：模块化可以将代码划分成可重用的部分，降低代码的冗余和重复，提高代码的复用性。
+2：简化代码的维护和调试：当一个软件系统变得越来越复杂时，进行模块化开发可以使得每个模块都相对独立，这样就可以方便地维护和调试每个模块，而不必考虑整个系统的复杂性。
+3：提高代码的可读性：模块化可以使得代码更加结构化，清晰明了，从而提高代码的可读性和可维护性。
+4：提高开发效率：模块化开发可以使得团队成员在不同模块上并行开发，从而提高开发效率。
+5：降低项目的风险：模块化开发可以使得开发人员更加关注模块之间的接口和依赖关系，从而降低项目的风险。
+6：总之，模块化开发是一种有效的软件开发模式，可以提高软件开发的质量、效率和可维护性，特别是在大型软件系统的开发中，模块化更是必不可少的
+```
+
+### 简述require.js解决了什么问题 ？
+
+```
+解决了以下问题。
+（1）实现了 JavaScript文件的异步加载。
+（2）有助于管理模块之间的依赖性。
+（3）便于代码的编写和维护
+```
+
+### 如何实现前端模块化开发？ 
+
+```
+require. js、 SeaJS都是适用于web浏览器端的模块加载器，使用它们可以更好地组织 Javascript代码
+```
+
+### 简述模块化的 JavaScript开发的优势 ？
+
+```
+优势如下。
+（1）将功能分离出来
+（2）具有更好的代码组织方式
+（3）可以按需加载。
+（4）避免了命名冲突。
+（5）解决了依赖管理问题
+```
+
+### 简述 CommonJS规范 ？
+
+```
+每个文件就是一个模块，有自己的作用域。在一个文件里面定义的变量、函数、类，都是私有的，对其他文件不可见。
+在模块中使用global 定义全局变量，不需要导出，在别的文件中可以访问到。
+每个模块内部，module变量代表当前模块。这个变量是一个对象，它的exports属性（即module.exports）是对外的接口。
+通过 require加载模块，读取并执行一个js文件，然后返回该模块的exports对象。
+所有代码都运行在模块作用域，不会污染全局作用域。
+模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。
+模块加载的顺序，按照其在代码中出现的顺序
+```
+
+### 简述CMD（ Common module Definition，通用模块定义）规范的理解 ？
+
+```
+CMD 叫做通用模块定义规范（Common Module Definiton），它是类似于 CommonJs 模块化规范，但是运行于浏览器之上的，关于模块化的好处我们在 CommonJs 篇文章中我们了解过。它是随着前端业务和架构的复杂度越来越高运用而生的，来自淘宝玉伯的 SeaJS 就是它的实现。
+CMD 规范尽量保持简单，并与 CommonJS 的 Modules 规范保持了很大的兼容性。通过 CMD 规范书写的模块，可以很容易在 Node.js 中运行。在 CMD 规范中，一个模块就是一个文件。格式如下：
+define(factory);
+具体用法如下：
+// moudle-a.js
+define(function(require, exports, module) {
+module.exports = {
+a: 1
+}
+;
+}
+);
+// moudle-b.js
+define(function(require, exports, module) {
+var ma = require('./moudle-a');
+var b = ma.a + 2;
+module.exports = {
+b: b
+}
+;
+}
+);
+CMD 规范拥有简单、异步加载脚本、友好的调试并且兼容 Nodejs，它的确在开发过程中给我们提供了较好的模块管理方式。
+```
+
+### 简述EMAScript 6模块规范 ？ 
+
+```
+在任何一个大型应用中模块化是很常见的。ES6的模块为JavaScript提供了这个特性，并且为这些模块提供了许多选择方法来导出和引入对象。Ravi Kiran 在《 Modules in ECMAScript 6 (ES6) 》一文中主要讨论了ES6模块系统。以下为该文章的简译内容：
+
+无论使用何种编程语言开发大型应用，最关键的特性就是代码模块化。这个概念在不同的编程语言里有着不同的命名，在C里为头部文件，C++和C#里为命名空间，Java中为包，名称不一样但解决的是同一问题。正如《 ECMAScript 6 – New language improvements in JavaScript 》系列文章中第一篇所提到的那样，最初JavaScript并不是用来编写大量代码的，比如创建大型框架、App应用等。就在我们因为JavaScript缺少对模块的支持而编写大量代码时，开源开发者提出了一些标准，如CommoneJs模块模型、异步模块定义（AMD）以及一些库，来实现模块化。在过去几年里,这些库获得了广泛关注，并成功应用到多个企业规模级的应用程序中。
+
+ES6为JavaScript带来了模块特性。浏览器实现这一特性还需要一段时间，因为它们必须定义一个方法来动态下载文件。在浏览器支持该特性以前，我们可以使用编译器，如 Traceur、6to5、ES6 Module Loader以及其它可以让ES6模块转换成ES5的转码器。
+
+JavaScript模块系统的现状
+
+CommonJS模块系统
+
+CommonJs是一个由开源开发者组成的团队，主要围绕JavaScript实现一些API及开展研发实践。该团队提出了一个JavaScript模块规范。每个文件都可当作一个模块，并且每个文件可以访问两个对象：require和export。require用来接收字符串（模块名），并返回该模块输出的对象。export对象用来导出该模块的方法和变量。require方法返回的就是export对象。模块同步加载。服务器端JavaScript引擎Node.js就是用的这个模块系统。
+
+异步模块定义（AMD）
+
+AMD是一个采用异步方式加载依赖模块的模块系统。如果模块在不同文件中，它们将采用XHR进行加载。某一模块将等其所依赖的模块一一加载后才会被执行。AMD模块必须是一个函数，并作为参数传入define函数中。函数的返回值将传输给所有依赖的模块，所获得返回值又将作为参数传给模块方法。Require.js库中实现了AMD。
+
+TypeScript模块
+
+TypeScript，作为JavaScript的超集，也提供了一个模块系统。当它被编译时，便开始使用JavaScript模块模式。TypeScript模块使用module关键字定义，任何被输出的对象必须使用export关键字定义。import关键字用来将其它模块加载入模块中，并捕捉该模块导出的对象。TypeScript模块是同步加载的。
+
+ES6模块系统
+
+ES6模块系统启发于上述现有模块系统，它具有以下特性：
+
+使用export关键词导出对象。这个关键字可以无限次使用；
+使用import关键字将其它模块导入某一模块中。它可用来导入任意数量的模块；
+支持模块的异步加载；
+为加载模块提供编程支持。
+接下来让我们通过具体编程方法看看每一个特性。
+
+导出对象
+
+在现有的模块系统中，每个JavaScript代码文件在ES6中都是一个模块。只有模块中的对象需要被外部调用时，模块才会输出对象，其余则都是模块的私有对象。该处理方式将细节进行封装，仅导出必要的功能。
+
+从模块里导出对象，ES6为我们提供了不同方法，见下面的讨论。
+
+内联导出
+
+ES6模块里的对象可在创建它们的声明中导出。一个模块中可无数次使用export，所有的对象将被一起导出。请看下面的例子：
+
+export class Employee{
+constructor(id, name, dob){
+this.id = id;
+this.name=name;
+this.dob= dob;
+}
+getAge(){
+return (new Date()).getYear() - this.dob.getYear();
+}
+}
+export function getEmployee(id, name, dob){
+return new Employee(id, name, dob);
+}
+var emp = new Employee(1, "Rina", new Date(1987, 1, 22));
+案例中的模块导出了两个对象： Employee类，getEmployee函数。因对象emp未被导出，所以其仍为模块私有。
+
+导出一组对象
+
+尽管内联导出很有效，但在大规模模块中，它就很难发挥作用了，因为我们可能无法追踪到模块导出来的对象。在这种情况下，更好的办法是，在模块的末尾单独进行导出声明，以导出该模块中的全部对象。
+
+使用单独导出声明重写上一案例中的模块，结果如下：
+
+class Employee{
+constructor(id, name, dob){
+this.id = id;
+this.name=name;
+this.dob= dob;
+}
+getAge(){
+return (new Date()).getYear() - this.dob.getYear();
+}
+}
+function getEmployee(id, name, dob){
+return new Employee(id, name, dob);
+}
+var x = new Employee(1, "Rina", new Date(1987, 1, 22));
+export {Employee, getEmployee};
+在导出时，重命名对象也是可以的。如下例所示，Employee在导出时名字改为了Associate，函数GetEmployee改名为getAssociate。
+
+export {
+Associate as Employee,
+getAssociate as getEmployee
+};
+Default导出
+
+使用关键字default，可将对象标注为default对象导出。default关键字在每一个模块中只能使用一次。它既可以用于内联导出，也可以用于一组对象导出声明中。
+
+下面案例展示了在组导出语句中使用default：
+
+export default {
+Employee,
+getEmployee
+};
+导入模块
+
+现有模块可以使用关键字import导入到其它模块。一个模块可以被导入任意数量的模块中。下文展示了导入模块的不同方式。
+
+无对象导入
+
+如果模块包含一些逻辑要执行，且不会导出任何对象，此类对象也可以被导入到另一模块中。如下面案例所示：
+
+import './module1.js';
+导入默认对象
+
+采用Default导出方式导出对象，该对象在import声明中将直接被分配给某个引用，如下例中的“d”。
+
+import d from './module1.js';
+导入命名的对象
+
+正如以上讨论的，一个模块可以导出许多命名对象。如果另一模块想导入这些命名对象，需要在导入声明中一一列出这些对象。举个例子：
+
+import {Employee, getEmployee} from './module1.js';
+当然也可在同一个声明中导入默认对象和命名对象。这种情况下，默认对象必须定义一个别名，如下例。
+
+import {default as d, Employee} from './module1.js';
+导入所有对象
+
+以上几种情况，只有import声明中列举的对象才会被导入并被使用，而其它对象则无法在导入模块中使用。当然，这就要求用户了解哪些对象可以导出并加以利用。如果模块导出大量对象，另一模块想引入所有导出的对象，就必须使用如下声明：
+
+import * as allFromModule1 from './module1.js';
+allFromModule1这一别名将指向所有从module1导出的对象。在导入模块中，它们作为属性可被访问。
+
+可编程式的按需导入
+
+如果想基于某些条件或等某个事件发生后再加载需要的模块，可通过使用加载模块的可编程API（programmatic API）来实现。使用System.import方法，可按程序设定加载模块。这是一个异步的方法，并返回Promise。
+
+该方法的语法示例如下：
+
+System.import('./module1.js')
+.then(function(module1){
+//use module1
+}, function(e){
+//handle error
+});
+如果模块加载成功且将导出的模块成功传递给回调函数，Promise将会通过。如果模块名称有误或由于网络延迟等原因导致模块加载失败，Promise将会失败。
+
+ES6模块使用现状
+
+到目前为止，所有浏览器还不能自然支持ES6模块，所以在浏览器加载之前，我们需要使用转译器（transpiler）将代码转换成ES5。直到现在，我一直使用Traceur作为我的转译器，建议大家使用相同的工具将模块代码转化为浏览器可识别的代码。让我们看看编译ES6模块的几种不同的方法。
+
+使用Traceur动态编译ES6模块
+
+当浏览器加载脚本后，我们可以使用Traceur的客户端库动态编译ES6模块。使用该方法，运行模块无需运行任何命令。我们要做得就是，在页面上加载Traceur库，及添加代码脚本来运行WebPageTranscoder。
+
+
+现在，我们就可以在script标签内，将类型指定成模块，以此导入任何一个ES6文件。
+
+
+类型指定为模块的任何脚本标签将被ES6客户端库获取并处理。上面代码块中的导入语句将发送AJAX请求，捕获相应的JavaScript文件，并载入它。如果模块内部引用了另一个模块，单独的AJAX请求将发出，以加载与引用模块相对应的文件。
+
+使用Traceur命令编译ES6模块
+
+使用Traceur命令可以将ES6模块编译成AMD或者CommonJS模块。这个方法有两大优点。
+
+模块完成编译，浏览器不必执行额外动作；
+如果应用已经使用ES5及AMD（或CommonJs）模块系统构建了一半，程序的另一半也可以使用ES6，并被编译为这些模块系统中的任何一个，而不是立即把整个应用编译成ES6。
+为了使用编译完成的AMD/CommonJs的模块，我们需要包含支持模块系统的库。我个人比较倾向AMD，所以我将在这里介绍一下它。CommonJS模块的步骤和这个差不多。
+
+下面这句命令是用来让包含ES6模块的文件夹编译成AMD，并把它们存储在一个单独的文件夹：
+
+traceur --dir modules es5Modules --modules=amd
+使用CommonJs，你需要在上面命令中使用commonjs代替modules。
+
+在这里，modules指的是包含ES6的文件夹，es5Modules指的是输出目录。如果查看es5Modules文件夹下的任何文件，你将看到该AMD定义块。require.js支持AMD，所以我们可以在HTML页面中，使用script引入require.js，并用data-main属性指明开始文件，就像下面这样：
+
+
+使用Traceur Grunt Task编译ES6模块
+
+使用命令编译模块很累而且更容易出错。我们可以使用grunt-traceur自动化编译过程。此时，你需要安装NPM包。
+
+npm intall grunt-traceur –save
+Grunt任务所需数据与提供给命令的数据一样。下面是任务的一些配置：
+
+traceur: {
+options: {
+modules: "amd"
+},
+custom: {
+files: [{
+expand: true,
+cwd: 'modules',
+src: ['*.js'],
+dest: 'es5Modules'
+}]
+}
+}
+现在你可以在控制台里使用下面的命令来运行上面的Grunt任务：
+
+grunt traceur
+正如你所看见的那样，它和我们使用命令所产生的效果是一样的。
+
+结论
+
+任何一个大型应用中，模块化十分必要。ES6模块为JavaScript提供了该特性，这些模块提供了众多选择来导出和引入对象。我很期待该特性被浏览器支持的那一天，到时我们无需加载任何第三方库即可创建、加载JavaScript模块。目前流行的客户端MV*框架Angular.js在其2.0版本（目前还在开发中）中就使用了ES6的模块化。
+
+让我们开始使用模块系统，从而让我们的代码更具组织和可读性。
+```
+
+### 简述为什么要通过模块化方式进行开发？
+
+```
+原因如下。
+（1）高内聚低耦合，有利于团队开发。当项目很复杂时，将项目划分为子模块并分给不同的人开发，最后再组合在一起，这样可以降低模块与模块之间的依赖关系，实现
+低耦合，模块中又有特定功能体现高内聚特点。
+（2）可重用，方便维护。模块的特点就是有特定功能，当两个项目都需要某种功能时，定义一个特定的模块来实现该功能，这样只需要在两个项目中都引入这个模块就能够实现该功能，不需要书写重复性的代码。
+另外，当需要变更该功能时，直接修改该模块，这样就能够修改所有项目的功能，维护起来很方便
+```
+
+### 简述AMD与CMD的区别 ？
+
+```
+1、CMD和AMD都是为了JavaScript模块化开发的规范
+2、CMD是sea.js推广过程中对模块定义的规范化产出；AMD是require.js推广过程中对模块定义的规范化产出
+3、AMD是异步模块定义的意思，他是一个在浏览器端模块开发规范，由于不是JS原生支持，使用AMD规范进行页面开发时，需要对应的函数库
+4、require.js解决的问题，多个JS文件可以有依赖关系，被依赖的文件需要早于依赖它的文件加载到浏览器，JS加载的时候浏览器停止页面渲染，加载文件越多，页面失去响应时间越长
+5、CMD通用模块定义，是国内发展的，有浏览器实现Sea.js，Sea.js要解决的问题和require.js一样，只不过模块定义的方式和模块加载时机有所不同
+6、CMD 推崇依赖就近，AMD 推崇依赖前置
+```
+
+### 解释前端模块化是否等同于 JavaScript模块化？ 
+
+```
+前端开发相对其他语言来说比较特殊，因为我们实现一个页面功能总是需要JavaScript、CSS和HTML三者相互交织。
+如果一个功能只有 JavaScript实现了模块化， CSS和 Template还处于原始状态，那么调用这个功能的时候并不能完全通过模块化的方式，这样的模块化方案并不是完整的。
+所以我们真正需要的是一种可以将 JavaScript 、CSS和HTML同时都考虑进去的模块化方案，而非只使用 JavaScript模块化方案。综上所述，前端模块化并不等同于 JavaScript模块化
+```
+
+### JavaScript模块化是否等同于异步模块化？ 
+
+```
+主流的 JavaScript模块化方案都使用“异步模块定义”的方式，这种方式给开发带来了极大的不便，所有的同步代码都需要修改为异步方式。
+当在前端开发中使用“ CommonJs”模块化开发规范时，开发者可以使用自然、容易理解的模块定义和调用方式，不需要关注模块是否异步，不需要改变开发者的开发行为。因此 JavaScript模块化并不等同于异步模块化
+```
+
+### 简述require.JS与 SeaJS的异同是什么？
+
+```
+相同之处
+RequireJS 和 SeaJS 都是模块加载器，倡导的是一种模块化开发理念，核心价值是让 JavaScript 的模块化开发变得更简单自然。
+
+不同之处
+两者的区别如下：
+
+定位有差异。RequireJS 想成为浏览器端的模块加载器，同时也想成为 Rhino / Node 等环境的模块加载器。SeaJS 则专注于 Web 浏览器端，同时通过 Node 扩展的方式可以很方便跑在 Node 服务器端。
+
+遵循的规范不同。RequireJS 遵循的是 AMD（异步模块定义）规范，SeaJS 遵循的是 CMD （通用模块定义）规范。规范的不同，导致了两者 API 的不同。SeaJS 更简洁优雅，更贴近 CommonJS Modules/1.1 和 Node Modules 规范。
+
+社区理念有差异。RequireJS 在尝试让第三方类库修改自身来支持 RequireJS，目前只有少数社区采纳。SeaJS 不强推，采用自主封装的方式来“海纳百川”，目前已有较成熟的封装策略。
+
+代码质量有差异。RequireJS 是没有明显的 bug，SeaJS 是明显没有 bug。
+
+对调试等的支持有差异。SeaJS 通过插件，可以实现 Fiddler 中自动映射的功能，还可以实现自动 combo 等功能，非常方便。RequireJS 无这方面的支持。
+
+插件机制不同。RequireJS 采取的是在源码中预留接口的形式，源码中留有为插件而写的代码。SeaJS 采取的插件机制则与 JavaScript 语言以及Node 的方式一致：开放自身，让插件开发者可直接访问或修改，从而非常灵活，可以实现各种类型的插件。
+
+还有不少细节差异就不多说了。
+
+总之，SeaJS 从 API 到实现，都比 RequireJS 更简洁优雅。如果说 RequireJS 是 Prototype 类库的话，则 SeaJS 是 jQuery 类库。
+
+最重要的
+最后，向 RequireJS 致敬！RequireJS 和 SeaJS 是好兄弟，一起努力推广模块化开发思想，这才是最重要的
+```
+
+### 解释什么是前端模块化规范 ? 
+
+```
+模块化是前端领域发展的趋势之一，他的好处非常的多：
+
+他可以抽离公共的代码，避免重复的复制粘贴
+他可以隔离作用域，避免变量的冲突（在es6出现之前，人们会使用IIFE来完成这个操作）
+他可以将一个复杂的系统分解为多个子模块，便于开发和维护
+```
+
+### 简述WebPack的l理解和认识？ 
+
+```
+WebPack是一个模块打包工具，可以使用 WebPack管理模块依赖，并编译输岀模块所需的静态文件。它能够很好地管理与打包Web开发中所用到的HTML、 JavaScript 、CSS以及各种静态文件（图片、字体等），让开发过程更加高效。对于不同类型的资源， WebPack有对应的模块加载器。Web Pack模块打包器会分析模块间的依赖关系，最后生成优化且合并后的静态资源。
+WebPack的两大特色如下。
+（1）代码切割（ code splitting）
+（2） loader可以处理各种类型的静态文件，并且支持串行操作WebPack以 CommonJS规范来书写代码，但对 AMD/CMD的支持也很全面，方便对项目进行代码迁移。
+WebPack具有 require.js和 browserify的功能，但也有很多自己的新特性，
+（1）对 CommonJS、AMD、ES6的语法实现了兼容。
+（2）对 JavaScript、CSS、图片等资源文件都支持打包
+（3）串联式模块加载器和插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、 EMAScript 6的支持
+（4）有独立的配置文件 webpack.config. js。
+（5）可以将代码切割成不同的块，实现按需加载，缩短了初始化时间。
+（6）支持 SourceUrls和 SourceMaps，易于调试。
+（7）具有强大的 Plugin接口，大多是内部插件，使用起来比较灵活
+（8）使用异步I/O，并具有多级缓存，这使得 WebPack速度很快且在增量编译上更加快。
+```
+
+### 简述在使用 WebPack时，常见的应用场景 ？
+
+```
+用来压缩合并CSS和 JavaScript代码，压缩图片，对小图生成base64编码，对大图进行压缩，使用 Babel把 EMAScript 6编译成 EMAScript 5，热重载，局部刷新等。在 output中配置出口文件，在 entry中配置入口文件。
+使用各种 loader对各种资源做处理，并解析成浏览器可运行的代码
+```
+
+### 简述Gulp都实现了哪些功能？
+
+```
+1.用自动化构建工具增强你的工作流程！
+2.gulp 将开发流程中让人痛苦或耗时的任务自动化，从而减少你所浪费的时间、创造更大价值。
+3.基于node强大的流(stream)能力，gulp在构建过程中并不把文件立即写入磁盘，从而提高了构建速度。
+gulp官网：https://www.npmjs.com/
+
+gulp有哪些功能？
+1.文件复制
+2.html压缩、css编译压缩、js合并压缩
+3.优化图片-压缩图片
+4.编译sass
+5.es6转换es5
+```
+
+### 简述WabPack打包的流程 ？ 
+
+```
+具体流程如下。
+（1）通过 entry配置入口文件。
+（2）通过 output指定输出的文件。
+（3）使用各种 loader处理CSS、 JavaScript、 image等资源，并将它们编译与打包成浏览器可以解析的内容等
+```
+
+### 简述WebPack的核心原理 ？ 
+
+```
+（1）一切皆模块。
+正如 JavaScript文件可以是一个“模块”（ module）一样，其他的（如CSS、 image或 HTML）文件也可视作模块。因此，可以执行 require（'myJSfile js'），亦可以执行require（ 'myCSSfile.css'）。这意味着我们可以将事务（业务）分割成更小的、易于管理的片段，从而达到重复利用的目的。
+（2）按需加载。
+传统的模块打包工具（ module bundler）最终将所有的模块编译并生成一个庞大的bundle. js文件。但是，在真实的App里， bundle. js文件的大小在10MB到15MB之间，这可能会导致应用一直处于加载状态。因此， WebPack使用许多特性来分割代码，然后生成多个 bundle js文件，而且异步加载部分代码用于实现按需加载
+```
+
+### 简述WebPack中 loader的作用 ？
+
+```
+具体作用如下。
+（1）实现对不同格式文件的处理，比如将Scss转换为CSS，或将 TypeScript转化为Javascript。
+（2）可以编译文件，从而使其能够添加到依赖关系中。loader是 WebPack最重要的部分之一。通过使用不同的 loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理。loader需要在 webpack.config.js里单独用 module进行配置
+```
+
+### 叙述工作中几个常用的 loader ？ 
+
+```
+常用的 loader如下：
+babel- loader：将下一代的 JavaScript语法规范转换成现代浏览器能够攴持的语法规范。因为 babel有些复杂，所以大多数开发者都会新建一个. babelrc进行配置。
+css-loader、 style- loader：这两个建议配合使用，用来解析CSS文件依赖。
+less- loader：解析less文件。
+file- loader：生成的文件名就是文件内容的MD5散列值，并会保留所引用资源的原始扩展名。
+url- loader：功能类似于file-loader，但是当文件大小低于指定的限制时，可以返回一个 DataURL
+```
+
+### 简述plugins和 loader有什么区别？ 
+
+```
+不同的作用：
+
+Loader直译为"加载器"。Webpack将一切文件视为模块，但是webpack原生是只能解析js文件，如果想将其他文件也打包的话，就会用到loader。 所以Loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。
+
+Plugin直译为"插件"。Plugin可以扩展webpack的功能，让webpack具有更多的灵活性。 在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件，在合适的时机通过 Webpack 提供的 API 改变输出结果
+
+loader比较单一就是用来加载文件
+
+不同的用法：
+
+Loader在module.rules中配置，也就是说他作为模块的解析规则而存在。 类型为数组，每一项都是一个Object，里面描述了对于什么类型的文件（test），使用什么加载(loader)和使用的参数（options）
+
+Plugin在plugins中单独配置。 类型为数组，每一项是一个plugin的实例，参数都通过构造函数传入
+
+常见的loader和plugin插件
+
+Loader:
+
+样式：style-loader、css-loader、less-loader、sass-loader等
+文件：raw-loader、file-loader 、url-loader等
+file-loader、url-loader等可以处理资源
+
+file-loader可以复制和放置资源位置，并可以指定文件名模板，用hash命名更好利用缓存。
+url-loader可以将小于配置limit大小的文件转换成内敛Data Url的方式，减少请求。
+raw-loader可以将文件已字符串的形式返回
+编译：babel-loader(把 ES6 转换成 ES5)、coffee-loader 、ts-loader等
+vue-loader、coffee-loader、babel-loader等可以将特定文件格式转成js模块、将其他语言转化为js语言和编译下一代js语言
+
+校验测试：mocha-loader、jshint-loader 、eslint-loader等
+imports-loader、exports-loader等可以向模块注入变量或者提供导出模块功能
+Plugin:
+
+webpack内置UglifyJsPlugin，压缩和混淆代码,通过UglifyES压缩ES6代码。
+webpack内置CommonsChunkPlugin，提取公共代码,提高打包效率，将第三方库和业务代码分开打包
+ProvidePlugin：自动加载模块，代替require和import
+new webpack.ProvidePlugin({
+$: 'jquery',
+jQuery: 'jquery'
+})
+html-webpack-plugin可以根据模板自动生成html代码，并自动引用css和js文件
+extract-text-webpack-plugin 将js文件中引用的样式单独抽离成css文件
+DefinePlugin编译时配置全局变量，这对开发模式和发布模式的构建允许不同的行为非常有用。
+HotModuleReplacementPlugin 热更新
+添加HotModuleReplacementPlugin
+entry中添加 "webpack-dev-server/client?http://localhost:8080/",
+entry中添加 "webpack/hot/dev-server"
+(热更新还可以直接用webpack_dev_server --hot --inline,原理也是在entry中添加了上述代码)
+```
+
+### 简述HtmlWebpackPlugin插件的作用 ？
+
+```
+作用一：
+为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题
+
+作用二：
+可以生成创建html入口文件，比如单页面可以生成一个html文件入口，配置N个html-webpack-plugin可以生成N个页面入口
+```
+
+### 简述WebPack支持的脚本模块规范？
+
+```
+不同项目在定义脚本模块时使用的规范不同。有的项目会使用 Commonjs规范（参考 Node. js）；有的项目会使用 EMAScript 6模块规范；有的还会使用AMD规范（参考 Require. js）。WebPack支持这3种规范，还支持混合使用
+```
+
+### 如何为项目创建 package. json文件？ 
+
+```
+将命令行切换至根目录下，运行 npm init，命令行就会一步一步引导你建立package. json文件。手动在根目录下创建一个空文件，并命名为 package. json，在文件中填充JSON格式的常规内容。例如初期只需要name和 version字段。
+{
+"name"："Project"，
+"version"：" 0.0.1"
+}
+```
+
+### 简述WebPack和 gulp/grunt相比有什么特性？
+
+```
+gulp/ grunt是一种能够优化前端的流程开发工具，而 Web Pack是一种模块化的解决方案，由于 WebPack提供的功能越来越丰富，使得 WebPack可以代替 gulp/grunt类的工具
+```
+
+### 描述grunt和gulp的工作方式 ？ 
+
+```
+Grunt
+https://www.gruntjs.net/
+是一套前端自动化工具，一个基于nodeJs的命令行工具，一般用于：
+① 压缩文件
+② 合并文件
+③ 简单语法检查
+
+Gulp
+https://www.gulpjs.com.cn/
+1.介绍：
+Gulp 是基于node.js的一个前端自动化构建工具，开发这可以使用它构建自动化工作流程（前端集成开发环境）。
+使用gulp你可以简化工作量，让你把重点放在功能的开发上，从而提高你的开发效率和工作质量。
+2.特性：
+
+使用方便
+通过代码优于配置的策略，Gulp可以让简单的任务简单，复杂的任务更可管理。
+构建快速
+通过流式操作，减少频繁的 IO 操作，更快地构建项目。
+插件高质
+有严格的插件指导策略，确保插件能简单高质的工作。
+易于学习
+少量的API，掌握Gulp可以毫不费力。构建就像流管道一样，轻松加愉快。
+Grunt与Gulp的区别：
+Gulp 和 Grunt 类似。但相比于 Grunt 的频繁的 IO 操作，Gulp 的流操作，能更快地完成构建。
+Gulp 相比于 Grunt 有很多优点，比较直观的：就是学习曲线比较平滑。比Grunt速度更快、配置更少。
+```
+
+### 请问Babel通过编译能达到什么目的？
+
+```
+能达到以下目的。
+
+（1）使用下一代的 JavaScript标准（ EMAScript 6、 EMAScript 7）语法，当前的浏览器尚不完全支持这些标准。
+（2）使用基于 JavaScript进行拓展的语言，比如 React的jsx语法
+```
+
+### 简述EventSource和 websocket的区别 ？ 
+
+```
+区别如下。
+EventSource本质仍然是HTTP，仅提供服务器端到浏览器端的单向文本传输，不需要心跳链接，链接断开会持续重发链接。
+注意：心跳链接是用来检测一个系统是否存活或者网络链路是否通畅的一种方式。
+（2） websocket是基于TCP的协议，提供双向数据传输，支持二进制，需要心跳链接，断开链接时不会重链。
+（3） EventSource更简洁轻量， websocket支持性更妤，后者功能更强大一点
+```
+
+### 简述WebPack工具中常用到的插件有哪些？
+
+```
+常用到的插件如下
+（1） HtmlWebpackPlugin：依据一个HTML模板，生成HTML文件，并将打包后的资源文件自动引入。
+（2） commonsChunkPlugin：抽取公共模块，减小包占用的内存空间，例如vue的源码、 jQuery的源码等。
+（3） css-loader：解析CSS文件依赖，在 JavaScript中通过 require方式引入CSS文件。
+（4） style- loader.：通过 style标签引入CSS。
+（5） extract-text-webpack- plugin：将样式抽取成单独的文件。
+（6）url- loader：实现图片文字等资源的打包，limit选项定义大小限制，如果小于该限制，则打包成base64编码格式；如果大于该限制，就使用file- loader去打包成图片。
+（7） hostess：实现浏览器兼容。
+（8） babel：将 JavaScript未来版本（ EMAScript6、 EMAScript2016等）转换成当前浏览器支持的版本。
+（9） hot module replacement：修改代码后，自动刷新、实时预览修改后的效果
+（10） ugliifyJsPlugin：压缩 JavaScript代码
+```
+
+### 简述WebPack与gulp的区别 ？ 
+
+```
+区别如下：
+
+（1）用途不同。gulp是工具链，可以配合各种插件使用，例如对 JavaScript、CSS文件进行压缩，对less进行编译等；而 WebPack能把项目中的各种 JavaScript、CSS文件等打包合并成一个或者多个文件，主要用于模块化开发。
+
+（2）侧重点不同。gulp侧重于整个过程的控制管理（像是流水线），通过配置不同的任务，构建整个前端开发流程，并且gulp的打包功能是通过安装gulp-webpack来实现的；WebPack则侧重于模块打包。
+
+（3） WebPack能够按照模块的依赖关系构建文件组织结构
+```
+
+### 简述如何用 webpack-dev- server监控文件编译？
+
+```
+打开多个控制台，用 webpack--watch实时监控文件变动，并随时编译
+```
+
+### 如何修改 webpack-dev- server的端口？
+
+```
+用--port修改端口号，如 webpack-dev-server--port888
+```
+
+### 简述WebPack中的publicPath ？ 
+
+```
+在 WebPack自动生成资源路径时，比如由于 WebPack异步加载分包而需要独立出来的块，或者打包CSS时， WebPack自动替换掉的图片、字体文件，又或者使用html-webpack-plugin后 WebPack自动加载的入口文件等，这些 WebPack生成的路径都会参考 publicPath参数。不需要关注CDN，需要关注的是，文件发布出来后，应该部署到哪里。如果文件是与页面放到一起的，那么可以按相对路径来设置，比如'./'之类的；而如果 JavaScript、CSS文件用于存放CDN，当然就要填写CDN的域名和路径
+```
+
+### 简述export、 export default和 module.export的区别是什么？ 
+
+```
+export、 export default都属于 EMAScript 6 模块化开发规范。
+export和 export default的区别如下。
+在同一个文件里面可以有多个 export，一个文件里面只能有1个 export default。
+使用 import引入的方式也有点区别。
+在使用 export时，用 import引入的相应模块名字一定要和定义的名字一样；而在使用 export default时，用 import引入的模块名字可以不一样。
+module. export属于 CommonJS语法规范
+```
+
+### 当使用Babel直接打包的 JavaScript文件中含有jsx语法的时候会报错，如何解决这个问题？
+
+```
+修改 package. json并添加 react，如以下代码所示：
+
+"babel"：{
+"presets"：[
+"es2015",
+"react",
+"stage-o"
+],
+"plugins" ：[
+"add-module-exports"
+]
+}
+```
+
+### 简述当使用html- webpack- plugin时找不到指定的 template文件怎么办？
+
+```
+通过以下代码进行解决
+
+{
+test:/ \.html ？$/,
+loader : 'html-loader '
+}
+```
+
+### 描述WebPack如何切换开发环境和生产环境？
+
+```
+生产环境与开发环境的区别无非就是调用的接口地址、资源存放路径、线上的资源是否需要压缩等方面。目前的做法是通过在 package. json中设置node的一个全局变量，然后在 webpack. config. js文件里面进行生产环境与开发环境的配置切换
+```
+
+### 简述WebPack的特点 ？
+
+```
+Webpack的特点：
+
+解决工程化问题（只关注开发时的代码，把工程化过程中的问题交给webpack处理）
+简单易用：支持0配置
+强大生态：可以融入第三方库
+基于nodeJs:webpack构建的过程是运行工在node环境中的，因为需要本地读取文件，分析依赖关系，并且生成打包后的文件，而在浏览器端是做不到读取文件和生成文件的。
+基于模块化：webpack打包是根据特殊导入导出语句分析依赖关系进行打包
+```
+
+### 简述WebPack的优势 ？ 
+
+```
+1. webpack 是以 commonJS 的形式来书写脚本滴，但对 AMD/CMD 的支持也很全面，方便旧项目进行代码迁移。
+2. 能被模块化的不仅仅是 JS 了。
+3. 开发便捷，能替代部分 grunt/gulp 的工作，比如打包、压缩混淆、图片转base64等。
+4. 扩展性强，插件机制完善，特别是支持 React 热插拔（见 react-hot-loader ）的功能让人眼前一亮。
+```
+
+### WebPack命令的-- config选项有什么作用？ 
+
+```
+-- config用来指定一个配置文件，代替命令行中的选项，从而简化命令。如果直接执行 WebPack, WebPack会在当前目录下查找名为 webpack. config. js的文件
+```
+
+### 简述webpack 热更新原理，是如何做到在不刷新 浏览器的前提下更新页面的 ？ 
+
+```
+1. 当修改了一个或多个文件；
+2. 文件系统接收更改并通知 webpack；
+3. webpack 重新编译构建一个或多个模块，并通知 HMR 服务器进行更新；
+4. HMR Server 使用 webSocket 通知 HMR runtime 需要更新，HMR 运行时通过 HTTP 请求更新 jsonp；
+5. HMR 运行时替换更新中的模块，如果确定这些模块无法更新，则触发整个页面刷新
+```

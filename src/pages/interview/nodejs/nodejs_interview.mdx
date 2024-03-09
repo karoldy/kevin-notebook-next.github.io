@@ -18,3 +18,1032 @@
 - [Node性能如何进行监控以及优化? ](/interview/nodejs/performance)
 
 ## 经典面试题
+
+### 简述 Node. js 基础概念 ？
+
+```
+Node.js 是谷歌 V8 引擎、libuv平台抽象层以及主体使用 Javscript 编写的核心库三者集合的一个包装外壳，大量使用了使用事件驱动来实现异步开发。此外，在实时的Web应用上采用了基于 WebSocket 的推送技术，客户端和服务器端都可以发起通信，能够自由地交换数据。非常优雅、实用地打通了前后端。
+V8是谷歌开发的，目前公认最快的 Javascript 解析引擎，并且具备服务器端解析能力。libuv 是一个开源的、为 Node 定制而生的跨平台的异步 IO 库
+```
+
+### 简述Node. js的运行原理 ？ 
+
+```
+Node.js 最大的用武之地在于建设高性能、高扩展性的互联网应用---因为它能够处理庞大的并且高吞吐量的并发连接。主要是因为node.js的以下几大特性：
+event-driven 事件驱动
+non-blocking 非阻塞的异步I/O调用
+lightweight 省空间、省设备，轻量意味着更好的移植性
+Node.js是跨平台的项目，可以运行在Linux、Unix、Windows
+efficient 高效（node.js是基于单线程）
+在PHP或者JSP中，是每个新增一个连接（请求）便生成一个新的线程，这个新的线程会占用系统内存，最终会占掉所有的可用内存。而 Node.js 仅仅只运行在一个单线程中，使用非阻塞的异步 I/O 调用，所有连接都由该线程处理，在 libuv 的加分下，可以允许其支持数万并发连接（全部挂在该线程的事件循环中），
+注意：Node.js也有潜在的缺陷，比如：如果所有客户端的请求共享单一线程时也会有问题, 大量的计算可能会使得 Node 的单线程暂时失去反应, 并导致所有的其他客户端的请求一直阻塞, 直到计算结束才恢复正常；
+因此，开发时千万不要让一个 Exception 阻塞核心的事件循环，因为这将导致 Node.js 的应用程序崩溃。比如在 PHP 中某个页面挂掉是不会影响网站运行的，但是 Nodejs 是一个线程一个线程来处理所有的链接，因此一旦异常阻塞了都可能会影响到其他所有的链接。
+当然，Node.js中有很多工具和策略来帮助我们解决上述的问题，比如：异常回调传递， Forever 进行进程监视等
+```
+
+### 简述Node.js 用到了哪些技术？
+
+```
+Node.js 主要用到的技术：V8引擎、libuv、C/C++ 实现的 c-ares、http-parser、OpenSSL、zlib 等库
+
+（1）cares：用 C-ares 实现 DNS 的解析即做域名解析
+（2）http-parser：用来解析 HTTP
+（3）npm：包管理工具
+（4）openssl：用来解析 HTTPS
+（5）uv：一个跨平台的异步 I/O 库
+（6）v8：google 开发的js引擎，为 js 提供运行环境
+（7）zlib：提供数据压缩用的函式库
+```
+
+### 简述Node.js 技术架构 ？ 
+
+```
+Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，Libuv
+
+第一层 Node Standard Library 是我们每天都在用的标准库，如Http, Buffer 模块。
+第二层 Node Bindings 是沟通JS 和 C++的桥梁，封装V8和Libuv的细节，向上层提供基础API服务。
+这一层是支撑 Node.js 运行的关键，由 C/C++ 实现。
+
+V8 是Google开发的JavaScript引擎，提供JavaScript运行环境，可以说它就是 Node.js 的发动机。其重要功能是： ①将 JS 源代码变成本地代码并执行 ②维护调用栈，确保 JS 函数的执行顺序 ③内存管理，为所有对象分配内存 ④垃圾回收，重复利用无用的内存 ⑤实现 JS 的标准库 。注意事项：①V8 不提供 DOM API ②V8 执行 JS 是单线程的 ③可以开启两个线程分别执行 JS ④V8 本身是包含多个线程的，如垃圾回收为单独线程 ⑤自带event loop 但 Node.js 基于 libuv 自己做了一个
+
+Libuv 是专门为Node.js开发的一个封装库，提供跨平台的异步I/O能力，可以用于TCP / UDP / DNS /文件等的一步操作
+C-ares：提供了异步处理 DNS 相关的能力。
+http_parser、OpenSSL、zlib 等：提供包括 http 解析、SSL、数据压缩等其他的能力。
+```
+
+### 简述Node. js的使用场景是什么?
+
+```
+NodeJS处理并发的能力强，但处理计算和逻辑的能力反而很弱，因此，如果我们把复杂的逻辑运算都搬到前端（客户端）完成，而NodeJS只需要提供异步I/O，这样就可以实现对高并发的高性能处理。情况就很多啦，比如：RESTFUL API、实时聊天、客户端逻辑强大的单页APP，具体的例子比如说：本地化的在线音乐应用，本地化的在线搜索应用，本地化的在线APP等
+```
+
+### 简述Node.JS的异步I/O原理？ 
+
+```
+异步回调。query的第二个参数是一个回调函数，进程执行到db.query的时候不会等待结果返回，而是直接继续执行下面的语句，直到进入事件循环。当数据库执行结果返回的时候会将事件发送到事件队列，等到线程进入事件循环后才会调用之前的回调函数。更专业的说法是异步I/O。只要单线程就可以。
+
+那为什么NodeJS做到单线程，却可以实现异步呢？
+
+看到没，NodeJS的工作原理其实就是事件循环。可以说每一条NodeJS的逻辑都是写在回调函数里面的，而回调函数都是有返回之后才异步执行的！
+
+看到这里，你不禁会惊叹，NodeJS如果所有处理都异步，岂不是晓得飞了？错错错！当然不是，不要忘记，NodeJS实现这些的基础是单线程。没错，单线程！一条线程扛起所有操作！
+
+你可以想象一下，NodeJS在寒风中面对着10万并发大军，OK，没问题，上来敌人一个扔到城里，上来一个又扔到城里。城里全民皆兵，可以很好地消化这些敌人。但如果上来一个类似于张飞赵云这样的人物，老Node心里一惨，和张飞大战300回合，把他打残了，再扔到城里。那后面的10万大军就得等这300回合。。。
+
+所以这说明什么？说明NodeJS不是没有阻塞，而是阻塞不发生在后续回调的流程，而会发生在NodeJS本身对逻辑的计算和处理。我们已经知道，NodeJS的分发能力无比强大，可以循环事件进行异步回调。但如果在循环事件时遇到复杂的逻辑运算，那么单薄的单线程怎么支撑得起上百万的逻辑+并发呢？NodeJS它的所有I/O、网络通信等比较耗时的操作，都可以交给worker threads执行再回调，所以很快。但CPU的正常操作，它就只能自己抗了。
+```
+
+### 解释为什么要推荐用 Node. js？
+
+```
+（1）简单， Node. js用 JavaScript、JSON进行编码，简单好学。
+（2）功能强大，非阻塞式I/O，在较慢的网络环境中，可以分块传输数据，事件驱动，擅长高并发访问。
+（3）轻量级， Node. js本身既是代码又是服务器，前后端使用同一语言。
+（4）可扩展，可以轻松应对多实例、多服务器架构，同时有海量的第三方应用组件
+```
+
+### 简述Node. js有哪些全局对象？ 
+
+```
+在浏览器Javascript中，通常window是全局对象，而NodeJS中的全局对象是global
+1、真正的全局对象：
+Class：Beffer；可以处理二进制以及非Unicode编码的数据
+process；进程对象，提供有关当前进程的信息和控制
+console；打印
+最常用的输入内容的方式：console.log
+清空控制台 console.clear
+打印函数的调用栈：console.trace
+clearInterval、clearTimeout、setInterval、setTimeout，定时器和清除定时器
+2、模块级别的全局对象
+__dirname 获取当前文件所在的路径，不包括后面的文件名;
+__filename 获取当前文件所在的路径，包括后面的文件名称;
+exports，一个模块所导出的内容
+module 对当前模块的引用;
+require，用于引入模块
+```
+
+### 简述Node中的process的理解，有哪些常用的方法 ？ 
+
+```
+process，进程对象，提供了有关当前NodeJS进程的信息并对其进行控制，作为一个全局变量。
+process.env;
+返回一个对象，存储当前环境相关的所有信息，一般很少直接用到
+process.pid;
+获取当前进程id
+process.ppid;
+当前进程对应的父进程
+process.cwd;
+获取当前进程的工作目录
+process.uptime();
+当前进程已运行时间
+process.stdout 标准输出 /process.stdin标准注入/process.stderr标准错误输出/process.title指定进程名称
+process.platform 获取当前进程运行的操作系统平台;
+process.nextTick 定义一个动作，并且让这个动作在下一个事件轮询的时间点上执行
+```
+
+### 简述Node中的fs模块的理解？有哪些常用的方法 
+
+```
+文件系统模块（简称 fs）允许我们访问计算机上的文件系统并与之交互。
+fs 模块是 Node.js 官方提供的、用来操作文件的模块。它提供了一系列的方法和属性，用来满足用户对文件的操作需求。
+fs.readFile() 方法，用来读取指定文件中的内容
+fs.writeFile() 方法，用来向指定的文件中写入内容 如果要在 JavaScript 代码中
+
+同步与异步
+fs模块的文件操作一般支持同步和异步两种API，异步又包括了回调函数和promsie的形式。同步一般后面带sync字样。
+
+fs模块的API大都提供三种操作方式：
+
+同步操作文件：代码会被阻塞，不会继续执行
+
+异步回调函数操作文件：代码不会被阻塞，需要传入回调函数，当获取到结果时，回调函数执行
+
+异步Promise操作文件：代码不会被阻塞，通过fs.promises调用方法操作，会返回一个Promise，可以通过then、catch进行处理。
+
+需要注意的是，默认情况下，所有 fs 方法都是异步的。但是，我们可以通过在方法末尾添加 Sync 来使用同步版本。
+
+例如，writeFile 方法的同步版本为 writeFileSync。同步方法将同步的完成代码，因此它们阻塞了主线程。阻塞 Node.js 中的主线程被认为是不好的做法，我们不应该这么做。
+```
+
+### 简述Node中的Buffer的理解？应用场景？ 
+
+```
+在Node应用中，需要处理网络协议，操作数据库，处理图片，接收上传文件等，在网络流和文件的操作中，要处理大量的二进制数据，而Buffer就是在内存中开辟的一片区域（初始化为8KB，用来存放二进制数据）
+【使用方法】：
+1、Buffer.from()
+2、Buffer.alloc()
+上面创建Buffer后，能够toString的形式进行交互，默认情况下采取utf8字符编码形式。
+【应用场景】：
+1、I/o，通过流的形式，将一个文件的内容读取到另外一个文件
+2、压缩与解压
+3、加密解密
+```
+
+### 描述Node中的Stream的理解？应用场景？ 
+
+```
+Stream流，是数据传输手段，是端到端信息交换的一种方式，而且是有顺序的，是逐块读取数据，处理内容，用于顺序读取输入或写入输出。
+【种类】：
+可写流request、可读流response、双工流fs、转换流
+
+常见的应用场景有：
+流在文件读写、网络请求、数据转换、音频、视频等方面有很广泛的应用。
+get请求返回文件给客户端
+文件操作一些打包工具的底层操作
+```
+
+### 简述Node文件查找的优先级以及require方式的文件查找策略 ？
+
+```
+缓存中的模块优先级最高
+如果是内置模块，则直接返回
+如果是绝对路径 /开头，就从根目录找
+如果是相对路径 ./开头，则从当前require文件相对位置找
+如果文件没有携带后缀，就以.js > .json，node按顺序查找
+如果没有 .js文件/ .json文件，那么就会直接找相应的文件夹下面的package.json中的“main”的文件，也就是会去找app.js,默认情况下是index.js
+```
+
+### 简述Node.js有哪些定时功能？
+
+```
+node 中的定时器有四种
+（1）setTimeout
+（2）setInterval
+（3）setImmediate
+（4）process.nextTick()
+```
+
+### 请描述Node. js中的事件循环 ？ 
+
+```
+事件循环其实就是一个事件队列，先加入先执行，执行完一次队列，再次循环遍历看有没有新事件加入队列。
+执行中的事件叫IO事件， setlmmediate在当前队列中立即执行，setTimout/setInterval把执行定时到下一个队列， process. nextTick在当前队列执行完，下次遍历前执行。所以总体顺序是：IO事件→ setImmediate→ setTimeout/setInterval→ process. nextTick
+```
+
+### 如何应用 Node. js中的 Buffer？
+
+```
+Buffer是用来处理二进制数据的，比如图片、MP3、数据库文件等。Buffer支持各种编码解码、二进制字符串互转。
+Buffer中存储的是二进制数据，那么到底是如何存储呢？
+我们可以将Buffer看成是一个存储二进制的数组；
+这个数组中的每一项，可以保存8位二进制：00000000
+为什么是8位呢？
+在计算机中，很少的情况我们会直接操作一位二进制，因为一位二进制存储的数据是非常有限的；
+所以通常会将8位合在一起作为一个单元，这个单元称之为一个字节（byte）；
+也就是说 1byte = 8bit，1kb=1024byte，1M=1024kb;
+比如很多编程语言中的int类型是4个字节，long类型是8个字节；
+比如TCP传输的是字节流，在写入和读取时都需要说明字节的个数；
+比如RGB的值分别都是255，所以本质上在计算机中都是用一个字节存储的；
+也就是说，Buffer相当于是一个字节的数组，数组中的每一项对于一个字节的大小：
+```
+
+### 简述Node. js中的异步和同步如何理解？
+
+```
+Node.js是单线程的，异步是通过一次次的循环事件队列来实现的。同步则是阻塞式的IO，这在高并发环境中会是一个很大的性能问题，所以同步一般只在基础框架启动时使用，用来加载配置文件、初始化程序等
+
+同步就是程序自上而下运行，而异步就是不用等待上面的运行完后再运行下面的操作。异步编程依托于回调来实现，但不能说使用了回调后程序就异步化了。
+同步的英文：sync（synchronization）
+异步的英文：async（asynchronous）
+```
+
+### Node.js通过哪些方法可以进行异步流程的控制？ 
+
+```
+方法1：
+通过异步嵌套来实现，例如：通过读取A.txt文件中的内容---B.txt,将其作为目标进一步去读取B.txt
+
+方法2：
+通过事件监听的方式来进行异步控制。Node.js 所有的异步 I/O 操作在完成时都会发送一个事件到事件队列。Node.js里面的许多对象都会分发事件：一个net.Server对象会在每次有新连接时分发一个事件， 一个fs.readStream对象会在文件被打开的时候发出一个事件。 所有这些产生事件的对象都是 events.EventEmitter 的实例
+
+方法3：
+Promise。它表示一个异步操作的最终结果 。相当于：服务员下单后去干别的，做好后会端饭，promise是承诺，做好后可能还会做一些其他处理。
+
+方法4：
+使用async模块，这是一个非常强大的模块
+```
+
+### Node.js 通过哪些常用方法可以防止程序崩溃？
+
+```
+通过以下方法可以防止程序崩溃。
+（1） try-catch-finally。
+（2） EventEmitter/Stream error事件处理。
+（3） domain统一控制。
+（4） jshint静态检查。
+（5） jasmine/mocha单元测试
+```
+
+### 简述如何怎样调试 Node. js程序？ 
+
+```
+1.使用debugger语句
+在应用程序中插入debugger语句可以帮助我们暂停代码的执行，并在控制台中查看变量和执行路径。例如：
+function sum(a, b) {
+debugger;
+return a + b;
+}
+当代码执行到debugger语句时，它会自动暂停。此时，您可以在控制台中执行命令并查看变量。
+
+2.使用Node.js的内置调试器
+Node.js具有内置调试器，我们可以使用它来进行调试。要使用Node.js的调试器，请在终端中输入以下命令：
+node debug app.js
+其中，app.js是您要调试的应用程序的文件名
+
+3.使用Node.js的调试工具
+除了内置调试器之外，Node.js还有很多调试工具可用。其中最受欢迎的工具之一是Node Inspector。Node Inspector是一个基于Web的调试器，使您可以在Web浏览器中调试Node.js应用程序
+
+4.使用第三方工具
+除了Node Inspector之外，还有许多第三方调试工具可用。其中一些工具包括：
+WebStorm：WebStorm是一个基于Web的集成开发环境（IDE），支持Node.js的内置调试器。
+Visual Studio Code：Visual Studio Code是一个免费的跨平台代码编辑器，支持在Node.js代码中调试和集成断点。
+Chrome DevTools：Chrome DevTools是一个可以在Web浏览器中调试Node.js的强大工具
+```
+
+### 简述Node .js的网络模块都有哪些？
+
+```
+Node. js全面支持各种网络服务器和客户端，包括TCP、HTP/ HTTPS、TCP 、UDP、DNS、tls/ssl模块 等。
+```
+
+### 简述Noe.js是怎样支持 HTTPS、TLS 的？ 
+
+```
+Node.js 内置了 tls 模块来支持 HTTPS 和 TLS，可以用于创建加密的网络连接和传输数据。以下是 Node.js 支持 HTTPS 和 TLS 的几种方式：使用 https 模块创建 HTTPS 服务器可以使用 https 模块来创建一个 HTTPS 服务器，示例代码如下：const https = require('https');
+const fs = require('fs');
+
+const options = {
+key: fs.readFileSync('server-key.pem'),
+cert: fs.readFileSync('server-cert.pem')
+};
+
+const server = https.createServer(options, (req, res) => {
+res.writeHead(200);
+res.end('Hello, world!\n');
+});
+
+server.listen(443);
+其中，options 对象中包含了用于加密连接的证书和密钥。createServer 方法用于创建一个 HTTPS 服务器对象，可以接受和处理客户端的请求。2. 使用 https 模块发起 HTTPS 请求可以使用 https 模块来发起一个 HTTPS 请求，示例代码如下：const https = require('https');
+
+const options = {
+hostname: 'www.google.com',
+port: 443,
+path: '/',
+method: 'GET'
+};
+
+const req = https.request(options, res => {
+console.log(`statusCode: ${res.statusCode}`);
+
+res.on('data', d => {
+process.stdout.write(d);
+});
+});
+
+req.on('error', error => {
+console.error(error);
+});
+
+req.end();
+其中，options 对象中包含了要请求的 HTTPS 服务器的信息。https.request 方法用于发起一个 HTTPS 请求，并返回一个 http.ClientRequest 对象，可以用于接受和处理服务器的响应。3. 使用 tls 模块创建 TLS/SSL 连接可以使用 tls 模块来创建一个 TLS/SSL 连接，示例代码如下：const tls = require('tls');
+
+const options = {
+host: 'www.google.com',
+port: 443,
+rejectUnauthorized: true
+};
+
+const socket = tls.connect(options, () => {
+console.log('connected');
+
+socket.write('GET / HTTP/1.1\r\n');
+socket.write('Host: www.google.com\r\n');
+socket.write('Connection: close\r\n');
+socket.write('\r\n');
+});
+
+socket.on('data', data => {
+console.log(data.toString());
+});
+
+socket.on('end', () => {
+console.log('disconnected');
+});
+其中，options 对象中包含了要连接的 TLS/SSL 服务器的信息。tls.connect 方法用于创建一个 TLS/SSL 连接，并返回一个 tls.TLSSocket 对象，可以用于发送和接受数据。需要注意的是，如果服务器的证书无法验证，需要设置 rejectUnauthorized 选项为 true 来拒绝连接。
+```
+
+### 简述Node.js的npm原理和机制 ？ 
+
+```
+npm全称为Node Package Manager，是一个基于Node.js的包管理器，也是整个Node.js社区最流行、支持的第三方模块最多的包管理器。
+npm的初衷：JavaScript开发人员更容易分享和重用代码。
+npm的使用场景：
+允许用户获取第三方包并使用。
+允许用户将自己编写的包或命令行程序进行发布分享。
+npm版本查询：npm -v
+npm安装：
+    1、安装nodejs
+        由于新版的nodejs已经集成了npm，所以可直接通过输入npm -v来测试是否成功安装。
+    2、使用npm命令来升级npm: npm install npm -g
+```
+
+### 简述Node.js npm的包和模块的关系？ 
+
+```
+一般来说在js程序中使用require加载它们的模块在节点中进行配置npm包，一个模块不一定是一个包。
+例如,一些cli包, js程序节点中只包含一个可执行的 命令行界面,不提供main字段。 那么这些包不是模块
+几乎所有npm包(至少,那些节点计划)包含许多模块在他们(因为每个文件加载require()是一个模块)。
+几乎所有的npm包都关联着多个模块，因为每个文件都使用require()加载一个模块。
+从module加载文件中的上下文node节点。如：var req = require('request')。我们可能会说,“request模块赋值给req这个变量”。
+```
+
+### 解释Node. js中导入模块和导入 JavaScript文件在写法上有什么区别？
+
+```
+在 Node. js中要导入模块，直接使用名字导入即可，如下所示：
+var express = require（"express"）；
+要导入 JavaScript文件，需要使用文件的路径，如下所示：
+var demo = require（"./demo.js"）；
+```
+
+### 简述什么是 EventEmitter？
+
+```
+EventEmitter是 Node. js中一个实现观察者模式的类，主要功能是订阅和发布消息，用于解决多模块交互而产生的模块之间的耦合问题.
+```
+
+### 如何实现一个 EventEmitter？
+
+```
+可通过3步实现 EventEmitter定义一个子类，通过寄生组合式继承，继承 EventEmitter
+
+父类，代码如下。
+
+var Util= require('util' );
+var EventEmitter= require ('events' ) .EventEmitter；
+function IcktEmitter () {
+EventEmitter .apply(this, arguments)
+}
+Util.inherits(IcktEmitter, EventEmitter);
+
+
+var ie = new IcktEmitter ( ) ;
+ie.on('icketang'， function（data）{
+console.log('接收到消息'，data )
+})
+ie.emit（' icketang'，'来自有课网的消息'）；
+```
+
+### 简述Node EventEmitter有哪些典型应用？
+
+```
+（1）在模块间传递消息。
+（2）在回调函数内外传递消息。
+（3）处理流数据，因为流是在 EventEmitter的基础上实现的。
+（4）运用观察者模式收发消息的相关应用。
+```
+
+### 如何捕获 EventEmitter的错误事件？
+
+```
+当发布error消息的时候，如果没有注册该事件，应用程序会抛出错误并中断执行。所以要监听error事件，代码如下。
+
+var ie= new IcktEmitter ( );
+ie .on（'error '， function（err）{
+conso1e.1og ( '接收到错误的信息'，err )
+})
+ie.emit（' error'，'来自ie1的错误消息'）；
+```
+
+### Node有哪些常用 Stream流？分别什么时候使用？ 
+
+```
+Readable流为可读流，在作为输入数据源时使用；Writable流为可写流，在作为输岀源时使用；Duplex流为可读写流，它作为输岀源被写入，同时又作为输入源被后面的流读出。
+
+Transform流和 Duplex流一样，都是双向流，区别是 Transfrom流只需要实现一个函数 _transfrom( chunk, encoding, callback)；而 Duplex流需要分别实现_read(size )函数和_write( chunk, encoding, callback ）函数。
+```
+
+### 使用代码简述如何实现一个 Writable流？ 
+
+```
+实现 Writable流分成3步
+（1）引入 Writable模块。
+（2）继承 Writable模块。
+（3）实现 _write(chunk, encoding, callback )写入函数。
+
+代码如下。
+
+//引入 Writable模块
+var Writable= require（'stream'）.Writable；
+var Util = require（'util'）；
+//继承 Writable模块
+function IcktWritable( ) {
+Writable. apply(this, arguments ) ;
+}
+Util.inherits ( IcktWritable, Writable ) ;
+//实现 write函数
+IcktWritable. prototype. _write = function ( data, encoding, callback ) {
+console.log ('被写入的数据是：' ，data. toString ( ) )
+callback ( )
+}
+var iw= new IcktWritable ( ) ；
+for (var i=0；i< 5 ；i++ ) {
+iw. write（'有课网'+i，'utf8"）
+}
+iw,end('学技能就上有课网' )；
+```
+
+### 简述内置的fs模块架构由哪几部分组成？
+
+```
+fs模块主要由下面几部分组成。
+（1） POSIX文件 Wrapper，对应操作系统的原生文件操作。
+（2）文件流，fs. createReadStream和 fs.createWriteStrean。
+（3）同步文件读写， fs.readFileSync和fs.writeFileSync。
+（4）异步文件读写， fs.readFile和fs.writeFile。
+```
+
+### Node如何读取JSON配置文件？ 
+
+```
+主要有两种方式。
+（1）第一种是利用 Node. js内置的 require（ data.json！）机制，直接得到 Javascript对象；
+（2）第二种是读入文件内容，然后用JSON. parse（ content）转换成 JavaScript对象。
+二者的区别是，对于第一种方式，如果多个模块都加载了同一个JSON文件，那么其中一个改变了 JavaScript对象，其他也跟着改变，这是由 Node.js模块的缓存机制造成的，缓存中只有一个 JavaScript模块对象；
+第二种方式则可以随意改变加载后的JavaScript变量，而且各模块互不影响，因为它们都是独立的，存储的是多个 JavaScript对象。
+```
+
+### 简述fs.watch和 fs.watchFile有什么区别？ 
+
+```
+二者主要用来监听文件变动，fs.watch利用操作系统原生机制来监听，可能不适用网络文件系统；fs. watchFile则定期检查文件状态变更，适用于网络文件系统，但是与fs.watch相比有些慢，因为它不采用实时机制
+```
+
+### 简述Node为什么需要子进程？
+
+```
+Node. js是异步非阻塞的，这对高并发非常有效。可是我们还有其他一些常用的需求，比如和操作系统 shell命令交互，调用可执行文件，创建子进程，进行阻塞式访问或高CPU计算等，子进程就是为满足这些需求而产生的。顾名思义，子进程就是把 Node. js阻塞的工作交给子进程去做
+```
+
+### Node中exec、 execFile、 spawn和fork都是做什么用的？
+
+```
+这四个都可以用来创建子进程
+
+1.spawn和fork都是返回一个基于流的子进程对象
+2.exec和execFile可以在回调中拿到返回的buffer的内容（执行成功或失败的输出）
+3.exec是创建子shell去执行命令，用来直接执行shell命令  。execFile是去创建任意你指定的文件的进程
+4.fork是一种特殊的spawn，可以理解为spawn增强版，返回的子进程对象可以和父进程对象进行通信，通过send和on方法
+```
+
+### Node 如何实现一个简单的命令行交互程序？
+
+```
+实现代码如下。
+
+var cp = require (' child process )；
+//执行指令
+var child= cp .spawn（'echo', ['hello, ''] )；
+// child.stdout是输入流， process. stdout是输出流
+//子进程的输出流作为当前程序的输入流，然后重定向到当前程序的控制器输出
+child. stdout. pipe（process. stdout）
+```
+
+### 思考解释两个 Node. js程序之间如何交互？ 
+
+```
+通过fork实现父子程序之间的交互。子程序用 process.on、 process. send访问父程序，父程序用 child.on、 child.send访问子程序。
+
+关于 parent. JS的示例代码如下。
+
+var cp = require (' child_process' ) ;
+var child= cp.fork ('./child. js' );
+child .on（'message'， function（msg）{
+console.1og（'子程序发送的数据：'，msg )
+})
+child.send ( '来自父程序发送的数据' )
+关于 child .js的示例代码如下。
+
+process .on ( 'message' , function（msg）{
+conso1e.1og ( '父程序发送的数据: ' , msg )
+process.send ( '来自子程序发送的数据' )
+```
+
+### 简述如何让一个 JavaScript文件变得像 Linux命令一样可执行？
+
+```
+具体步骤如下。
+（1）在文件头部加入#！/ bin/sh
+如 icketang40.js
+#！/bin/sh
+echo'有课网— 技能学习就上有课网；
+（2）用 chmod命令把名为 icketang40的 JavaScript文件改为可执行文件。
+chmod + x icketang40.js
+（3）进入文件目录，在命令行输入 icketang40.js就相当于执行 node icketang40.js
+$ ./icketang40.js
+```
+
+### Node子进程和进程的 stdin、 stdout、 stderror是同样的吗？
+
+```
+概念都是一样的。stdin、 stdout、 stderror分别是输入、输出、错误。三者都是流。区别是在父进程里，子进程的 stdout是输入流， stdin是输出流。
+```
+
+### 简述async都有哪些常用方法？分别怎么用？ 
+
+```
+async是一个 JavaScript类库，它的目的是解决 JavaScript中异常流程难以控制的问题。async不仅在 Node. js里适用，还可以用在浏览器中。其常用方法和用法如下。
+
+具体代码如下所示。
+
+var async = require（'async '）；
+var date = Date .now ( )；
+（1） async. parallel：并行执行完多个函数后，调用结束函数。不用等到前一个函数。执行完再执行下一个函数。
+
+async .parallel ( [
+function ( callback ) {
+setTimeout (function () {
+console. log（'process one'， Date. now ( ) - date)
+callback（null, 'msg one'）
+}，2000)
+}，
+function ( callback ){
+setTimeout ( function () {
+console. log（'process tow'， Date .now ( ) - date )
+callback ( null, 'msg tow' )
+}，1000)
+}
+]， function（err, result）{
+console. log（err, result, 'done ')
+})
+（2） async.series：串行执行完多个函数后，调用结束函数。前面一个函数执行完之后，就会立即执行下一个函数。
+
+async .series ( [
+function ( callback ) {
+setTimeout ( function () {
+console. log ( 'process one ', Date. now ( ) - date )
+callback ( null, ' msg one' )
+}，2000 )
+},
+function ( callback ) {
+setTimeout ( function () {
+console. log ( 'process tow'， Date. now ( ) - date )
+callback ( null, 'msg tow ' )
+}，1000 )
+}
+] ， function (err, result ) {
+console. log（err, result, 'done'）
+})
+（3） async. waterfall：依次执行多个函数，前一个函数的执行结果作为后一个函数执行时的参数。
+
+async .waterfall ( [
+function ( callback ) {
+setTimeout ( function () {
+console. log（'process one, Date. now（）- date）
+callback（null, 'msg one'）
+}，2000）
+},
+function（argl, callback）{
+setTimeout （function（）{
+console. log（'process tow, Date. now ( ) - date, argl )
+callback（null, 'msg tow'）
+}，1000)
+}
+] , function（err, result）{
+console. log（err, result, 'done '）
+})
+```
+
+### 简述Node express项目的目录大致是什么结构的？
+
+```
+首先，执行安装 express的指令：npm install express-generator-g。
+然后，通过 express指令创建项目：express icketang。
+创建的项目目录结构如下。
+./app.js 应用核心配置文件（入口文件）
+./bin 存放启动项目的脚本文件
+./ package.json 存储项目的信息及模块依赖
+./public 静态文件（css、js、img等）
+./routes 路由文件（MVC中的 contro1ler）
+./views 页面文件（jade模板）
+```
+
+### 简述Node express常用函数有哪些？ 
+
+```
+常用函数有以下几个
+
+express .Router—路由组件
+app.get—路由定向。
+app. configure——配置。
+app.set一设定参数。
+app.use——使用中间件
+```
+
+### Node express中如何获取路由的参数？ 
+
+```
+执行的命令如下
+/users/：name
+使用 req.params.name来获取；使用req.body.username来获得表单传入参数 username；express的路由支持常用通配符有？、+、*、( )。
+```
+
+### 简述express response有哪些常用方法？
+
+```
+常用方法有以下几个。
+res. download( )，弹出文件下载。
+res.end ( )，结束响应。
+res.json( )，返回json。
+res.jsonp( )，返回 jsonp。
+res .redirect ( )，重定向请求。
+res .render ( )，渲染模板。
+res.send ( )，返回多种形式数据。
+res.sendFile ( )，返回文件。
+res.sendStatus( )，返回状态。
+```
+
+### 简述什么是Node.js REPL(交互式解释器) ？
+
+```
+Node.js 中 REPL 表示一个电脑的环境，类似 Window 系统的终端或 Unix/Linux shell，我们可以在终端中输入命令，并接收系统的响应。 Node 自带了交互式解释器，可以执行以下任务：
+
+Node 自带了交互式解释器，可以执行以下任务：
+
+读取：读取用户输入，解析输入了Javascript 数据结构并存储在内存中。
+执行 ：执行输入的数据结构。
+打印 ：输出结果。
+循环 ：循环操作以上步骤直到用户两次按下 Ctrl-c按钮退出。
+repl模块介绍
+repl模块提供了一种“读取-求值-输出”循环的实现，可以作为一个独立的程序或嵌入到其他应用中。
+
+repl模块的引入方式如下所示：
+
+const repl = require('repl');
+repl 模块导出了 repl.REPLServer 类，当 repl.REPLServer 实例运行时，它接收用户输入的每一行，根据用户定义的解释函数解释这些输入，然后输出结果。输入可以是 stdin，输出可以是 stdout，或者也可以连接到其他任何 Node.js 流。
+
+repl.REPLServer 实例支持输入的自动补全、精简 Emacs 风格的行编辑、多行输入、ANSI 风格的输出、当前 REPL 会话状态的保存与恢复、错误校正、以及可定制的解释函数。
+
+命令与特殊键
+所有 REPL 的实例都支持下列特殊命令：
+
+.break ：在输入一个多行表达式的过程中，输入 .break 命令将终止表达式的继续输入。
+.clear ： 重置 REPL 的 context 为一个空对象，并清除当前正输入的所有多行表达式。
+.exit：关闭输入输出流，退出 REPL。
+.help ：显示特定命令的帮助列表。
+.save ：保存当前 REPL 会话到一个文件。
+.load：读取一个文件到当前 REPL 会话。
+.editor：进入编辑模式（-D 完成， -C 取消）。
+REPL 中下列按键组合有特殊作用：
+
+-C ：当按下一次时，与 .break 命令的效果一样。当在空白行按下两次时，与 .exit 命令的效果一样。
+-D ：与 .exit 命令的效果一样。
+：当在空白行按下时，显示全局和本地作用域内的变量。当在输入时按下，显示相关的自动补全选项。
+```
+
+### Node.js 中有多少种 API 函数 ？
+
+```
+有两种类型的 API 函数：
+异步、非阻塞函数：主要是 I/O 操作，可以从主循环中分叉出来。
+同步的、阻塞的函数 ：主要是影响在主循环中运行的进程的操作。
+```
+
+### Node使用 Promise 代替回调有什么好处 ？
+
+```
+使用 Promise 的主要优点是您可以获得一个对象来决定异步任务完成后需要采取的操作。这提供了更易于管理的代码并避免了回调地狱
+```
+
+### 简述Node可以使用哪些工具来确保代码风格一致 ？
+
+```
+团队协作时，保证一致的代码风格是非常重要的，这样团队成员才可以更快地修改代码，而不需要每次去适应新的风格。这些工具可以帮助我们：
+[ESLint] (http://eslint.org/)
+[Standard] (https://standardjs.com/)
+JSLint
+JSHint
+ESLint
+JSCS推荐
+```
+
+### 浅谈什么是回调地狱？
+
+```
+在回调函数里面嵌套回调函数，这样的就叫回调地狱，例如ajax发多个请求的时候，下一次请求要用要上一次请求的结果，这种嵌套的回调函数就是回调地狱。
+什么叫回调函数呢？ 就是在调用函数时，把函数体作为实参传入到另一个函数内，它就是一个回调函数了。例如异步任务都有回调函数的应用。
+
+promise优化回调地狱 & async await 优化回调地狱
+
+promise优化回调地狱 原理就是axios.get() 它相当于let p=axios.get() 也是一个promise对象，promise对象都有.then方法。
+
+async await优化回调地狱的原理是async修饰后的函数 它的返回值就是await axios.get（） 所以这里可以省略.then 用一个变量直接接收await axios.get（）的返回值。再在函数外面接收这个函数的返回值
+```
+
+### 如何有效避免回调地狱？
+
+```
+以下方式避免回调地狱
+
+模块化：将回调函数转换为独立的函数
+使用流程控制库，例如[aync]
+使用Promise
+使用aync/await
+```
+
+### 简述什么是stub？举例说明
+
+```
+stub用于模块的行为。测试时，stub可以为函数调用返回模拟的结果。比如说，我们写文件时，实际上并不需要真正去写。
+var fs = require('fs');
+var writeFileStub = sinon.stub(fs, 'writeFile', function(path, data, cb) {
+return cb(null);
+}
+);
+expect(writeFileStub).to.be.called;
+```
+
+### 解释如何用Node监听80端口 ？ 
+
+```
+这题有陷阱！在类Unix系统中你不应该去监听80端口，因为这需要超级用户权限。因此不推荐让你的应用直接监听这个端口。
+目前，如果你一定要让你的应用80端口的话，你可以有通过在Node应用的前方再添加一层反向代理（例如nginx）来实现，如下图。否则，建议你直接监听大于1024的端口
+方向代理指的是以代理服务器来接收Internet上的连接请求，然后将请求转发给内部网络上的服务器， 并且将服务器返回的结果发送给客户端。
+```
+
+### NodeJS的单线程模型？ 
+
+```
+Node.js 使用单线程模型来支持异步处理。通过异步处理，应用程序可以在 Web 负载下性能更好并且更具可扩展性。因此，Node.js 使用单线程模型方法而不是典型的基于线程的实现
+```
+
+### 解释Node module.exports的用途？
+
+```
+Node.js 中的一个模块用于将所有相关代码封装到一个代码单元中，该代码单元可以通过将所有相关功能转移到单个文件中来进行解释。例如，假设您有一个名为 greet.js 的文件，其中包含如下所示的两个函数：
+
+module.exports = {
+greetInHindi: function(){
+return "NAMASTE";
+},
+greetInKorean: function(){
+return "ANNYEONGHASEYO";
+}};
+
+如你所见，module.exports 提供了两个函数，可以使用以下代码将它们导入到另一个文件中：
+
+var eduGreets = require ("./greet.js");
+eduGreets.greetInHindi() //NAMASTE
+eduGreets.greetInKorean() //ANNYEONGHASEYO
+```
+
+### 简述Node.js中的Reactor Pattern有什么理解？
+
+```
+Node.js 中的Reactor Pattern基本上是一个非阻塞 I/O 操作的概念。该模式提供了一个与每个 I/O 操作相关联的处理程序，一旦生成 I/O 请求，它就会提交给多 路分解器。该解复用器是一个通知接口，能够在非阻塞 I/O 模式下处理并发。它还有助于以事件的形式收集每个请求，然后将每个事件放入队列中。从而导致事件队列的产生。同时，我们有事件循环，它迭代事件队列中存在的事件。
+```
+
+### 解释Node.js 的 LTS 版本是什么?
+
+```
+LTS代表Long Term Support版本的Node.js，接收安全更新和性能改进以及所有关键bug修复。主要关注稳定性和安全性。对 LTS 版本所做的修改仅限于错误修复、安全升级、npm 和文档更新、性能改进
+```
+
+### 解释什么是Node的ibuv ？ 
+
+```
+ibuv 是Node.js的多平台支持库，主要用于异步 I/O。它主要是为 Node.js 开发的，随着时间的推移，它被广泛用于其他系统，如 Luvit、pyuv、Julia 等。Libuv 基本上是对依赖于平台的 libev/IOCP 的抽象，为用户提供基于 libev 的 API。libuv 的一些重要特性是：
+
+支持全功能事件循环
+文件系统事件
+异步文件和文件系统操作
+异步 TCP 和 UDP 套接字
+子进程
+```
+
+### 解释NodeJS中间件概念 ？ 
+
+```
+一般来说，中间件是一个接收请求和响应对象的函数。换句话说，在应用程序的请求-响应循环中，这些函数可以访问各种请求和响应对象以及循环的下一个函数。中间件的 next 功能是借助一个变量来表示的，通常命名为 next。中间件功能最常执行的任务是：
+
+执行任何类型的代码
+更新或修改请求和响应对象
+完成请求-响应循环
+调用堆栈中的下一个中间件
+```
+
+### 解释Node中解释URL模块的概念？
+
+```
+Node.js的 URL 模块提供了各种用于URL 解析和解析的实用程序 。它是一个内置模块，有助于将网址拆分为可读格式：
+
+var url = require('url');
+例如：
+
+var url = require('url');
+var adrs = 'http://localhost:8082/default.htm?year=2021&month=July';
+var q = url.parse(adr, true);
+console.log(q.host); //returns 'localhost:8082'
+console.log(q.pathname); //returns '/default.htm'
+console.log(q.search); //returns '?year=2021 and month=July'
+var qdata = q.query; //returns an object: { year: 2021, month: 'July' }
+console.log(qdata.month); //returns 'July'
+```
+
+### 解释对ESLint的理解是什么？
+
+```
+ESLint 是一个开源项目，最初由 Nicholas C. Zakas 于 2013 年开发，旨在通过插件为 JavaScript 提供 linting 实用程序。Node.js 中的 Linters 是搜索某些 bug 类的好工具，尤其是那些与变量作用域相关的 bug
+```
+
+### 解释列出 async.queue 作为输入的两个参数?
+
+```
+下面是 async.queue 作为输入的两个参数：
+任务功能
+并发值
+```
+
+### 解释Node.js 中 spawn() 和 fork() 方法的区别？ 
+
+```
+在 Node.js 中， spawn() 用于使用提供的命令集启动新进程。此方法不会创建新的 V8 实例，并且只有一个节点模块副本在处理器上处于活动状态。当你的子进程向 Node 返回大量数据时，可以调用此方法。
+语法：
+child_process.spawn(command[, args][, options])
+而 Node.js 中的 fork() 是 spawn() 的一个特殊实例，它执行 V8 引擎的一个新实例。这种方法只是意味着多个工作程序在单个 Node 代码库上运行以执行各种任务。
+语法：
+child_process.fork(modulePath[, args][, options])
+```
+
+### 简述断言在NodeJS中如何工作 ？ 
+
+```
+在 Node.js 中，断言用于编写测试。它仅在任何正在运行的测试用例失败时才提供反馈。该模块为您提供了一组断言测试，然后用于测试不变量。它基本上由 Node.js 内部使用，但使用 require(‘assert’) 代码，它也可以在其他应用程序中使用
+```
+
+### 综合解释定义测试金字塔的概念。从 HTTP API 的角度解释实现它们的过程 ？
+
+```
+测试金字塔基本上是由 Mike Cohn 开发的一个概念。根据这一点，你应该有一个更高一些低级别的单元测试相比，高层次的终端到终端的测试，通过GUI运行。
+就 HTTP API 而言，它可以定义为：
+每个模型的低级单元测试数量更多
+较少的集成测试来测试模型交互
+用于测试实际 HTTP 端点的较少验收测试
+```
+
+### 解释一下ExpressJS包的用途？ 
+
+```
+Express.js 是一个构建在 Node.js 之上的框架，它有助于管理服务器端应用程序中服务器和路由之间的数据流。它是一个轻量级且灵活的框架，可提供 Web 和移动应用程序开发所需的广泛功能。Express.js开发的中间件的Node.js的模块被称为 连接。connect 模块进一步利用 http 模块与 Node.js 通信。因此，如果您正在使用任何基于连接的中间件模块，那么您可以轻松地与 Express.js 集成
+```
+
+### 简述process.nextTick() 和 setImmediate() 的区别？
+
+```
+在 Node.js 中，process.nextTick() 和 setImmediate() 都是 Timers 模块的函数，它们有助于在预定义的时间段后执行代码。但是这些功能在执行上有所不同。process.nextTick 函数等待动作的执行，直到事件循环中的下一次传递，或者一旦事件循环完成，它就会调用回调函数。另一方面， setImmediate() 用于在事件循环的下一个周期执行回调方法，最终将其返回到事件循环以执行 I/O 操作
+```
+
+### 相对，固定，绝对和静态定位的元素有什么区别？
+
+```
+Node.js 中的流是类似于数组和字符串的数据集合。它们是对象，您可以使用它们以连续方式从源读取数据或将数据写入目标。它可能无法立即使用，也不必放入内存中。这些流对于读取和处理大量数据特别有用。在 Node.js 中，流有四种基本类型：
+
+可读： 用于从源读取大量数据。
+可写：用于将大块数据写入目的地。
+双工：用于两种功能；读和写。
+Transform：它是一种用于修改数据的双工流
+```
+
+### 解释NODE_ENV有什么用？
+
+```
+如果项目处于生产阶段，Node.js 提倡使用 NODE_ENV 变量来标记它的约定。这有助于在项目开发过程中做出更好的判断。此外，当您将 NODE_ENV 设置为生产时，您的应用程序的执行速度往往会快 3 倍
+```
+
+### Node.js 中 readFile 和 createReadStream 的区别？ 
+
+```
+Node.js 提供了两种读取和执行文件的方式，分别是使用 readFile 和 CreateStream。readFile() 是一个完全缓冲的进程，只有当完整的文件被推入缓冲区并被读取时才返回响应。这是一个内存密集型过程，在大文件的情况下，处理速度可能非常慢。而 createReadStream 是部分缓冲的，它将整个过程视为一个事件系列。整个文件被分成块，然后被处理并作为响应一一发回。完成后，它们最终会从缓冲区中删除。与 readFile 不同，createReadStream 对于大文件的处理非常有效
+```
+
+### 列出 Node.js 的各种计时功能？
+
+```
+Node.js 提供了一个 Timers 模块，其中包含在指定时间段后执行代码的各种功能。下面我列出了这个模块提供的各种功能：
+
+setTimeout/clearTimeout – 用于在指定的毫秒数后安排代码执行
+setInterval/clearInterval – 用于多次执行一个代码块
+setImmediate/clearImmediate – 用于在当前事件循环周期结束时执行代码
+process.nextTick – 用于调度需要在事件循环的下一次迭代中调用的回调函数
+```
+
+### 解释解释Node.js中Punycode的概念 ？ 
+
+```
+在 Node.js 中，Punycode 是一种编码语法，用于将 Unicode (UTF-8) 字符串转换为基本的 ASCII 字符串。这很重要，因为主机名只能理解 ASCII 字符。因此，从 Node.js 0.6.2 版本开始，它与默认的 Node 包捆绑在一起。如果您想将它与任何以前的版本一起使用，您可以使用以下代码轻松实现：
+语法：
+punycode = require('punycode');
+```
+
+### 描述 Node.js 的退出代码？
+
+```
+在 Node.js 中，退出代码是一组用于完成特定进程的特定代码。这些进程也可以包括全局对象。下面是 Node.js 中使用的一些退出代码：
+
+未捕获的致命异常
+没用过
+致命错误
+内部异常处理程序运行时失败
+内部 JavaScript 评估失败
+```
+
+### 解释为什么 Express ‘app’ 和 ‘server’ 必须分开的原因？ 
+
+```
+Express ‘app’ 和 ‘server’ 必须保持分开，因为这样做，您将 API 声明与网络相关配置分开，这有利于以下列出的方式：
+它允许在进程内测试 API，而无需执行网络调用
+更快的测试执行
+获取更广泛的代码覆盖指标
+允许在灵活的不同网络条件下部署相同的 API
+更好地分离关注点和更清晰的代码
+API 声明应驻留在 app.js 中：
+
+var app = express();
+app.use(bodyParser.json());
+app.use("/api/events", events.API);
+app.use("/api/forms", forms);
+
+服务器网络声明应位于 /bin/www 中：
+
+var app = require('../app');
+var http = require('http');
+//Get port from environment and store in Express
+var port = normalizePort(process.env.PORT || '8000');
+app.set('port', port);
+//Create HTTP server.
+var server = http.createServer(app);
+```
+
+### Node.js 支持密码学吗？
+
+```
+是的，Node.js 确实通过名为 Crypto 的模块支持加密。该模块提供各种加密功能，如密码、解密、签名和验证功能，一组用于开放 SSL 的哈希 HMAC 的包装器等。例如：
+语法：
+const crypto = require'crypto');
+const secret = 'akerude';
+const hash = crypto.createHmac('swaEdu', secret).update('Welcome to Edureka').digest('hex');
+console.log(hash);
+```
+
+### 简述如何监控Node.js应用程序 ？ 
+
+```
+一般情况都需要借助工具来实现
+这里采用Easy-Monitor 2.0，其是轻量级的 Node.js 项目内核性能监控 + 分析工具，在默认模式下，只需要在项目入口文件 require 一次，无需改动任何业务代码即可开启内核级别的性能监控分析
+
+使用方法如下：
+在你的项目入口文件中按照如下方式引入，当然请传入你的项目名称：
+const easyMonitor = require('easy-monitor');
+easyMonitor('你的项目名称');
+打开你的浏览器，访问 http://localhost:12333 ，即可看到进程界面
+```

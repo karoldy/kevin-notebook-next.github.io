@@ -1,0 +1,887 @@
+# Bootstrap 面试题
+
+## 面试官系列
+
+## 经典面试题
+
+### 简述什么是Bootstrap？以及为什么要使用Bootstrap？ 
+
+```
+一、为什么使用Bootstrap？
+自己制作响应式的网页适配各种终端的时候，需要针对每种终端编写一套样式，而且开发和维护很麻烦。而bootstrap库中，包含了很多现成的带有各种样式和功能的代码，web开发者不必再花费时间、花费精力的编码，只需要找到合适的代码，插入合适的位置即可。
+最主要的是这些代码片段是经过封装的，可以适用于不同的终端设备。
+
+二、Bootstrap特点
+Bootstrap是基于HTML5和CSS3开发的，并在jQuery框架的基础上进行了更为个性化的完善，形成一套自己独有的网站风格，并兼容大部分jQuery插件。包含了丰富的Ｗｅｂ组件（下拉框，按钮，导航，分页，排版，缩略图等）。
+
+1 ) 快速制作响应式的网页来适配各种终端
+2 ) 开发简单、方便
+3 ) 移动先行
+4 ) 代码开源
+5 ) 代码有良好的规范
+```
+
+### 使用Bootstrap时，要声明的文档类型是什么？以及为什么要这样声明？
+
+```
+使用Bootstrap时，需要使用 HTML5 文档类型（Doctype）。
+
+因为Bootstrap 使用了一些 HTML5 元素和 CSS 属性，如果在 Bootstrap 创建的网页开头不使用 HTML5 的文档类型（Doctype），可能会面临一些浏览器显示不一致的问题，甚至可能面临一些特定情境下的不一致，以致于代码不能通过 W3C 标准的验证
+```
+
+### Bootstrap如果需要制作响应式图像，需要在标签上面增加什么？
+
+```
+class=“img-responsive”
+```
+
+### 简述Bootstrap网格系统（Grid System）？ 
+
+```
+Bootstrap 包含了一个响应式的、移动设备优先的、不固定的网格系统，可以随着设备或视口大小的增加而适当地扩展到 12 列。它包含了用于简单的布局选项的预定义类，也包含了用于生成更多语义布局的功能强大的混合类。
+响应式网格系统随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。
+
+Bootstrap网格系统工作原理：
+
+1：Bootstrap的网格系统是指将页面布局划分为等宽的列。随着屏幕或视口尺寸的增加，系统会自动分为1~12列。
+2：网格系统用于通过一系列的行（row）与列（column）的组合来创建页面布局。
+3：开发者可以将内容放入这些创建好的布局中，然后通过列数的定义来模块化页面布局。
+4：网格系统页面的内容可以放入这些创建好的布局容器中，并且会根据父元素盒子（布局容器）尺寸的大小进行适当地调节，从而达到响应式页5：面布局的效果。
+6：Bootstrap的网格系统使用一系列容器类（container），行（row）和列（column）的组合来创建页面布局。
+7：网格中每一行需要放在设置了 .container或 .container-fluid 类的容器中。
+8：使用行.row来创建水平的列组。并且行必须包含在布局容器中，以便为其赋予合适的排列和内补
+9：列使用样式.col-*-*，创建一组列并且只有列可以作为行的直接子元素。
+```
+
+### 简述Bootstrap 网格系统（Grid System）的工作原理？ 
+
+```
+Bootstrap 网格系统（Grid System）的工作原理：
+（1）行必须放置在 .container class 内，以便获得适当的对齐（alignment）和内边距（padding）。
+（2）使用行来创建列的水平组。
+（3）内容应该放置在列内，且唯有列可以是行的直接子元素。
+（4）预定义的网格类，比如 .row 和 .col-xs-4，可用于快速创建网格布局。LESS 混合类可用于更多语义布局。
+（5）列通过内边距（padding）来创建列内容之间的间隙。该内边距是通过 .rows 上的外边距（margin）取负，表示第一列和最后一列的行偏移。
+（6）网格系统是通过指定您想要横跨的十二个可用的列来创建的。例如，要创建三个相等的列，则使用三个 .col-xs-4
+```
+
+### 对于各类尺寸的设备，Bootstrap设置的class前缀分别是什么？
+
+```
+超小设备手机（<768px）：.col-xs-
+小型设备平板电脑（>=768px）：.col-sm-
+中型设备台式电脑（>=992px）：.col-md-
+大型设备台式电脑（>=1200px）：.col-lg-
+```
+
+### Bootstrap 网格系统列与列之间的间隙宽度是多少？ 
+
+```
+间隙宽度为30px（一个列的每边分别是15px）
+```
+
+### Bootstrap 如果需要在一个标题的旁边创建副标题，可以怎样操作？
+
+```
+在元素两旁添加，或者添加.small的class。
+```
+
+### Bootstrap 如果想给段落添加强调文本，可以怎样操作？
+
+```
+添加class=“lead”
+```
+
+### Bootstrap如何设置文字的对齐方式？
+
+```
+class=“text-center” 设置居中文本
+class=“text-right” 设置向右对齐文本
+class=“text-left” 设置向左对齐文本
+```
+
+### Bootstrap如何设置响应式表格？ 
+
+```
+增加class=“table-responsive”
+```
+
+### 使用Bootstrap创建垂直表单的基本步骤？ 
+
+```
+（1）向父元素添加role=“form”；
+（2）把标签和控件放在一个带有class="form-group"的中，这是获取最佳间距所必需的；
+（3）向所有的文本元素、、添加class=“form-control”
+```
+
+### 使用Bootstrap创建水平表单的基本步骤？ 
+
+```
+（1）向父元素添加class=“form-horizontal”；
+（2）把标签和控件放在一个带有class="form-group"的中；
+（3）向标签添加class=“control-label”。
+```
+
+### 使用Bootstrap如何创建表单控件的帮助文本？
+
+```
+增加class="help-block"的span标签或p标签
+```
+
+### 使用Bootstrap激活或禁用按钮要如何操作？
+
+```
+激活按钮：给按钮增加.active的class
+禁用按钮：给按钮增加disabled="disabled"的属性
+```
+
+### Bootstrap有哪些关于图片的class？
+
+```
+（1）.img-rounded 为图片添加圆角
+（2）.img-circle 将图片变为圆形
+（3）.img-thumbnail 缩略图功能
+（4）.img-responsive 图片响应式 (将很好地扩展到父元素)
+```
+
+### Bootstrap中有关元素浮动及清除浮动的class？ 
+
+```
+（1）class=“pull-left” 元素浮动到左边
+（2）class=“pull-right” 元素浮动到右边
+（3）class=“clearfix” 清除浮动
+```
+
+### Bootstrap除了屏幕阅读器外，其他设备上隐藏元素的class？
+
+```
+class=“sr-only”
+```
+
+### Bootstrap如何制作下拉菜单？ 
+
+```
+（1）将下拉菜单包裹在class="dropdown"的中；
+（2）在触发下拉菜单的按钮中添加：class=“btn dropdown-toggle” id=“dropdownMenu1” data-toggle=“dropdown”
+（3）在包裹下拉菜单的ul中添加：class=“dropdown-menu” role=“menu” aria-labelledby=“dropdownMenu1”
+（4）在下拉菜单的列表项中添加：role=“presentation”。其中，下拉菜单的标题要添加class=“dropdown-header”，选项部分要添加tabindex="-1"
+```
+
+### Bootstrap如何制作按钮组？以及水平按钮组和垂直按钮组的优先级？
+
+```
+（1）用class="btn-group"的去包裹按钮组；class="btn-group-vertical"可设置垂直按钮组。
+（2）btn-group的优先级高于btn-group-vertical的优先级。
+```
+
+### Bootstrap中的输入框组如何制作？
+
+```
+（1）把前缀或者后缀元素放在一个带有class="input-group"中的中；
+（2）在该内，在class="input-group-addon"的 里面放置额外的内容；
+（3）把放在元素的前面或后面。
+```
+
+### Bootstrap中的导航都有哪些？ 
+
+```
+（1）导航元素：有class="nav nav-tabs"的标签页导航，还有class="nav nav-pills"的胶囊式标签页导航；
+（2）导航栏：class=“navbar navbar-default” role=“navigation”；
+（3）面包屑导航：class=“breadcrumb”
+```
+
+### Bootstrap中设置分页的class？
+
+```
+默认的分页：class=“pagination”
+默认的翻页：class=“pager”
+```
+
+### Bootstrap中显示标签的class？ 
+
+```
+class=“label”
+```
+
+### 简述Bootstrap中超大屏幕的作用是什么？
+
+```
+设置class="jumbotron"可以制作超大屏幕，该组件可以增加标题的大小并增加更多的外边距。
+```
+
+### Bootstrap如何设置响应式图片？ 
+
+```
+我们可以通过在 < img> 标签中添加 .img-fluid 类来设置响应式图片。
+但是只有图片足够大时才能看到图片的自动缩放效果，如果图片太小，设置img-fluid并不起作用
+```
+
+### 简述Bootstrap 按钮的常规样式 ？
+
+```
+.btn btn-default
+btn-primary
+btn-danger
+btn-warning
+btn-info
+btn-lg
+btn-sm
+btn-xs 
+btn-block(占父元素整宽)
+```
+
+### 请解释 Bootstrap 中的 Normalize？ 
+
+```
+为了建立跨浏览器的一致性，Bootstrap 使用了 Normalize。它是一个小的 CSS 文件，能够在 HTML 元素的默认样式中提供更好的跨浏览器一致性。此外，Normalize.css 是CSS resets的 HTML5-ready 和现代替代品
+```
+
+### 能否列举Bootstrap支持的各种列表？
+
+```
+以下是 Bootstrap 支持的三种列表类型：
+定义列表——这种类型的列表允许每个列表项同时具有 < dt> 和 < dd> 元素。< dt> 表示定义术语，即被定义的术语或短语。< dd> 元素包含 < dt> 元素的定义。
+有序列表 -这种类型的列表遵循某种顺序。此外，它以数字开头。
+无序列表——传统上用项目符号设计，无序列表不遵循任何特定的顺序。使用 .list-unstyled 类允许从无序列表中删除项目符号样式。要将所有列表项放在一行上，可以使用 .list-inline 类
+```
+
+### Bootstrap Glyphicons 是什么意思？你如何使用它们？
+
+```
+Glyphicons 是在 Web 项目中使用的图标字体。尽管 Glyphicons Halflings 不是免费的并且通常需要许可，但它们可免费用于 Bootstrap 项目。在你希望使用 Glyphicons 的任何位置添加以下代码：
+< span class=“glyphicon glyphicon-search”> < / span >
+注意： - 为了适当的填充，建议在图标和文本之间留一个空格。
+
+哪里可以找到Glyphicons？
+现在我们已经从环境设置一章下载了Bootstrap 3.x版本并了解其目录结构，可以在fonts文件夹中找到glyphicons。 这包含以下文件 -
+
+glyphicons-halflings-regular.eot
+glyphicons-halflings-regular.svg
+glyphicons-halflings-regular.ttf
+glyphicons-halflings-regular.woff
+相关的CSS规则存在于dist文件夹的css文件夹中的bootstrap.css和bootstrap-min.css文件中。
+
+用法 (Usage)
+要使用图标，只需在代码中的任何位置使用以下代码即可。 在图标和文本之间留一个空格以进行正确的填充。
+```
+
+### 解释如何在 Bootstrap 中使用 Dropdown 插件 ？ 
+
+```
+在 Bootstrap 中可以通过三种方式切换下拉插件的隐藏内容：
+使用数据属性- 将 data-toggle = “dropdown” 添加到某个按钮或链接以切换下拉列表。例如，
+< div class = "dropdown"> < a data-toggle = "dropdown" href = "https://www.lsbin.com/#">Dropdown trigger< /a> < ul class = "dropdown-menu" role = "menu" aria-labelledby = "dLabel"> ... < /ul> < /div>
+
+使用 JavaScript -以下方法用于通过 JS 调用下拉切换：
+$('.dropdown-toggle').dropdown()
+
+使用 data-target 属性代替 href="https://www.lsbin.com/#" – 如果 Web 浏览器未启用 JavaScript，则最好保持链接完整无缺。为此， data-target 属性优于 href="https://www.lsbin.com/#"。例如，
+< div class = "dropdown"> < a id = "dLabel" role = "button" data-toggle = "dropdown" data-target = "#" href = "https://www.lsbin.com/somepage.html"> Dropdown < span class = "caret">< /span> < /a> < ul class = "dropdown-menu" role = "menu" aria-labelledby = "dLabel"> ... < /ul> < /div>
+```
+
+### 简述提供 Bootstrap 中输入组 ？
+
+```
+ootstrap面试题和答案合集 - 输入组只是 Bootstrap 中的扩展表单控件。可以使用输入组轻松地将按钮或文本添加到基于文本的输入中。向输入字段添加和预先添加内容允许向用户输入添加公共元素。
+你可以通过以下方式将元素附加或添加到 .form-control 中：
+使用类 .input-group 将其包装在 < div> 元素中
+使用相同的 < div> 元素，将额外的内容放入带有 .input-group-addon 类的 < span> 元素中
+最后，根据需要将 < span> 元素放在 < input> 元素之前或之后
+```
+
+### 如何在 Bootstrap 中创建选项卡式、药丸和垂直药丸导航菜单？ 
+
+```
+用于创建选项卡式导航菜单
+从带有 .nav 基类的基本无序列表开始
+
+现在，添加 .nav-tabs 类
+
+用于创建药丸导航菜单
+从带有 .nav 基类的基本无序列表开始
+
+现在，添加 .nav-pills 类
+用于创建垂直药丸导航菜单
+
+使用 .nav-stacked 类垂直堆叠药丸
+现在，添加 .nav 和 .nav-pills 类
+```
+
+### 简述Bootstrap 导航栏的理解 ？你将如何创造 导航栏
+
+```
+Bootstrap 最突出的功能之一是导航栏是一个响应式“元”组件，用作应用程序或网站的导航标题。应用程序或网站中可以有多个导航栏。
+在移动视图中，当可用视口宽度增加时，导航栏会折叠并变为水平。导航栏包括基本导航和站点名称的样式。以下是在 Bootstrap 中创建导航栏的方法：
+将 .navbar 和 .navbar-default 类添加到 < nav> 标签
+接下来，将 role = “navigation” 添加到 < nav> 元素
+现在，将 .navbar-header（标题类）添加到 < div> 元素。为了使文本稍大，包含一个 < a> 元素与 navbar-brand 类
+添加带有 .nav 和 .navbar-nav 类的无序列表，用于向 Bootstrap 导航栏添加链接
+```
+
+### 简述解释 Bootstrap 面包屑？ 
+
+```
+Bootstrap 面包屑是显示网站基于层次结构的信息的好方法。简单地说，它是一个带有 .breadcrumb 类的无序列表。CSS 自动为 Bootstrap 面包屑添加分隔符。
+在博客中，面包屑可以显示类别、发布日期或标签。它指示当前页面在导航层次结构中的位置。
+Bootstrap常见面试题有哪些： 如何在 Bootstrap 中创建和自定义缩略图？答：要使用 Bootstrap 创建缩略图，请在图像周围添加带有 .thumbnail 类的 < a> 标记。它将添加四个像素的填充以及灰色边框。悬停时，动画光晕勾勒出图像的轮廓。
+你可以将任何类型的 HTML 内容（例如按钮、标题或段落）添加到缩略图中。这是使用 Bootstrap 自定义缩略图的方法：
+将带有 .thumbnail 类的 < a> 标签更改为 < div> 标签
+在 < div> 标签中添加你需要的任何内容。你可以使用默认的基于跨度的命名约定来调整大小
+注意： - 如果你希望对多个图像进行分组，请将它们放在一个无序列表中。每个列表项都会向左浮动
+```
+
+### 解释 Bootstrap 警报的形态 ？
+
+```
+Bootstrap Alerts 用于为用户设置消息样式，为典型用户操作提供上下文反馈消息。要创建 Bootstrap 解除警报：
+创建一个包装器 < div> 并添加一个 .alert 类和 4 个上下文类之一，即 .alert-danger、.alert-info、.alert-success 和 .alert-warning，用于添加基本警报
+将可选的 .alert-dismissable 类添加到 < div>
+接下来，添加一个关闭按钮
+最后，使用带有 data-dismiss = “alert” 数据属性的 < button> 元素
+```
+
+### 解释如何使用 Bootstrap 创建备用进度条和条纹进度条 ？
+
+```
+用于创建各种样式的进度条：
+添加带有 .progress 类的 < div>
+在 < div> 中，添加一个带有 .progress-bar 类和一个 progress-bar-* 类的空 < div> （* 可以是危险、信息、成功或警告）
+最后，添加一个以百分比表示的宽度的样式属性。例如，样式 = “80%”
+创建条纹进度条：
+添加带有 .progress 和 .progress-striped 类的 < div>
+在 < div> 中，添加一个带有 .progress-bar 类和 progress-bar-* 类的空 < div> ，其中 * 可以是任何危险、信息、成功或警告
+现在，添加一个以百分比表示的宽度的样式属性，例如，style = “70%”
+```
+
+### 简述Bootstrap 媒体对象的理解是什么 ？
+
+```
+Bootstrap 媒体对象是用于构建不同类型组件的抽象对象样式，例如博客评论和推文，它们具有左对齐或右对齐的图像和文本内容。
+Bootstrap 媒体对象的主要目的是使开发信息块所需的代码变得非常小。为了实现简单的可扩展性、轻量级标记和其他理想的方面，类被应用于一些简单的标记。
+
+媒体对象的目标（轻量级标记，易扩展性）是通过将类应用于某些简单标记来实现的。 媒体对象有两种形式 -
+
+.media - 此类允许将媒体对象（图像，视频和音频）浮动到内容块的左侧或右侧。
+
+.media-list - 如果您准备的列表中的项目将成为无序列表的一部分，请使用类。 对评论主题或文章列表有用。
+```
+
+### .media 和 .useful 类在 Bootstrap 中有什么用途？
+
+```
+.media 类允许媒体对象（例如音频、图像或视频）浮动到内容块的左侧或右侧。要将文章列表或评论线程添加到无序列表，我们使用 .useful 类
+```
+
+### 详细解释什么是Bootstrap 面板 ？
+
+```
+解释如何创建带有标题的 Bootstrap 面板。答：Bootstrap 面板组件用于将你的 DOM 组件放入一个盒子中。要获得基本面板，只需将 .panel 和 .panel-default 类添加到 < div> 元素。有两种方法可以将面板标题添加到 Bootstrap 面板：
+将 < h1> 、< h2> 、< h3> 、< h4> 、< h5> 或 < h6> 标签中的任何一个与 .panel-title 类一起使用（添加预样式标题）
+
+使用 .panel-heading 类（向面板添加标题容器）
+```
+
+### 简述Bootstrap Scrollspy 插件的用途 ？ 
+
+```
+在 Bootstrap 中使用 Scrollspy 插件可以让你根据滚动位置定位页面的某些部分。此后，你可以根据滚动位置将 .active 类添加到 Bootstrap 导航栏
+```
+
+### 请列举可用于在 Bootstrap 中设置面板样式的各种上下文类? 
+
+```
+Bootstrap 中用于设置面板样式的各种上下文类，即使它们更有意义，是：
+.panel-danger
+.panel-info
+.panel-primary
+.panel-success
+.panel-warning
+```
+
+### 是否可以在 Bootstrap 面板中放置表格？
+
+```
+是的，可以在 Bootstrap 面板中放置表格。使用面板中的 .table 类来获取相同的无边框表格。
+注意： - 如果有一个包含 .panel-body 类的 < div> 元素，那么我们需要在表格顶部添加一个额外的边框，以便明确定义分隔。如果没有包含上述类的 < div> 元素，则组件从面板标题移动到表格没有任何问题
+```
+
+### 请问Bootstrap well 是什么意思？ 
+
+```
+为了让内容显得下沉或为网页添加插入效果，我们很好地使用了Bootstrap。其实就是< div> 中的一个容器。
+为了创建一个 Bootstrap 井，只需用一个包含 .well 类的 < div> 包裹你想要出现在 Bootstrap 井中的整个内容
+```
+
+### 解释我们为什么要在Bootstrap中使用词缀插件？ 
+
+```
+Bootstrap面试题和答案合集 - 我们使用 Bootstrap 中的附加插件将 < div> 附加到网页上的某个位置。该插件还允许为附加的 < div> 切换固定打开和关闭。社交图标是在 Bootstrap 中使用词缀插件最流行的例子。
+注意： - 附加的 < div> 从网页上的特定位置开始并随之滚动。但是，在某个标记之后，它将被锁定到位，从而停止与网页的其余部分一起滚动。
+```
+
+### 简述Bootstrap 的有哪些关键组件 ？
+
+```
+Bootstrap 的关键组件包括以下内容：
+脚手架：支持各种网格系统、样式、背景。
+CSS：它提供用于开发 Web 应用程序的 CSS 文件。
+自定义：支持自定义框架的开发。
+JS Plugins：由网页设计和应用过程中需要的JS和JQuery插件组成
+```
+
+### 简述什么是 Bootstrap 容器？ 
+
+```
+Bootstrap 容器由 HTML 代码组成，可以放置这些代码以使其成为高度响应和快速的 Web 应用程序
+使用类.container来包装页面的内容并轻松地将内容.container ，如下所示。
+
+
+...
+
+看一下bootstrap.css文件中的.container类 -
+
+.container {
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+请注意，由于填充和固定宽度，容器默认情况下不可嵌套。
+
+看一下bootstrap.css文件 -
+
+@media (min-width: 768px) {
+.container {
+width: 750px;
+}
+}
+在这里你可以看到CSS有width容器的媒体查询
+```
+
+### Bootstrap 中定义布局类型？
+
+```
+Bootstrap 中的布局有固定设计和流体布局两种。流畅的布局有助于创建可随浏览器大小调整的全宽屏幕。另一方面，固定布局无法根据浏览器屏幕自行调整，并且具有 940 像素的固定布局。
+```
+
+### 解释可以在 Bootstrap 中显示代码吗？
+
+```
+是的，我们可以在 Bootstrap 中显示代码。它可以使用诸如 < code> 标签和 < pre> 标签之类的标签来显示。< code> 标签可以帮助显示内联代码，而 < pre> 标签可以帮助显示不同行的代码。
+```
+
+### Bootstrap 如何定义 Bootstrap 缩略图？ 
+
+```
+Bootstrap 缩略图有助于使用网格系统中的布局图像、文本、视频和其他功能。这样，我们可以通过图像周围的标签添加多个缩略图
+
+使用Bootstrap创建缩略图 -
+在图像周围添加一个带有.thumbnail类的标签。
+这会添加四个填充像素和一个灰色边框。
+```
+
+### Bootstrap 如果我们在图像周围添加许多带有缩略图类的标签会发生什么？
+
+```
+这将导致创建四个像素的填充并形成灰色边框。
+```
+
+### 简述Bootstrap 中的标签 ？ 
+
+```
+Bootstrap 中的标签用于提供提示、计数和其他有助于标记网页的信息
+使用类.label显示标签，如以下示例所示 -
+
+Example Heading Label
+
+Example Heading Label
+
+Example Heading Label
+
+Example Heading Label
+
+您可以使用修饰符类修改标签的外观，例如， label-default, label-primary, label-success, label-info, label-warning, label-danger ，如以下示例所示 -
+
+Default Label
+Primary Label
+Success Label
+Info Label
+Warning Label
+Danger Label
+```
+
+### 简述Bootstrap 中使用 Jumbotron 有什么好处？
+
+```
+Bootstrap 中的 Jumbotron 可用于增加标题的大小并增加着陆页的页边距
+```
+
+### 简述Bootstrap 中的标准化是什么? 
+
+```
+Bootstrap使用Normalize来建立跨浏览器的一致性。
+
+Normalize.css是CSS重置的现代HTML5替代品。 它是一个小型CSS文件，可在HTML元素的默认样式中提供更好的跨浏览器一致性。
+```
+
+### 解释什么是移动优先的原则 ？  
+
+```
+自从Bootstrap 3推出以来，Bootstrap已经成为首个移动设备。 这意味着可以在整个库中找到“移动优先”样式，而不是在单独的文件中找到它们。 您需要将viewport meta tag到《head》元素，以确保在移动设备上正确呈现和触摸缩放。
+
+
+width属性控制设备的宽度。 将其设置为device-width将确保它正确地在各种设备（移动设备，台式机，平板电脑......）上呈现。
+
+initial-scale = 1.0确保在加载时，您的网页将以1:1的比例呈现，并且不会开箱即可进行缩放。
+
+将user-scalable = no添加到content属性以禁用移动设备上的缩放功能，如下所示。 用户只能滚动而不能使用此更改进行缩放，从而使您的网站感觉更像本机应用程序。
+
+
+通常， maximum-scale = 1.0与user-scalable = no一起使用。 如上所述， user-scalable = no可能会为用户提供更像本机应用程序的体验，因此Bootstrap不建议使用此属性。
+```
+
+### Bootstrap 中有网格类吗？
+
+```
+Bootstrap 中有四个网格类。这些包括 xs、sm、md 和 lg
+```
+
+### 简述什么是Bootstrap 全局样式 ？ 
+
+```
+全球风格代表国际平台上使用和接受的字体大小、行高和其他特征的标准化版本。它们在 Bootstrap 中用于 Bootstrap 默认排版。
+
+Bootstrap Default Typography 的全局样式包括以下默认值：
+字体大小 14 px
+1.428 的行高。
+带有无衬线回退的 Helvetica 和 Arial 字体样式
+```
+
+### 简述什么是Bootstrap Badges（徽章） ？ 
+
+```
+徽章与标签类似; 主要区别在于角落更圆润。
+
+徽章主要用于突出显示新的或未读的项目。 要使用徽章，只需在链接，Bootstrap导航等中添加《span class = "badge"》 。
+
+以下示例演示了这一点 -
+
+Mailbox 50
+当没有新的或未读的项目时，如果内部不存在任何内容，则徽章将通过CSS的:empty选择器简单地折叠。
+
+主动导航状态
+您可以将徽章置于活动状态的药丸和列表导航中。 您可以通过将《span class = "badge"》放置到活动链接来实现此目的，如以下示例所示 -
+
+```
+
+### 简述Bootstrap 列表组（List Group）？
+
+```
+列表组组件的目的是在列表中呈现复杂和自定义的内容。 要获得基本列表组 -
+将类.list-group添加到元素“ul”。
+将class .list-group-item添加到“li”。
+
+```
+
+### 详细介绍Bootstrap 的排版 （Typography） ？ 
+
+```
+Bootstrap在其默认字体堆栈中使用Helvetica Neue，Helvetica，Arial和sans-serif。 使用Bootstrap的排版功能，您可以创建标题，段落，列表和其他内联元素。 让我们看看以下各节中的每一个。
+
+Headings
+所有HTML标题（h1到h6）都在Bootstrap中设置样式。 一个例子如下所示 -
+
+```
+
+### 简述正确运行 Bootstrap 前提条件吗？
+
+```
+是的，JQuery 有一个先决条件，它是正确运行 Bootstrap 所必需的。它是 Bootstrap 中唯一的 JavaScript 插件
+```
+
+### 简述Foundation 和 Bootstrap 有区别吗？ 
+
+```
+是的，Foundation 和 Bootstrap 是有区别的。基金会支持 SASS 处理器，主要用于移动 UI 设计目的。另一方面，Bootstrap 支持使用较少的预处理器设计移动和桌面 Web 门户
+```
+
+### 简述Bootstrap 中的转换插件 ？  
+
+```
+是的，我知道 Boostrap 中的过渡插件。这用于提供简单的过渡效果。这些包括淡入淡出甚至在模态中滑动
+```
+
+### 简述 Affix 插件，它如何帮助 Bootstrap？
+
+```
+词缀插件用作网页上的社交图标。它允许 < div> 附加到页面的特定位置。它会从一个位置开始，但是当页面被点击时，它会移开并获得一个带有 < div> 的块。这样，它有助于滚动网页的其余部分。
+```
+
+### 简述Bootstrap 中的 scrollspy 插件 ？
+
+```
+Bootstrap常见面试题有哪些？Bootstrap 中的 Scrollspy 插件支持自动更新要应用的导航插件选项。这有助于使用滚动位置获取网页的部分。可以使用 .active 类来完成，该类可以添加到基于导航栏的滚动位置。
+```
+
+### 简述Bootstrap 中的 Jumbotron ？
+
+```
+Bootstrap 中的 Jumbotron 用于增加标题的大小并为登录页面内容应用边距。它可以使用 < div> 中的容器和 .jumbotron 类来创建
+```
+
+### 简述在 Bootstrap 中如何定义主体副本？ 
+
+```
+Bootstrap 中的主要正文副本用于向段落添加各种上升。它可以使用 class="lead" 来应用，有助于扩大字体大小和增加高度。
+Bootstrap面试题和答案合集 - 问题：你知道导航栏在 Bootstrap 中是如何工作的吗？答：是的，导航栏与应用程序或网站的导航标题一起使用。它作为一项重要功能，有助于在 Web 应用程序中创建高度响应的元组件。除此之外，导航栏永远不会在移动视图中折叠，并且随着可用视口宽度的增加（由于移动电话的倾斜）而变得水平和垂直。
+```
+
+### Bootstrap通过定义四个类名来控制文本的对齐风格 ？
+
+```
+.text-left：左对齐
+.text-center：居中对齐
+.text-right：右对齐
+.text-justify：两端对齐
+```
+
+### 简述Bootstrap图片处理的类？
+
+```
+.img-rounded
+.img-circle
+.img-thumbnail
+```
+
+### 如何定义Bootstrap Navbar（Navbar）？  
+
+```
+导航栏是Bootstrap站点的突出功能之一。 Navbars是响应式“元”组件，可用作应用程序或站点的导航标题。 Navbars在移动视图中折叠，并在可用视口宽度增加时变为水平。 导航栏的核心包括网站名称和基本导航的样式。
+默认导航栏
+要创建默认导航栏 -
+将类.navbar, .navbar-default到“nav”标记。
+将role = "navigation"添加到上面的元素，以帮助获取可访问性。
+将标题类.navbar-header添加到“div”元素。 包含类navbar-brand的“a”元素。 这将使文本的大小略大。
+要添加指向导航栏的链接，只需添加类别为.nav, .navbar-nav的无序列表。
+```
+
+### 简述什么是Bootstrap Modal 插件（Modal Plugin）？ 
+
+```
+模态是在其父窗口上分层的子窗口。 通常，目的是显示来自单独源的内容，该源可以在不离开父窗口的情况下进行一些交互。 子窗口可以提供信息，交互等。
+
+如果您想单独包含此插件功能，那么您将需要modal.js 。 另外，如Bootstrap插件概述一章所述，您可以包含bootstrap.js或缩小的bootstrap.min.js 。
+用法 (Usage)
+您可以切换模态插件的隐藏内容 -
+
+Via data attributes - 在控制器元素上设置属性data-toggle = "modal" ，如按钮或链接，以及data-target = "#identifier"或href = "#identifier"以定位特定模态（使用id =“identifier”）切换。
+
+Via JavaScript - 使用这种技术，您可以使用一行JavaScript调用id =“identifier”的模态 -
+
+$('#identifier').modal(options)
+```
+
+### 简述Bootstrap Tab 插件（Tab Plugin）？
+
+```
+选项卡在Bootstrap Navigation Elements一章中介绍。 通过组合一些数据属性，您可以轻松创建选项卡式界面。 使用此插件，您可以通过选项卡或药丸转换本地内容的窗格，甚至可以通过下拉菜单进行转换。
+
+如果您想单独包含此插件功能，那么您将需要tab.js 另外，如Bootstrap插件概述一章所述，您可以包含bootstrap.js或缩小的bootstrap.min.js 。
+用法 (Usage)
+您可以通过以下两种方式启用标签 -
+
+Via data attributes - 您需要将data-toggle = "tab"或data-toggle = "pill"到锚点。
+
+将nav和nav-tabs类添加到选项卡ul将应用Bootstrap 选项卡样式 ，而添加nav和nav-pills类将应用pill styling 。
+
+
+Home
+
+...
+
+Via JavaScript - 您可以使用Javscript启用标签，如下所示 -
+
+$('#myTab a').click(function (e) {
+e.preventDefault()
+$(this).tab('show')
+})
+以下是激活各个标签的不同方法示例 -
+
+// Select tab by name
+$('#myTab a[href = "#profile"]').tab('show')
+// Select first tab
+$('#myTab a:first').tab('show')
+// Select last tab
+$('#myTab a:last').tab('show')
+// Select third tab (0-indexed)
+$('#myTab li:eq(2) a').tab('show')
+```
+
+### 简述什么是Bootstrap 工具提示插件（Tooltip Plugin）
+
+```
+当您需要描述链接时，工具提示很有用。 该插件的灵感来自Jason Frame编写的jQuery.tipsy插件。 从那时起，工具提示已更新为无图像，使用CSS动画制作动画，以及本地标题存储的数据属性。
+
+如果您想单独包含此插件功能，那么您将需要tooltip.js 。 另外，如Bootstrap插件概述一章所述，您可以包含bootstrap.js或缩小的bootstrap.min.js 。
+用法 (Usage)
+工具提示插件会根据需要生成内容和标记，默认情况下会在触发元素后面放置工具提示。 您可以通过以下两种方式添加工具提示 -
+
+Via data attributes - 要添加工具提示，请将data-toggle = "tooltip"到锚标记。 锚点的标题将是工具提示的文本。 默认情况下，插件将工具提示设置为顶部。
+
+Hover over me
+Via JavaScript - Via JavaScript触发工具提示 -
+
+$('#identifier').tooltip(options)
+Tooltip插件不仅仅是下拉式插件或前面章节中讨论的其他插件。 要使用此插件，您必须使用jquery（读取javascript）激活它。 要启用页面上的所有工具提示，只需使用此脚本 -
+
+$(function () { $("[data-toggle = 'tooltip']").tooltip(); });
+例子 (Example)
+以下示例演示了如何通过数据属性使用工具提示插件。
+
+Tooltip examples for anchors
+
+This is a title = "Tooltip on left"> Default Tooltip.
+This is a data-placement = "left" title = "Tooltip on left">Tooltip on Left.
+This is a title = "Tooltip on top">Tooltip on Top.
+This is a title = "Tooltip on bottom">Tooltip on Bottom.
+This is a title = "Tooltip on right">Tooltip on Right
+
+
+Tooltip examples for buttons
+
+
+ data-placement = "left" title = "Tooltip on left">
+Tooltip on left
+
+ data-placement = "top" title = "Tooltip on top">
+Tooltip on top
+
+ data-placement = "bottom" title = "Tooltip on bottom">
+Tooltip on bottom
+
+ data-placement = "right" title = "Tooltip on right">
+Tooltip on right
+```
+
+### 简述如何定义Button 插件（Button Plugin）装载，切换，复选框，单选框 ？ 
+
+```
+装货状态
+要向按钮添加加载状态，只需将data-loading-text = "Loading..."作为属性添加到按钮元素，如以下示例所示 -
+
+
+
+当您单击按钮时，输出将如下图所示 -
+
+单切换
+要在单个按钮上激活切换（即将按钮的正常状态更改为推动状态，反之亦然），请将data-toggle = "button"作为属性添加到按钮元素，如以下示例所示 -
+
+
+复选框 (Checkbox)
+您可以创建一组复选框，并通过简单地将数据属性data-toggle = "buttons"到btn-group.来添加切换到它btn-group.
+
+
+
+
+
+
+Radio
+类似地，您可以通过简单地将数据属性data-toggle = "buttons"到btn-group来创建一组无线电输入并添加切换到它。
+
+
+
+
+
+
+用法 (Usage)
+您可以via JavaScript启用按钮插件，如下所示 -
+
+$('.btn').button()
+```
+
+### 简述什么是Bootstrap 折叠插件（Collapse Plugin）？ 
+
+```
+崩溃插件可以轻松地折叠页面的分割。 无论您是使用它来构建手风琴导航还是内容盒，它都允许使用大量内容选项。
+
+如果要单独包含此插件功能，则需要collapse.js 。 这也需要Transition Plugin包含在您的Bootstrap版本中。 另外，如Bootstrap插件概述一章所述，您可以包含bootstrap.js或缩小的bootstrap.min.js 。
+你可以使用崩溃插件 -
+
+To create collapsible groups or accordion 。 这可以在下面的示例中创建 -
+
+
+
+
+
+
+Click me to expand. Click me again to collapse.Section 1
+
+
+
+
+
+Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+
+
+
+
+
+
+
+Click me to expand. Click me again to collapse.Section 2
+
+
+
+
+
+
+
+
+
+Click me to expand. Click me again to collapse.Section 3
+
+
+
+
+
+
+data-toggle = "collapse"将添加到您单击以展开或折叠组件的链接。
+
+href或data-target属性被添加到父组件，其值为子组件的id 。
+
+data-parent属性以创建类似手风琴的效果。
+
+To create simple collapsible without the accordion markup - 可以在下面的示例中创建 -
+
+
+
+Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+
+正如您在示例中所看到的，我们创建了一个简单的可折叠组件，与accordion不同，我们没有添加属性data-parent 。
+```
+
+### 当光标悬停在行上时，以下哪个类将具有浅灰色背景的表格设置为行？
+
+```
+- .table-hover
+```
+
+### 通过添加.table-hover类，当光标悬停在行上时，将在行中添加浅灰色背景？
+
+```
+- .form-horizo​​ntal
+```
+
+### 以下哪种引导样式用于创建对齐的选项卡导航？
+
+```
+- .nav, .nav-tabs, .nav-justified
+```
+
+### 以下哪种引导样式可用于在按钮上获得静音外观？ 
+
+```
+- .disabled
+```

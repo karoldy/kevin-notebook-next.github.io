@@ -1,3 +1,12 @@
 {
-  "html_interview": "面试题"
+  "html_interview": "面试题",
+  "standard_mode_trict_mode_quirks_mode": "谈谈标准模式、严格模式与混杂模式的理解",
+  "async_loading_delayed_loading": "阐述异步加载和延迟加载",
+  "html5": "Html5 新特性",
+  "pwa": "PWA",
+  "web_farm": "Web Farm",
+  "web_garden": "Web Garden",
+  "web_worker": "Web Worker",
+  "web_socket": "Web Socket",
+  "service_worker": "Service Worker"
 }

@@ -1,0 +1,841 @@
+# Git 面试题
+
+## 面试官系列
+
+## 经典面试题
+
+### 简述什么是Git ？
+
+```
+Git是一款分布式源代码管理工具(版本控制工具) 。
+
+Git得其数据更像是一系列微型文件系统的快照。使用Git，每次提交或保存项目状态时，Git基本上都会记录当时所有文件的外观，并存储对该快照的引用。为了提高效率，如果文件没有改变，Git不会再次存储文件，只是指向它已存储的上一个相同文件的链接。Git认为它的数据更像是一个快照流，会将数据作为项目的快照存储一段时间。可以有效、高速地处理从很小到非常大的项目版本管理。 也是Linus Torvalds为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件。
+```
+
+### 简述什么是Git数据库 ？
+
+```
+Git中的大多数操作只需要本地文件和资源来运行 - 通常不需要来自网络上另一台计算机的信息。当您在Git中执行操作时，几乎所有操作都只将数据添加到Git数据库。很难让系统做任何不可撤销的事情或者以任何方式擦除数据。与任何VCS一样，您可能会丢失或搞乱尚未提交的更改，但在将快照提交到Git之后，很难丢失，尤其是在您经常将数据库推送到另一个存储库时
+```
+
+### 简述常用Git命令整理-新建代码 ？
+
+```
+在当前目录新建一个Git代码库
+git init
+新建一个目录，将其初始化为Git代码库
+git init [project-name]
+下载一个项目和它的整个代码历史
+git clone [url]
+```
+
+### 简述常用Git命令整理-当前的Git配置 ？
+
+```
+显示当前的Git配置
+git config --list
+编辑Git配置文件
+git config -e [--global]
+设置提交代码时的用户信息
+git config [--global] user.name "[name]"
+git config [--global] user.email "[email address]"
+```
+
+### 简述常用Git命令整理-增加/删除文件 ？
+
+```
+添加指定文件到暂存区
+git add [file1] [file2] ...
+添加指定目录到暂存区，包括子目录
+git add [dir]
+加当前目录的所有文件到暂存区
+git add .
+删除工作区文件，并且将这次删除放入暂存区
+git rm [file1] [file2] ...
+停止追踪指定文件，但该文件会保留在工作区
+git rm --cached [file]
+改名文件，并且将这个改名放入暂存区
+git mv [file-original] [file-renamed]
+```
+
+### 简述常用Git命令整理-代码提交 ？
+
+```
+提交暂存区到仓库区
+git commit -m [message]
+提交暂存区的指定文件到仓库区
+git commit [file1] [file2] ... -m [message]
+提交工作区自上次commit之后的变化，直接到仓库区
+git commit -a
+提交时显示所有diff信息
+git commit -v
+使用一次新的commit，替代上一次提交
+如果代码没有任何新变化，则用来改写上一次commit的提交信息
+git commit --amend -m [message]
+重做上一次commit，并包括指定文件的新变化
+git commit --amend ...
+```
+
+### 简述常用Git命令整理-分支 ？
+
+```
+列出所有本地分支
+git branch
+列出所有远程分支
+git branch -r
+列出所有本地分支和远程分支
+git branch -a
+新建一个分支，但依然停留在当前分支
+git branch [branch-name]
+新建一个分支，并切换到该分支
+git checkout -b [branch]
+新建一个分支，指向指定commit
+git branch [branch] [commit]
+新建一个分支，与指定的远程分支建立追踪关系
+git branch --track [branch] [remote-branch]
+切换到指定分支，并更新工作区
+git checkout [branch-name]
+建立追踪关系，在现有分支与指定的远程分支之间
+git branch --set-upstream [branch] [remote-branch]
+合并指定分支到当前分支
+git merge [branch]
+选择一个commit，合并进当前分支
+git cherry-pick [commit]
+删除分支
+git branch -d [branch-name]
+删除远程分支
+git push origin --delete
+git branch -dr
+```
+
+### 简述常用Git命令整理-标签 ？
+
+```
+列出所有tag
+git tag
+新建一个tag在当前commit
+git tag [tag]
+新建一个tag在指定commit
+git tag [tag] [commit]
+查看tag信息
+git show [tag]
+提交指定tag
+git push [remote] [tag]
+提交所有tag
+git push [remote] --tags
+新建一个分支，指向某个tag
+git checkout -b [branch] [tag]
+```
+
+### 简述常用Git命令整理-查看所有信息 ？
+
+```
+显示有变更的文件
+git status
+显示当前分支的版本历史
+git log
+显示commit历史，以及每次commit发生变更的文件
+git log --stat
+显示某个文件的版本历史，包括文件改名
+git log --follow [file]
+git whatchanged [file]
+显示指定文件相关的每一次diff
+git log -p [file]
+显示指定文件是什么人在什么时间修改过
+git blame [file]
+显示暂存区和工作区的差异
+git diff
+显示暂存区和上一个commit的差异
+git diff --cached []
+显示工作区与当前分支最新commit之间的差异
+git diff HEAD
+显示两次提交之间的差异
+git diff [first-branch]...[second-branch]
+显示某次提交的元数据和内容变化
+git show [commit]
+显示某次提交发生变化的文件
+git show --name-only [commit]
+显示某次提交时，某个文件的内容
+git show [commit]:[filename]
+显示当前分支的最近几次提交
+git reflog
+```
+
+### 简述常用Git命令整理-远程同步 ？
+
+```
+下载远程仓库的所有变动
+git fetch [remote]
+显示所有远程仓库
+git remote -v
+显示某个远程仓库的信息
+git remote show [remote]
+增加一个新的远程仓库，并命名
+git remote add [shortname] [url]
+取回远程仓库的变化，并与本地分支合并
+git pull [remote] [branch]
+上传本地指定分支到远程仓库
+git push [remote] [branch]
+强行推送当前分支到远程仓库，即使有冲突
+git push [remote] --force
+推送所有分支到远程仓库
+git push [remote] --all
+恢复暂存区的指定文件到工作区
+git checkout [file]
+恢复某个commit的指定文件到工作区
+git checkout [commit] [file]
+恢复上一个commit的所有文件到工作区
+git checkout .
+重置暂存区的指定文件，与上一次commit保持一致，但工作区不变
+git reset [file]
+重置暂存区与工作区，与上一次commit保持一致
+git reset --hard
+重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变
+git reset [commit]
+重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
+git reset --hard [commit]
+重置当前HEAD为指定commit，但保持暂存区和工作区不变
+git reset --keep [commit]
+新建一个commit，用来撤销指定commit，后者的所有变化都将被前者抵消，并且应用到当前分支
+git revert [commit]
+```
+
+### 列举简述 Git 目录 ？ 
+
+```
+config: 项目特有的配置选项
+info: 包含一个全局性排除文件，用以放置哪些不希望被记录在 .gitignore 文件中的忽略模式
+hooks: 包含客户端或服务端的钩子脚本
+objects: 存储所有的数据内容
+refs: 存储指向数据（分支、远程仓库和标签等）的提交对象的指针
+HEAD: 指向目前被检出的分支
+index: 保存暂存区信息
+```
+
+### 简述Git主要工作中的使用流程 ？ 
+
+```
+git checkout master（切换到目标分支）
+git pull （拉取最新代码）（也可以直接执行 git rebase master dev，省去步骤3和步骤4 ）
+git checkout dev （切换到开发分支）
+git rebase master （执行变基操作）
+git checkout master （切换到主分支）
+git merge dev （将 dev 分支上的修改变基到主分支）
+git push （提交到服务器）
+```
+
+### “拉取请求（pull request）”和“分支（branch）”之间有什么区别？ 
+
+```
+分支（branch） 是代码的一个独立版本。 拉取请求（pull request） 是当有人用仓库，建立了自己的分支，做了些修改并合并到该分支（把自己修改应用到别人的代码仓库）
+```
+
+### 解释“git pull”和“git fetch”之间有什么区别？ 
+
+```
+简单来说，git pull 是 git fetch + git merge。 当你使用 pull，Git 会试着自动为你完成工作。它是上下文（工作环境）敏感的，所以 Git 会把所有拉取的提交合并到你当前处理的分支中。
+
+pull 则是 自动合并提交而没有让你复查的过程。如果你没有细心管理你的分支，你可能会频繁遇到冲突。
+
+当你 fetch，Git 会收集目标分支中的所有不存在的提交，并将这些提交存储到本地仓库中。但Git 不会把这些提交合并到当前分支中。这种处理逻辑在当你需要保持仓库更新，在更新文件时又希望处理可能中断的事情时，这将非常实用。而将提交合并到主分支中，则该使用 merge。
+```
+
+### 简述如何在 Git 恢复先前的提交？
+
+```
+假设你的情形是这样，其中 C 是你的 HEAD，(F) 是你文件的状态。
+(F)
+A-B-C
+master
+要修改提交中的更改：
+git reset --hard HEAD~1
+现在 B 是 HEAD，因为你使用了 --hard，所以你的文件将重置到提交 B 时的状态。 要撤销提交但保留更改：
+git reset HEAD~1
+现在我们告诉 Git 将 HEAD 指针移回（后移）一个提交（B），并保留文件原样，然后你可以 git status 来显示你已经检入 C 的更改。 撤销提交但保留文件和索引：
+git reset --soft HEAD~1
+执行此操作后，git status，你讲看到索引中的文件跟以前一致。
+```
+
+
+### 简述什么是 Git 复刻（fork）？复刻（fork）、分支（branch）和克隆（clone）之间有什么区别？ 
+
+```
+- 复刻（fork）
+是对存储仓库（repository）进行的远程的、服务器端的拷贝，从源头上就有所区别。复刻实际上不是 Git 的范畴。它更像是个政治/社会概念。
+- 克隆（clone）
+不是复刻，克隆是个对某个远程仓库的本地拷贝。克隆时，实际上是拷贝整个源存储仓库，包括所有历史记录和分支。
+- 分支（branch）
+是一种机制，用于处理单一存储仓库中的变更，并最终目的是用于与其他部分代码合并
+```
+
+### 简述什么是“git cherry-pick”？
+
+```
+命令 git cherry-pick 通常用于把特定提交从存储仓库的一个分支引入到其他分支中。常见的用途是从维护的分支到开发分支进行向前或回滚提交。
+
+这与其他操作（例如：合并（merge）、变基（rebase））形成鲜明对比，后者通常是把许多提交应用到其他分支中。 小结：
+
+git cherry-pick
+```
+
+### 解释 Forking 工作流程的优点 ？ 
+
+```
+Forking 工作流程 与其他流行的 Git 工作流程有着根本的区别。它不是用单个服务端仓库充当“中央”代码库，而是为每个开发者提供自己的服务端仓库。Forking 工作流程最常用于公共开源项目中。
+
+Forking 工作流程的主要优点是可以汇集提交贡献，又无需每个开发者提交到一个中央仓库中，从而实现干净的项目历史记录。开发者可以推送（push）代码到自己的服务端仓库，而只有项目维护人员才能直接推送（push）代码到官方仓库中。
+
+当开发者准备发布本地提交时，他们的提交会推送到自己的公共仓库中，而不是官方仓库。然后他们向主仓库提交请求拉取（pull request），这会告知项目维护人员有可以集成的更新
+```
+
+### Git 中 HEAD、工作树和索引之间的区别？
+
+```
+该工作树/工作目录/工作空间是你看到和编辑的（源）文件的目录树。
+该索引/中转区（staging area）是个在 /.git/index，单一的、庞大的二进制文件，该文件列出了当前分支中所有文件的 SHA1 检验和、时间戳和文件名，它不是个带有文件副本的目录。
+HEAD是当前检出分支的最后一次提交的引用/指针。
+```
+
+### 解释下 Gitflow 工作流程 ？ 
+
+```
+Gitflow 工作流程使用两个并行的、长期运行的分支来记录项目的历史记录，分别是 master 和 develop 分支。
+
+Master，随时准备发布线上版本的分支，其所有内容都是经过全面测试和核准的（生产就绪）。
+
+Hotfix，维护（maintenance）或修复（hotfix）分支是用于给快速给生产版本修复打补丁的。修复（hotfix）分支很像发布（release）分支和功能（feature）分支，除非它们是基于 master 而不是 develop 分支。
+
+Develop，是合并所有功能（feature）分支，并执行所有测试的分支。只有当所有内容都经过彻底检查和修复后，才能合并到 master 分支。
+
+Feature，每个功能都应留在自己的分支中开发，可以推送到 develop 分支作为功能（feature）分支的父分支。
+```
+
+### 解释什么时候应使用 “git stash”？ 
+
+```
+git stash 命令把你未提交的修改（已暂存（staged）和未暂存的（unstaged））保存以供后续使用，以后就可以从工作副本中进行还原。
+$ git status
+On branch master
+Changes to be committed:
+new file: style.css
+Changes not staged for commit:
+modified: index.html
+$ git stash
+Saved working directory and index state WIP on master: 5002d47 our new homepageHEAD is now at 5002d47 our new homepage
+$ git statusOn branch masternothing to commit, working tree clean
+我们可以使用暂存（stash）的一个地方是，如果我们发现在上次提交中忘记了某些内容，并且已经开始在同一分支中处理下一个提交了：
+# Assume the latest commit was already done# start working on the next patch, and discovered I was missing something # stash away the current mess I made$ git stash save # some changes in the working dir # and now add them to the last commit:$ git add -u$ git commit --ammend # back to work!$ git stash pop
+```
+
+### 如何从 Git 中删除文件，而不将其从文件系统中删除？
+
+```
+如果你在 git add 过程中误操作，你最终会添加不想提交的文件。但是，git rm 则会把你的文件从你暂存区（索引）和文件系统（工作树）中删除，这可能不是你想要的。 换成 git reset 操作：
+git reset filename # orecho filename >> .gitingore # add it to .gitignore to avoid re-adding it
+```
+
+### 请问什么情况下使用“git rebase”代替“git merge”？ 
+
+```
+这两个命令都是把修改从一个分支集成到另一个分支上，它们只是以非常不同的方式进行。 考虑一下场景，在合并和变基前：
+
+A <- B <- C [master]
+^
+\
+D <- E [branch]
+在 git merge master 之后：
+
+A <- B <- C
+^ ^
+\ \
+D <- E <- F
+在 git rebase master 之后：
+
+A <- B <- C <- D <- E
+使用变基时，意味着使用另一个分支作为集成修改的新基础。
+
+何时使用：
+如果你对修改不够果断，请使用合并操作。
+根据你希望的历史记录的样子，而选择使用变基或合并操作。
+更多需要考虑的因素：
+分支是否与团队外部的开发人员共享修改（如开源、公开项目）？如果是这样，请不要使用变基操作。变基会破坏分支，除非他们使用 git pull --rebase，否则这些开发人员将会得到损坏的或不一致的仓库。
+你的开发团队技术是否足够娴熟？变基是一种破坏性操作。这意味着，如果你没有正确使用它，你可能会丢失提交，并且/或者会破坏其他开发者仓库的一致性。
+分支本身是否代表有用的信息？一些团队使用功能分支（branch-per-feature）模式，每个分支代表一个功能（或错误修复，或子功能等）。在此模式中，分支有助于识别相关提交的集合。在每个开发人员分支（branch-per-developer）模式中，分支本身不会传达任何其他信息（提交信息已有作者）。则在这种模式下，变基不会有任何破坏。
+是否无论如何都要还原合并？恢复（如在撤销中）变基，是相当困难的，并且/或者在变基中存在冲突时，是不可能完成的。如果你考虑到日后可能需要恢复，请使用合并操作。
+```
+
+### 简述 Git sshkeygen 生成步骤 ？ 
+
+```
+使用ssh原因：虽然 git 可以工作在 ssh 与 https 两种协议上，但为了安全性，更多时候会选择 ssh。
+如果采用 https，则每次 git push 都需要验证身份
+Permission denied (publickey).
+如果没有设置 public key 直接 git clone 的话，会有权限问题
+可以使用 ssh -T 测试连通性
+不过有一个更直接的命令去查看是否有权限
+$ ssh -T git@github.com
+Permission denied (publickey).
+生成一个新的 ssh key
+使用 ssh-keygen 可以生成配对的 id_rsa 与 id_rsa.pub 文件
+# 生成一个 ssh-key
+# -t: 可选择 dsa | ecdsa | ed25519 | rsa | rsa1，代表加密方式
+# -C: 注释，一般写自己的邮箱 $ ssh-keygen -t rsa -C "name@qq.com"
+# 生成 id_rsa/id_rsa.pub: 配对的私钥与公钥 $ ls ~/.ssh authorized_keys config id_rsa id_rsa.pub known_hosts
+在 github 设置里新添一个 ssh key
+在本地服务器中复制 ~/.ssh/id_rsa.pub 中文件内容，并粘贴到github>setting>new sshkey中
+$ cat ~/.ssh/id_rsa.pub
+在 github 的 ssh keys 设置中：https://github.com/settings/keys
+点击 New SSH key 添加刚才的key。
+更多图文指引可以参照官方文档：https://help.github.com/cn/articles/adding-a-new-ssh-key-to-your-github-account
+设置成功
+使用 ssh -T 测试成功， 此时可以成功的面向 github 编程了
+```
+
+### Mac下git push避免每次都输入用户名和密码的配置？
+
+```
+1.创建并且写入.git-credentials文件，vim编辑，写入下面一条
+cd ~
+touch .git-credentials
+vim .git-credentials
+2.比如用户名为tom，密码为tompassword，就这样写
+https://tom:tompassword@github.com
+3.保存后在终端下执行 git config --global credential.helper store
+http://github.com下使用tom为用户名的场合就不会产生问题了
+```
+
+### 如果遇到gitignore失效的解决方案 ？ 
+
+```
+问题：
+在使用git进行版本控制的过程中发现，将想被忽略的文件(文件夹)配置到.gitignore文件中后，实际修改了想被忽略的文件，调用git status查看时，仍然会提示提交这些文件。也就是说实际并没有被忽略
+原因：
+原因是git ignore只会对不在git仓库中的文件进行忽略，如果这些文件已经在git仓库中，则不会忽略。所以如果需要忽略的文件已经提交到本地仓库，则需要从本地仓库中删除掉，如果已经提交到远端仓库，则需要从远端仓库中删除。删除.gitignore文件才能实际生效。
+为什么我增加了 .gitignore 里的规则却没有效果？
+这是因为我们误解了 .gitignore 文件的用途，该文件只能作用于 Untracked Files，也就是那些从来没有被 Git 记录过的文件（自添加以后，从未 add 及 commit 过的文件）。
+之所以你的规则不生效，是因为那些 .log 文件曾经被 Git 记录过，因此 .gitignore 对它们完全无效。这也正是开头那段简短答案所做的事情：
+从 Git 的数据库中删除对于该文件的追踪；
+把对应的规则写入 _.gitignore_，让忽略真正生效；
+提交＋推送。
+只有这样做，所有的团队成员才会保持一致而不会有后遗症，也只有这样做，其他的团队成员根本不需要做额外的工作来维持对一个文件的改变忽略。
+最后有一点需要注意的，git rm --cached 删除的是追踪状态，而不是物理文件；如果你真的是彻底不想要了，你也可以直接 rm＋忽略＋提交。
+解决：
+较优秀的方法
+git rm -r --cached 要忽略的文件 (如: git rm -r --cahced build
+/*, 如修改列表中的内容全部是不需要的, 那么你可以使用最最简单的命令搞定git rm -r --cached .)
+git add .
+git commit -m " commit ....."
+git push
+push之后其他开发人员pull之后, ignore规则就对其生效了.
+注意上传到gitlab中的文件需要手动删除，下次push或pull之后ignore文件便可生效
+```
+
+### 简述git rm与rm的区别 ? 
+
+```
+要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 git rm 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。
+如果只是简单地从工作目录中手工删除文件，运行 git status 时就会在 “Changes not staged for commit” 部分（也就是 未暂存清单）看到：
+$ rm PROJECTS.md
+$ git status On branch master Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+(use "git add/rm ..." to update what will be committed)
+(use "git checkout -- ..." to discard changes in working directory) deleted: PROJECTS.md no changes added to commit (use "git add" and/or "git commit -a")
+然后再运行 git rm 记录此次移除文件的操作：
+$ git rm PROJECTS.md rm 'PROJECTS.md'
+$ git status On branch master Your branch is up-to-date with 'origin/master'.
+Changes to be committed: (use "git reset HEAD ..." to unstage)
+deleted: PROJECTS.md
+下一次提交时，该文件就不再纳入版本管理了。 如果要删除之前修改过或已经放到暂存区的文件，则必须使用强制删除选项 -f（译注：即 force 的首字母）。 这是一种安全特性，用于防止误删尚未添加到快照的数据，这样的数据不能被 Git 恢复。
+另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。 换句话说，你想让文件保留在磁盘，但是并不想让 Git 继续跟踪。 当你忘记添加 .gitignore 文件，不小心把一个很大的日志文件或一堆 .a 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 为达到这一目的，使用 --cached 选项：
+$ git rm --cached README
+git rm 命令后面可以列出文件或者目录的名字，也可以使用 glob 模式。比如：
+$ git rm log/\*.log
+注意到星号 * 之前的反斜杠 \， 因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 shell 来帮忙展开。 此命令删除 log/ 目录下扩展名为 .log 的所有文件。 类似的比如：
+$ git rm \*~
+该命令会删除所有名字以 ~ 结尾的文件。
+```
+
+### 简述Git如何强制切换至其他分支 ？ 
+
+```
+强制切换分支
+
+git checkout -f develop
+//Git 一个分支完全替换成另一个分支
+git checkout master//切换到旧分支
+git reset --hard develop//将本地的旧分支master重置为develop
+git push origin master --force//在推送到远程仓库
+```
+
+### 解释 Git 出现unable to access的方案 ？
+
+```
+fatal: unable to access 'https://gitlab.momenta.works/DataOps/data/tropo-web/': SSL certificate problem: certificate has expired
+我们需要输入git config http.sslVerify false
+全局设置：git config --global http.sslVerify false（不推荐设置）
+```
+
+### 简述Git在pull后想要回滚到之前版本？ 
+
+```
+git reflog master (查看本地master分支历史变动纪录)
+使用git reset --hard （恢复到之前位置）
+或git reset --hard master@{1}
+```
+
+### Git撤销commit但是未git push的情况？ 
+
+```
+找到上次git commit的id
+git log//查看列表里的内容并直接复制commit id
+情况一：执行撤销操作，同时将代码恢复到该commit_id之前的代码提交状态
+git reset --hard commit_id
+情况二：完成commit命令的撤销，但是不对代码修改进行撤销，可以直接通过git commit 重新提交对本地代码的修改
+git reset commit_id
+```
+
+### 如何删除GitHub或GitLab上的文件夹？ 
+
+```
+假设小明有一天不小心把本地仓库的一个文件夹A推送到了远程GIT服务器（例如:github,gitlab,gitee）上，此时想删除远程仓库的文件夹A,但是本地又不想删除。小明于是去问小红，怎么办？小红不假思索的说，github,gitlab 不是可以删除吗？你直接在远程服务器上操作呀。小明告诉小红，远程操作只能操作单个文件，无法删除文件夹，你可不会傻到一个一个文件去删除。小红说，那怎么办呢？
+解决办法
+重点在于git push -u
+方法一
+这里以删除 .setting 文件夹为案例
+git rm -r --cached .setting #--cached不会把本地的.setting删除
+git commit -m 'delete .setting dir'
+git push -u origin master
+方法二
+如果误提交的文件夹比较多，方法一也较繁琐
+直接修改.gitignore文件,将不需要的文件过滤掉，然后执行命令
+git rm -r --cached .
+git add .
+git commit
+git push -u origin master
+```
+
+### 简述 Git clone指定分支操作 ？
+
+```
+git clone 不指定分支
+git clone http://10.1.1.11/service/tmall-service.git
+git clone 指定分支
+git clone -b dev_jk http://10.1.1.11/service/tmall-service.git
+需要注意-b branch_name在https地址之前
+```
+
+### 详细阐述git merge命令 ？ 
+
+```
+git merge命令用于将两个或两个以上的开发历史加入(合并)一起。
+使用语法
+git merge [-n] [--stat] [--no-commit] [--squash] [--[no-]edit]
+[-s ] [-X ] [-S[]]
+[--[no-]allow-unrelated-histories]
+[--[no-]rerere-autoupdate] [-m ] […​]
+git merge --abort
+git merge --continue
+Shell
+描述将来自命名提交的更改(从其历史从当前分支转移到当前分支之后)。 该命令由git pull用于合并来自另一个存储库的更改，可以手动使用将更改从一个分支合并到另一个分支。
+示例以下是一些示例 -
+示例-1
+合并分支fixes和enhancements在当前分支的顶部，使它们合并：
+$ git merge fixes enhancements
+Shell
+示例-2
+合并obsolete分支到当前分支，使用ours合并策略：
+$ git merge -s ours obsolete
+Shell
+示例-3
+将分支maint合并到当前分支中，但不要自动进行新的提交：
+$ git merge --no-commit maint
+Shell
+当您想要对合并进行进一步更改时，可以使用此选项，或者想要自己编写合并提交消息。应该不要滥用这个选项来潜入到合并提交中。小修补程序，如版本名称将是可以接受的。
+示例-4
+将分支dev合并到当前分支中，自动进行新的提交：
+//更多请阅读：https://www.yiibai.com/git/git_merge.html
+```
+
+### 解释Git中的“staging area”或“index”是什么？ 
+
+```
+代码在完成提交之前，可以在称为“staging area”或“index”的中间区域中对其进行格式化和审查。从图中可以看出，每个更改首先在暂存区域中进行验证，我将其称为“stage file”，然后将更改提交到存储库。
+```
+
+### 简述Git和SVN有什么区别？
+
+```
+1、定义不同
+svn：Apache Subversion是Apache许可证下的开源软件版本和版本控制系统。
+git：Git是由Linus Torvalds在2005年开发的开源分布式版本控制系统。它强调速度和数据完整性。
+2、模型类型不同
+svn：svn是集中式模型。
+git：Git 是一个分布式模型。
+3、存储单元不同
+svn：SVN按照原始文件存储，体积较大。SVN是按文件所有的资源控制系统都是把文件的元信息隐藏在一个类似.svn,.cvs等的文件夹里。
+git：Git按照元数据方式存储，体积很小，GIT把内容按元数据方式存储，如果你把.git目录的体积大小跟.svn比较，你会发现它们差距很大。因为,.git目录是处于你的机器上的一个克隆版的版本库，它拥有中心版本库上所有的东西，例如标签，分支，版本记录等。
+4、是否拥有全局版本号
+Git没有一个全局版本号，而SVN有——目前为止这是跟SVN相比Git缺少的最大的一个特征。
+5、内容完整性不同
+Git的内容的完整性要优于SVN：GIT的内容存储使用的是SHA-1哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
+6、版本库不同
+svn：SVN只能有一个指定中央版本库。当这个中央版本库有问题时，所有工作成员都一起瘫痪直到版本库维修完毕或者新的版本库设立完成。
+git：Git可以有无限个版本库。或者，更正确的说法，每一个Git都是一个版本库，区别是它们是否拥有活跃目录（Git Working Tree）。如果主要版本库发生了什么事，工作成员仍然可以在自己的本地版本库（local repository）提交，等待主要版本库恢复即可。工作成员也可以提交到其他的版本库。
+7、克隆目录速度不同
+克隆一份全新的目录以同样拥有五个分支来说，git要快于svn，SVN是同时复制5个版本的文件,也就是说重复五次同样的动作。而Git只是获取文件的每个版本的元素，然后只载入主要的分支(master)，克隆一个拥有将近一万个提交(commit)，五个分支，每个分支有大约1500个文件的 SVN，耗了将近一个小时，而Git只用了区区的1分钟！
+8、分支不同
+svn：分支在SVN中一点不特别，就是版本库中的另外的一个目录。如果你想知道是否合并了一个分支，你需要手工运行像这样的命令svn propget svn:mergeinfo，来确认代码是否被合并。
+git：处理GIT的分支却是相当的简单和有趣。你可以从同一个工作目录下快速的在几个分支间切换。你很容易发现未被合并的分支，你能简单而快捷的合并这些文件。
+9、创建目录不同
+svn：在SVN中，我们在每个文件夹中创建.svn目录。
+git：在 git 中，我们只创建 .git 目录。
+10、特点不同
+svn：
+目录已版本控制
+复制、删除和重命名。
+自由格式的版本化元数据 。
+原子提交。
+分支和标记。
+合并跟踪。
+文件锁定。
+git：
+分布式系统。
+分支。
+兼容性。
+非线性开发。
+轻。
+开源。
+```
+
+### 简述什么是 Git 中的“裸存储库”？
+
+```
+Git 中的 “裸” 存储库只包含版本控制信息而没有工作文件（没有工作树），并且它不包含特殊的 .git 子目录。相反，它直接在主目录本身包含 .git 子目录中的所有内容，其中工作目录包括：
+1.一个 .git 子目录，其中包含你的仓库所有相关的 Git 修订历史记录。
+2.工作树，或签出的项目文件的副本。
+```
+
+### Git 是用什么语言编写的？
+
+```
+Git使用 C 语言编写。 GIT 很快，C 语言通过减少运行时的开销来做到这一点。
+```
+
+### 简述在Git中，你如何还原已经 push 并公开的提交？
+
+```
+删除或修复新提交中的错误文件，并将其推送到远程存储库。这是修复错误的最自然方式。对文件进行必要的修改后，将其提交到我将使用的远程存储库
+git commit -m "commit message"
+创建一个新的提交，撤消在错误提交中所做的所有更改。可以使用命令：
+git revert
+```
+
+### 简述什么是git stash drop？ 
+
+```
+git stash drop 命令用于删除隐藏的项目。默认情况下，它将删除最后添加的存储项，如果提供参数的话，它还可以删除特定项。
+
+下面举个例子。
+
+如果要从隐藏项目列表中删除特定的存储项目，可以使用以下命令：
+
+git stash list：它将显示隐藏项目列表，如：
+
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert “added file_size”
+stash@{2}: WIP on master: 21d80a5 added number to log
+
+如果要删除名为 stash@{0} 的项目，请使用命令 git stash drop stash@{0}。
+```
+
+### 如何找到Git特定提交中已更改的文件列表？
+
+```
+要获取特定提交中已更改的列表文件，请使用以下命令：
+git diff-tree -r {
+hash
+}
+给定提交哈希，这将列出在该提交中更改或添加的所有文件。 -r 标志使命令列出单个文件，而不是仅将它们折叠到根目录名称中。
+你还可以包括下面提到的内容，虽然它是可选的，但有助于给面试官留下深刻印象。
+输出还将包含一些额外信息，可以通过包含两个标志把它们轻松的屏蔽掉：
+git diff-tree –no-commit-id –name-only -r {
+hash
+}
+这里 -no-commit-id 将禁止提交哈希值出现在输出中，而 -name-only 只会打印文件名而不是它们的路径。
+```
+
+### 简述Git提交对象包含什么？
+
+```
+Commit 对象包含以下组件，你应该提到以下这三点：
+1 一组文件，表示给定时间点的项目状态
+2 引用父提交对象
+3 SHAI 名称，一个40个字符的字符串，提交对象的唯一标识
+```
+
+### 简述如何在Git中创建存储库？
+
+```
+要创建存储库，先为项目创建一个目录（如果该目录不存在），然后运行命令 git init。通过运行此命令，将在项目的目录中创建 .git 目录。
+```
+
+### 简述Git如何怎样将 N 次提交压缩成一次提交？
+
+```
+将N个提交压缩到单个提交中有两种方式：
+如果要从头开始编写新的提交消息，请使用以下命令：
+git reset –soft HEAD~N &&
+git commit
+
+如果你想在新的提交消息中串联现有的提交消息，那么需要提取这些消息并将它们传给 git commit，可以这样：
+git reset –soft HEAD~N &&
+git commit –edit -m"$(git log –format=%B –reverse .HEAD@{N})"
+```
+
+### 简述什么是 Git bisect？如何使用它来确定（回归）错误的来源？ 
+
+```
+Git bisect 用于查找使用二进制搜索引入错误的提交。 Git bisect的命令是
+
+git bisect
+既然你已经提到过上面的命令，那就解释一下这个命令会做什么。
+
+此命令用了二进制搜索算法来查找项目历史记录中的哪个提交引入了错误。你可以通过告诉它已知包含该错误的“错误”提交以及在引入错误之前已知的“良好”提交来使用它。然后 git bisect 在这两个端点之间选择一个提交，并询问你所选的提交是“好”还是“坏”。它继续缩小范围，直到找到引入更改的确切提交。
+```
+
+### 如果想要在提交之前运行代码性检查工具，并在测试失败时阻止提交，该怎样配置 Git 存储库？
+
+```
+完整性或冒烟测试用来确定继续测试是否可行和合理
+下面解释如何实现这一目标。
+这可以通过与存储库的 pre-commit hook 相关的简单脚本来完成。git 会在提交之前触发 pre-commit hook。你可以在这个脚本中运行其他工具，例如 linters，并对提交到存储库中的更改执行完整性检查。
+
+最后举个例子，你可以参考下面的脚本：
+
+#!/bin/sh
+files=$(git diff –cached –name-only –diff-filter=ACM | grep ‘.go$’)
+if [ -z files ]; then
+exit 0
+fi
+unfmtd=$(gofmt -l $files)
+if [ -z unfmtd ]; then
+exit 0
+fi
+echo “Some .go files are not fmt’d”
+exit 1
+这段脚本检查是否需要通过标准 Go 源代码格式化工具 gofmt 传递所有即将提交的 .go 文件。如果脚步以非 0 状态退出，脚本会有效地阻止提交操作
+```
+
+### 简述Git常见的分支策略？ 
+
+```
+常见的分支策略有以下三种：GitFlow、GitHubFlow以及GitLabFlow
+```
+
+### 简述Git Flow的分支类型和作用 ？ 
+
+```
+GitFlow是这三种分支策略中最早出现的。
+
+GitFlow通常包含五种类型的分支：Master分支、Develop分支、Feature分支、Release分支以及Hotfix分支。
+
+Master分支：主干分支，也是正式发布版本的分支，其包含可以部署到生产环境中的代码，通常情况下只允许其他分支将代码合入，不允许向Master分支直接提交代码（对应生产环境）。
+Develop分支：开发分支，用来集成测试最新合入的开发成果，包含要发布到下一个Release的代码（对应开发环境）。
+Feature分支：特性分支，通常从Develop分支拉出，每个新特性的开发对应一个特性分支，用于开发人员提交代码并进行自测。自测完成后，会将Feature分支的代码合并至Develop分支，进入下一个Release。
+Release分支：发布分支，发布新版本时，基于Develop分支创建，发布完成后，合并到Master和Develop分支（对应集成测试环境）。
+Hot fix分支：热修复分支，生产环境发现新Bug时创建的临时分支，问题验证通过后，合并到Master和Develop分支。
+```
+
+### 简述GitHubFlow的分支类型和作用 ？
+
+```
+GitHubFlow看名字也知道和GitHub有关，它来源于GitHub团队的工作实践。当代码托管在GitHub上时，则需要使用GitHubFlow。相比GitFlow而言，GitHubFlow没有那么多分支。
+
+GitHubFlow通常只有一个Master分支是固定的，而且GitHubFlow中的Master分支通常是受保护的，只有特定权限的人才可以向Master分支合入代码。
+
+在GitHubFlow中，新功能开发或修复Bug需要从Master分支拉取一个新分支，在这个新分支上进行代码提交；功能开发完成，开发者创建Pull Request（简称PR），通知源仓库开发者进行代码修改review，确认无误后，将由源仓库开发人员将代码合入Master分支。
+很多人可能会问，提交代码通常是commit或者push，拉取代码才是pull，为什么GitHubFlow中提交代码提出的是“Pull Request”。因为在GitHubFlow中，PR是通知其他人员到你的代码库去拉取代码至本地，然后由他们进行最终的提交，所以用“pull”而非“push”。
+
+GitHubFlow优点是相对于GitFlow来说比较简单，其缺点是因为只有一条Master分支，万一代码合入后，由于某些因素Master分支不能立刻发布，就会导致最终发布的版本和计划不同。
+```
+
+### 简述GitLabFlow的分支类型和作用 ？ 
+
+```
+GitLabFlow出现的最晚，GitLabFlow是开源工具GitLab推荐的做法。
+
+GitLabFlow支持GitFlow的分支策略，也支持GitHubFlow的“Pull Request”（在GitLabFlow中被称为“Merge Request”）。
+
+相比于GitHubFlow，GitLabFlow增加了对预生产环境和生产环境的管理，即Master分支对应为开发环境的分支，预生产和生产环境由其他分支（如Pre-Production、Production）进行管理。在这种情况下，Master分支是Pre-Production分支的上游，Pre-Production是Production分支的上游；GitLabFlow规定代码必须从上游向下游发展，即新功能或修复Bug时，特性分支的代码测试无误后，必须先合入Master分支，然后才能由Master分支向Pre-Production环境合入，最后由Pre-Production合入到Production。
+
+GitLabFlow中的Merge Request是将一个分支合入到另一个分支的请求，通过Merge Request可以对比合入分支和被合入分支的差异，也可以做代码的Review。
+```
+
+### 描述一下你所使用的分支策略？
+
+```
+你可以参考以下提到的要点：
+
+1功能分支（Feature branching）
+要素分支模型将特定要素的所有更改保留在分支内。当通过自动化测试对功能进行全面测试和验证时，该分支将合并到主服务器中。
+
+2任务分支（Task branching）
+在此模型中，每个任务都在其自己的分支上实现，任务键包含在分支名称中。很容易看出哪个代码实现了哪个任务，只需在分支名称中查找任务键。
+
+3 发布分支（Release branching）
+一旦开发分支获得了足够的发布功能，你就可以克隆该分支来形成发布分支。创建该分支将会启动下一个发布周期，所以在此之后不能再添加任何新功能，只有错误修复，文档生成和其他面向发布的任务应该包含在此分支中。一旦准备好发布，该版本将合并到主服务器并标记版本号。此外，它还应该再将自发布以来已经取得的进展合并回开发分支。
+```
+
+### 如果分支是否已合并为master，你可以通过什么方式检测知道？ 
+
+```
+要知道某个分支是否已合并为master，你可以使用以下命令：
+git branch –merged 它列出了已合并到当前分支的分支。
+git branch –no-merged 它列出了尚未合并的分支
+```
+
+### 简述什么是SubGit？
+
+```
+SubGit 是将 SVN 到 Git迁移的工具。它创建了一个可写的本地或远程 Subversion 存储库的 Git 镜像，并且只要你愿意，可以随意使用 Subversion 和 Git。
+这样做有很多优点，比如你可以从 Subversion 快速一次性导入到 Git 或者在 Atlassian Bitbucket Server 中使用SubGit。我们可以用 SubGit 创建现有 Subversion 存储库的双向 Git-SVN 镜像。你可以在方便时 push 到 Git 或提交 Subversion。同步由 SubGit 完成。
+```
+
+### 简述Git的三种状态是什么？
+
+```
+Git有三种状态：已提交（committed）、已修改（modified）和已暂存（staged）。已提交表示数据已经安全地保存在本地数据库中，已修改表示修改了文件但还没有保存到数据库中，已暂存表示对一个已修改文件的当前版本做了标记，使它包含在下次提交的快照中。
+```
+
+### 简述Git的版本控制模型是什么（简单）？
+
+```
+Git的版本控制模型是基于快照（snapshot）的，即将文件的每个版本保存为一个完整的快照，而不是仅保存修改的差异。每个快照都有一个唯一的哈希值来标识，这使得Git可以快速查找、比较和恢复文件的任意版本。同时，Git通过分支的方式支持多人协作，每个分支都可以独立地修改、提交、合并和删除
+```
+
+### 重点简述Git 中 merge 和 rebase命令 的区别？ 
+
+```
+1.采用merge和rebase后，git log的区别，merge命令不会保留merge的分支的commit：
+
+2.处理冲突的方式：
+（一股脑）使用merge命令合并分支，解决完冲突，执行git add .和git commit -m'fix conflict'。这个时候会产生一个commit。
+（交互式）使用rebase命令合并分支，解决完冲突，执行git add .和git rebase --continue，不会产生额外的commit。这样的好处是，‘干净’，分支上不会有无意义的解决分支的commit；坏处，如果合并的分支中存在多个commit，需要重复处理多次冲突。
+
+3.git pull和git pull --rebase区别：git pull做了两个操作分别是‘获取’和合并。所以加了rebase就是以rebase的方式进行合并分支，默认为merge。
+
+注意：只有在冲突的时候，解决完冲突才会自动产生一个commit。
+如果想在没有冲突的情况下也自动生成一个commit，记录此次合并就可以用：git merge --no-ff命令，
+如果不加 --no-ff 则被合并的分支之前的commit都会被抹去，只会保留一个解决冲突后的 merge commit。
+```
+
+### 简述Github和Gitlab的区别？
+
+```
+Github是一个基于git实现在线代码托管的仓库，向互联网开放，企业版要收钱。gitlab类似 github，一般用于在企业内搭建git私服，要自己搭环境。GitHub如果使用私有仓库，是需要付费的，GitLab可以在上面搭建私人的免费仓库。GitLab让开发团队对他们的代码仓库拥有更多的控制，相对于GitHub，它有不少的特色。
+
+GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的Web服务。安装方法是参考GitLab在GitHub上的Wiki页面。
+GitLab是由GitLabInc.开发，使用MIT许可证的基于网络的Git仓库管理工具，且具有wiki和issue跟踪功能。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。
+
+GitLab由乌克兰程序员DmitriyZaporozhets和ValerySizov开发，它使用Ruby语言写成。后来，一些部分用Go语言重写。截止2018年5月，该公司约有290名团队成员，以及2000多名开源贡献者。GitLab被IBM，Sony，JülichResearchCenter，NASA，Alibaba，Invincea，O’ReillyMedia，Leibniz-Rechenzentrum(LRZ)，CERN，SpaceX等组织使用。
+```
