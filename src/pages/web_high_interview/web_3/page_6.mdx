@@ -1,0 +1,261 @@
+# 前端代码分析实现
+
+
+### Javascript 编写一个b继承a的方法？
+
+
+### JavaScript实现二分法查找
+
+
+### Javascript 实现数组快速排序？
+
+
+### JavaScript 如何消除一个数组里面重复的元素？
+
+
+### 实现一个函数clone，可以对JavaScript中的5种主要的数据类型进行值复制？
+
+
+### 编写JavaScript方法，求一个字符串的长度（单位是字节）?
+
+```
+假设一个英文字符占用一字节，一个中文字符占用两字节
+```
+
+
+### `["1，"2，"3"].map（ parselnt）`的执行结果是多少？
+
+
+### 如何统计字符串“ aaaabbbccccddfgh”中字母的个数或统计最多的字母数？
+
+
+### 写JavaScript function，清除字符串前后的空格（兼容所有浏览器）
+
+
+### 用 JavaScript实现一个数组合并的方法（要求去重） ？
+
+
+### 说明正则表达式给所有string对象添加去除首尾空白符的方法（trim方法） ？
+
+
+### 用 JavaScript实现一个提取电话号码的方法 ？
+
+
+### JavaScript 运算3+2+“7”的结果是什么？
+
+
+### 简述下面的代码将输出什么到控制合？为什么？
+
+```
+unction (){
+var a= b= 3；
+})()；
+console. log（"a defined " +（typeof a ！=='undefined'））；
+console. log（"b defined " （typeof b ！== 'undefined'））
+
+
+### 下面的JavaScript代码将输出什么内容到控制台？
+var myobject = {
+foo:"bar"
+func:function(){
+var self =this；
+console. log("outer func:this foo =" this foo);
+console. log(outer func:self. foo =" self foo);
+(function(){
+console. log（"inner func:this foo =" +this .foo)；
+console. log（"inner func:self. foo ="+ self .foo);
+}())；
+}
+}；
+myobject func();
+```
+
+
+### 以下两个JavaScript函数会返回相同的结果吗？为什么相同或为什么不相同？
+
+```
+function fool (){
+return {
+bar:"hello"
+};
+}
+function foo2(){
+return
+{
+bar:"hello"
+};
+}
+```
+
+
+### 写出函数 islnteger（x）的实现方法，用于确定x是否是整数 ？
+
+```
+ECMAScript6引入了一个新的方法，即 Number. isInteger()，它可以用来判断一个数字是否是整数。在 ECMAScript6之前， isInteger的实现会更复杂。在 ECMAScript规格说明中，整数只是在概念上存在，即，数字值总是存储为浮点数值
+```
+
+
+### 下列代码行1~4如何排序，才能使之能够在执行代码时输出到控制台？为什么？
+
+```
+(function(){
+console. log(1);
+setTimeout(function(){ console. log(2)}， 1000)；
+setTimeout(function (){ console. log(3)}，0);
+console. log(4)
+})();
+```
+
+
+### 写一个简单的函数（少于80个字符），要求返回一个布尔值，指明字符串是否为回文结构 ？
+
+```
+下面这个函数在str是回文结构的时候返回true；否则，返回 false
+function isPalindrome（str）{
+str= str.replace（/\W/g, ' '）.toLowercase();
+return （str = str .split（' '）.reverse().join(' ')'));
+}
+```
+
+
+### 写一个sum方法，在使用任意语法调用时，都可以正常工作 ？
+
+```
+console. log(sum(2,3))；//5console. log(sum(2)(3))；// Outputs 5
+```
+
+
+
+### 简述请看下面的代码片段并回答以下问题 ？
+
+```
+for (var i = 0；i< 5；i++){
+var btn= document.createElement ('button )；
+btn. appendchild(document createTextNode('Button +i))；
+btn.addEventListener('click', function(){ console. log（i）;})；
+document .body. appendchild （btn）；
+（1）当用户单击“ Button4”的时候会输出什么到控制台，为什么？
+（2）提供一个或多个可获取当前i的值的实现方案。
+```
+
+
+### 下面的递归代码在数组列表偏大的情况下会导致堆栈溢出，在保留递归模式的基础上，怎么解决这个问题？
+
+```
+var list= readHugeList ()；
+var nextListItem function()I{
+var item-=list. pop();
+if (item){
+nextListItem()；
+}
+};
+潜在的堆栈溢出可以通过修改 nextListltem函数避免。
+var list readHugeList();
+var nextListItem function(){
+var item =list .pop()；
+if (item）{
+setTimeout（ nextListItem, 0）;
+}
+};
+```
+
+
+### 下面的JavaScript代码将输出什么到控制台？
+
+```
+console，10g（1+"2"+"2"）；
+console.1og（1+ +"2"+"2"）；
+console.1og（1+-"1"+"2"）；
+console. log（+"1"+"1"+"2")；
+console. log（"A"-B"+"2"）；
+console. log（"A"- "B"+2）；
+```
+
+
+### 下面的JavaScript代码将输出什么到控制台？为什么？
+
+```
+var arrl ="john"split(' ');
+var arr2= arrl. reverse();
+var arr3 ="jones"，split（' '）；
+arr2 push(arr3)；
+console. log（"array 1：length="+ arrl. length +" last="+ arrl. slice(-1));
+console.log（"array 2：length="+ arr2 .length+" last="+ arr### slice (-1))；
+```
+
+
+### 下面JavaScript的代码将输出什么？闭包在这里能起什么作用？
+
+```
+for (var i =0； i < 5:1++){
+(function()
+{settimeout (function () {
+console. log（i）; 1，i *1000 );
+})();
+}
+```
+
+
+### 以下JavaScript代码行将输出什么到控制台？
+
+```
+console.log("0 ||1 = "+(0 ||1));
+console.log("1 ||2 = "+(1 || 2));
+console.log("0 && 1 = "+(0 && 1));
+console.1og("1 && 2 = "+(1 && 2));
+```
+
+
+### 下面的JavaScript代码将输出什么？请解释
+
+```
+console.log（false ==0'）
+console.log（false ===10'）
+```
+
+
+### 解释如下JavaScript代码将输出什么？解释你的答案
+
+```
+var a=()，b=(key：'b')，c=(key：'c')；
+a[b]=123；
+a[c]=456；
+console.log(a[b])；
+```
+
+
+### JavaScript 执行这段代码，输出什么结果 ?
+
+```
+function test() {
+console.log(a);
+console.log(foo());
+var a = 1;
+function foo() {
+return 2;
+}
+}
+test();
+```
+
+
+### 考核this在JavaScript中如何工作的？
+
+```
+下面的代码会输出什么结果？给出你的答案。
+
+var fullname = 'John Doe';
+var obj = {
+fullname: 'Colin Ihrig',
+prop: {
+fullname: 'Aurelio De Rosa',
+getFullname: function() {
+return this.fullname;
+}
+}
+};
+console.log(obj.prop.getFullname());
+var test = obj.prop.getFullname;
+console.log(test());
+```
+

@@ -1,0 +1,328 @@
+# HTML / HTML5
+
+### 简述 HTML5 新特性 ？
+
+```
+HTML5 新特性：
+
+一、绘画 canvas
+HTML5 标签用于绘制图像(通过脚本，通常是 JavaScript)。
+二、用于媒介回放的video和audio元素
+HTML5 DOM 为audio和video元素提供了方法、属性和事件。
+这些方法、属性和事件允许您使用 JavaScript 来操作audio和video元素。
+三、本地离线存储localStorage长期存储数据，浏览器关闭后数据不丢失
+localStorage ：没有时间限制的数据存储
+四、sessionStorage的数据在浏览器关闭后自动删除
+sessionStorage ：针对一个session的数据存储
+五、语意化更好的内容元素，比如 article、footer、header、nav、section
+1. 标签定义外部的内容。
+2. 标签定义文档或者文档的一部分区域的页眉。 元素应该作为介绍内容或者导航链接栏的容器。
+3.Nav元素可以用作页面导航的链接组，在导航链接组里面有很多的链接，点击每个链接可以链接到其他页面或者当前页面的其他部分。
+4.section是带有语义的标签。
+六、表单控件，calendar、date、time、email、url、search
+七、新的技术webworker, websocket, Geolocation
+```
+
+### HTML5 为什么只需要写 !DOCTYPE HTML？
+
+```
+HTML5 不基于SGML（标准通用置标语言）,因此不需要对DTD进行引用，但是需要doctype来规范浏览器的行为（让浏览器按照他们应该的方式来运行）
+而HTML4.01基于SGML，所以需要对DTD进行引用，才能告知浏览器文档所使用的文档类型。
+!DOCTYPE不属于HTML（标准通用标记语言下的一个应用）标签它是一种标准通用标记语言的文档类型声明，在HTML中告诉浏览器编写页面所用的标记的版本。
+声明必须位于 HTML5 文档中的第一行，也就是位于 标签之前。该标签告知浏览器文档所使用的HTML规范。
+在所有 HTML 文档中规定!DOCTYPE是非常重要的，这样浏览器就能了解预期的文档类型。
+在HTML4.01中规定了三种不同的 声明，分别是：Strict、Transitional 和 Frameset；但是在 HTML5中仅规定了一种。
+```
+
+### HTML5 有哪些新特性、移除了那些元素？
+
+```
+一：新增的功能
+
+更加语义化的元素。 article、footer、header、nav、section
+本地化储存。 localStorage 和 sessionStorage
+离线应用，离线缓存。 manifest
+拖曳以及释放的api。 Drag and drop
+媒体播放。 video 和 audio
+增强表单控件。 calendar、date、time、email、url、search
+地理位置。 Geolocation
+多任务。 webworker
+全双工通信协议。 websocket
+历史管理 history
+跨域资源共享（CORS） Access-Control-Allow-Origin
+页面可见性改变事件 visibilitychange
+跨窗口通信 PostMessage
+Form Data 对象
+绘画：canvas
+
+二：HTML5移除了那些元素？
+纯表现的元素：basefont、big、center、font、s、strike、tt、u
+对可用性产生负面影响的元素：frame、frameset、noframes
+
+三：怎么样处理h5新标签的兼容问题
+第一可以使用 document.createElement 来创建新标签
+使用垫片 html5shiv.js
+<br />
+<!--if lt IE 9]>　　<br />
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>　<br />
+<![endif]--><br />
+
+三：怎么样区分HTML和HTML5
+很明显的区别就是DOCTYPE声明，h5只需要写 ，而html声明
+
+可以根据h5新增的功能元素如canvas来进行判断
+```
+
+### 简述HTML5的离线储存？
+
+```
+HTML5提出了两大离线存储技术：localstorage与Application Cache，两者各有应用场景；传统还有离线存储技术为Cookie。
+经过实践我们认为localstorage应该存储一些非关键性ajax数据，做锦上添花的事情；
+Application Cache用于存储静态资源，仍然是干锦上添花的事情；
+而cookie只能保存一小段文本（4096字节）；所以不能存储大数据，这是cookie与上述缓存技术的差异之一，而因为HTTP是无状态的，服务器为了区分请求是否来源于同一个服务器，需要一个标识字符串，而这个任务就是cookie完成的，这一段文本每次都会在服务器与浏览器之间传递，以验证用户的权限。
+所以Application Cache的应用场景不一样，所以使用也不一致。
+```
+
+### 如何区别HTML和HTML5？
+
+```
+用 DOCTYPE声明新增的结构元素和功能元素来区别它们
+```
+
+### 新的HTML5文档类型和字符集是什么？
+
+```
+HTML5文档类型是<！doctype html
+HTML5使用的字符集< meta charset="UTF8">
+```
+
+### 简述HTML5新增了哪些功能API？
+
+```
+新增的功能API包括 Media APl、 Text Track API、 Application Cache API、User Interaction、 Data Transfer API、 Command API、 Constraint Validation API、 History API
+```
+
+### 如何处理HTML5新标签的浏览器兼容问题？
+
+```
+IE8、IE7、IE6支持用 document. create Element产生标签，可以利用这一特性让这些浏览器支持HTML5新标签。浏览器支持新标签后，还需要添加标签默认的样式（最好的方式是直接使用成熟的框架，使用最多的是 html5shim框架），可以用 IE hack引入该框架
+<！--[if 1t IE 9]>
+
+<！[end if]-->
+```
+
+### HTML5引入了哪些新的表单属性？
+
+```
+新增表单属性包括 datalist、 datetime、 output、 keygen、date、 month、week、time、 number、 range、 emailurl
+```
+
+### HTML5应用缓存和常规的HTML浏览器缓存有什么差别？
+
+```
+HTML5应用缓存最关键的就是支持离线应用，可获取少数或者全部网站内容，包括HTML、CSS、图像和 JavaScript脚本并存在本地。该特性提升了网站的性能，可通过如下方式实现。
+
+<！doctype html>
+
+......
+
+与传统的浏览器缓存比较，该特性并不强制要求用户访问网站
+```
+
+### 哪些浏览器支持HTML5？
+
+```
+几乎所有的浏览器（如 Safari、 Chrome、 Firefox、 Opera、IE）都支持HTML5
+```
+
+### H5本地存储和会话（事务）存储之间的区别是什么？
+
+```
+本地存储数据持续永久，但是会话存储在浏览器打开时有效，在浏览器关闭时会话重置存储数据
+```
+
+### HTML5为什么只需要写`<！doctype htm>`？
+
+```
+HTML5不基于SGML，因此不需要对DTD进行引用，但是需要 DOCTYPE来规范浏览器的行为（让浏览器按照它们的方式来运行）。而HTM4.01基于SGML，所以需要对DTD进行引用，才能告知浏览器文档所使用的类型
+```
+
+### HTML5应用程序缓存为应用带来什么优势？
+
+```
+应用程序缓存为应用带来3个优势。
+
+（1）离线浏览，让用户可在应用离线时（网络不可用时）使用它们。
+（2）速度，让已缓存资源加载得更快。
+（3）减少服务器负载，让浏览器将只下载服务器更新过的资源
+```
+
+### 简述HTML5中的应用缓存 ？
+
+```
+HTML5应用缓存的最终目的是帮助用户离线浏览页面。换句话说，如果网络连接不可用，打开的页面就来自浏览器缓存，离线应用缓存可以帮助用户达到这个目的。
+
+应用缓存可以帮助用户指定哪些文件需要缓存，哪些不需要
+```
+
+### 如果把HTML5看成一个开放平台，它的构建模块有哪些？
+
+```
+如果把HTML5看成一个开放平台，它的构建模块至少包括以下几个，如
+
+。
+
+≤nav>标签用来将具有导航性质的链接划分在一起，使代码结构在语义化方面更加准确
+
+< header>标签用来定义文档的页眉。
+< section>标签用来描述文档的结构。
+< footer>标签用来定义页脚。在典型情况下，该元素会包含文档作者的姓名、文档的创作日期和联系信息
+```
+
+### 为什么HTML5里面不需要DTD ？
+
+```
+HTML5没有使用SGML或者 XHTML，它是一个全新的类型，因此不需要参考DTD。对于HTML5，仅须放置下面的文档类型代码，让浏览器识别HTML5文档。
+如果不放入<！doctype html>标签，HTML5不会工作。浏览器将不能识别出它是HTML文档，同时HTML5的标签将不能正常工作
+```
+
+### HTML5为浏览器提供了哪些数据存储方案？
+
+```
+在较高版本的浏览器中，提供了 sessionStorage：和 globalStorage。在HTML5规范中，用 localStorage取代 globalStorage 。
+HTML5中的 Web Storage包括两种存储方式，分别是 sessionStorage和 localStorage。
+sessionStorage用于在本地存储一个会话（ session）中的数据，这些数据只有同一个会话中的页面才能访问，当会话结来后，数据也随之销毀。因此 sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。
+localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。
+localStorage和 sessionStorage都具有相同的操作方法，例如 setItem、 getItem和removeltem等
+```
+
+### 简述 sessionStorage和 localStorage的区别?
+
+```
+sessionStorage用于在本地存储一个会话中的数据，这些数据只有同一个会话中的页面才能访问，当会话结束后，数据也随之销毀。因此 sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。
+
+而 localstorage用于持久化本地存储，除非主动删除数据，否则数据是永远不会过期的
+```
+
+### 简述localStorage和 cookie的区别 ？
+
+```
+localStorage的概念和cookie相似，区别是 localStorage是为了更大容量的存储设计的。cookie的大小是受限的，并且每次请求一个新页面时， cookie都会被发送过去，这样无形中浪费了带宽。另外， cookie还需要指定作用域，不可以跨域调用。
+
+除此之外， localStorage拥有 setlten, getItem、 removeltem、 clear等方法， cookie则需要前端开发者自己封装 setCookie和 get Cookie。但 cookie也是不可或缺的，因为 cookie的作用是与服务器进行交互，并且还是HTP规范的一部分，而 localStorage仅因为是为了在本地“存储”数据而已，无法跨浏览器使用
+```
+
+### 简述什么是SVG ？
+
+```
+SVG即可缩放失量图形（ Scalable Vector Graphics）。它是基于文本的图形语言，使用文本、线条、点等来绘制图像，这使得它轻便、显示迅速
+```
+
+### 如何刷新浏览器的应用缓存？
+
+```
+应用缓存通过变更“#”标签后的版本号来刷新，如下所示：
+
+CACHE MANIFEST
+# version 2.0
+/icketang.css
+/icketang.js
+/icketang. png
+NETWORK：
+login. php
+```
+
+### HTML5的form如何关闭自动补全功能？
+
+```
+将不想要提示的frm元素下的 Input元素的 autocomplete属性设置为off
+```
+
+### 如何在HTML5页面中嵌入音频？
+
+```
+HTML5包含了嵌入音频文件的标准方式，支持的格式包括MP3、Wav和Ogg等，嵌入方式如下。
+<br />
+<audio controls><br />
+<source src="icketang.mp3" type="audio/mpeg"><br />
+Your browser does'nt support audio embedding feature.<br />
+</audio><br />
+```
+
+### 如何在HTML5页面中嵌入视频？
+
+```
+和嵌入音频文件一样，HTML5定义了嵌入视频的标准方式，支持的格式包括MP4、WebM和Ogg等，嵌入方式如下。
+
+< video width=”450” height=”340” contro1s>
+
+Your browser does'nt support video embedding feature.
+```
+
+### 简述Web Worker和 WebSocket的作用？
+
+```
+Web Worker的作用如下：
+（1）通过 worker= new Worker（url）加载一个 JavaScript文件，创建一个 Worker，同时返回一个 Worker实例
+（2）用 worker.postMessage（data）向 Worker发送数据
+（3）绑定 worker.onmessage接收 Worker发送过来的数据
+（4）可以使用 worker.terminate()终止一个 Worker的执行。
+WebSocket的作用如下。
+它是Web应用程序的传输协议，提供了双向的、按序到达的数据流。它是HTML5新増的协议， WebSocket的连接是持久的，它在客户端和服务器之间保持双工连接，服务器的更新可以及时推送到客户端，而不需要客户端以一定的时间间隔去轮询
+```
+
+### 如何让 Websocket兼容低版本浏览器？
+
+```
+使用 Adobe Flash Socket、 ActiveX HTMLFile（E）、 multipart编码发送XHR
+
+与长轮询发送XHR等，可以实现不支持 WebSocket API的浏览器对 Web Socket的兼容
+```
+
+### 简述Canvas和SVG的区别 ？
+
+```
+两者的区别如下：
+（1）一旦 Canvas绘制完成将不能访问像素或操作它；任何使用SVG绘制的形状都能被记忆和操作，可以被浏览器再次显示。
+（2） Canvas对绘制动画和游戏非常有利；SVG对创建图形（如CAD）非常有利。
+（3）因为不需要记住以后事情，所以 Canvas运行更快；因为为了之后的操作，SVG需要记录坐标，所以运行比较缓慢。
+（4）在 Canvas中不能为绘制对象绑定相关事件；在SVG中可以为绘制对象绑定相关事件。
+（5） Canvas绘制出的是位图，因此与分辨率有关；SvG绘制出的是矢量图，因此与分辨率无关。
+```
+
+### 如何使用 Canvas和HTML5中的SVG画一个矩形？
+
+```
+<br />
+使用SVG绘制矩形的代码如下：<br />
+<svg xmlns=http://www.w3.org/2000/svg  version="1.1"><br />
+<rect style="fill:rgb（255,100，0）；"height=200"  width="400"></rect><br />
+</svg><br />
+使用 Canvas绘制矩形的代码如下。<br />
+<br />
+<canvas id="myCanvas" width=500" height="500"></canvas><br />
+var canvas=document.getElementById（'mycanvas'）；<br />
+var ctx= canvas.getContext（'2d'）；<br />
+ ctx.rect（100,100,300,200）；<br />
+ctx fillstyle = 'pink '<br />
+ctx. fill()<br />
+```
+
+### 简述应用缓存中的回退是什么？
+
+```
+应用缓存中的回退会帮助你指定在服务器不可访问时，显示某文件。例如在下面的manifest文件中，如果用户输入了“/home”，同时服务器不可到达，“404htm”文件应送达。
+
+FALLBACK：
+/home//404. html
+```
+
+### 简述HTML5如何实现跨域？
+
+```
+在服务器端设置允许在其他域名下访问，例如允许所有域名访问以下内容。
+
+response.setHeader（"Access-Control-Allow-Origin"，"*"）；
+response.setHeader （"Access-Control-Allow-Methods"，"POST"）；
+response.setHeader（"Access-Control-Allow-Headers"，"x-requested-with, content-type"）；
+```

@@ -19,7 +19,8 @@
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "reactflow": "^11.10.4"
   },
   "devDependencies": {
     "@types/node": "latest",

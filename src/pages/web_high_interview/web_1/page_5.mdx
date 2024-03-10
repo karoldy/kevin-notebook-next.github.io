@@ -1,0 +1,299 @@
+# SVN 代码管理
+
+### 简述什么是Subversion ？
+
+```
+Apache Subversion 通常被缩写成 SVN，是一个开放源代码的版本控制系统，Subversion 在 2000 年由 CollabNet Inc 开发，现在发展成为 Apache 软件基金会的一个项目，同样是一个丰富的开发者和用户社区的一部分。
+SVN相对于的RCS、CVS，采用了分支管理系统，它的设计目标就是取代CVS。互联网上免费的版本控制服务多基于Subversion。
+```
+
+### SubVersion版本号的概念？
+
+```
+svn中的版本号revision是全局版本号，每当版本库接受了一个commit，文件系统进入了一个新的状态，叫做版本，每个版本被赋予一个独一无二的自然数，一个比一个大，初始修订号是 0，只创建了一个空目录，没有任何内容
+```
+
+### 请简述SubVersion 命周期 ？
+
+```
+1 创建版本库
+版本库相当于一个集中的空间，用于存放开发者所有的工作成果。版本库不仅能存放文件，还包括了每次修改的历史，即每个文件的变动历史。
+
+Create 操作是用来创建一个新的版本库。大多数情况下这个操作只会执行一次。当你创建一个新的版本库的时候，你的版本控制系统会让你提供一些信息来标识版本库，例如创建的位置和版本库的名字。
+
+2 检出
+Checkout 操作是用来从版本库创建一个工作副本。工作副本是开发者私人的工作空间，可以进行内容的修改，然后提交到版本库中。
+
+3 更新
+顾名思义，update 操作是用来更新版本库的。这个操作将工作副本与版本库进行同步。由于版本库是由整个团队共用的，当其他人提交了他们的改动之后，你的工作副本就会过期。让我们假设 Tom 和 Jerry 是一个项目的两个开发者。他们同时从版本库中检出了最新的版本并开始工作。此时，工作副本是与版本库完全同步的。然后，Jerry 很高效的完成了他的工作并提交了更改到版本库中。此时 Tom 的工作副本就过期了。更新操作将会从版本库中拉取 Jerry 的最新改动并将 Tom 的工作副本进行更新。
+
+4 执行变更
+当检出之后，你就可以做很多操作来执行变更。编辑是最常用的操作。你可以编辑已存在的文件，例如进行文件的添加/删除操作。
+你可以添加文件/目录。但是这些添加的文件目录不会立刻成为版本库的一部分，而是被添加进待变更列表中，直到执行了 commit 操作后才会成为版本库的一部分。同样地你可以删除文件/目录。删除操作立刻将文件从工作副本中删除掉，但该文件的实际删除只是被添加到了待变更列表中，直到执行了 commit 操作后才会真正删除。Rename 操作可以更改文件/目录的名字。"移动"操作用来将文件/目录从一处移动到版本库中的另一处。
+
+5 复查变化
+当你检出工作副本或者更新工作副本后，你的工作副本就跟版本库完全同步了。但是当你对工作副本进行一些修改之后，你的工作副本会比版本库要新。在 commit 操作之前复查下你的修改是一个很好的习惯。Status 操作列出了工作副本中所进行的变动。正如我们之前提到的，你对工作副本的任何改动都会成为待变更列表的一部分。Status 操作就是用来查看这个待变更列表。Status 操作只是提供了一个变动列表，但并不提供变动的详细信息。你可以用 diff 操作来查看这些变动的详细信息。
+
+6 修复错误
+我们来假设你对工作副本做了许多修改，但是现在你不想要这些修改了，这时候 revert 操作将会帮助你。
+Revert 操作重置了对工作副本的修改。它可以重置一个或多个文件/目录。当然它也可以重置整个工作副本。在这种情况下，revert 操作将会销毁待变更列表并将工作副本恢复到原始状态。
+
+7 解决冲突
+合并的时候可能会发生冲突。Merge 操作会自动处理可以安全合并的东西。其它的会被当做冲突。例如，"hello.c" 文件在一个分支上被修改，在另一个分支上被删除了。这种情况就需要人为处理。Resolve 操作就是用来帮助用户找出冲突并告诉版本库如何处理这些冲突。
+
+8 提交更改
+Commit 操作是用来将更改从工作副本到版本库。这个操作会修改版本库的内容，其它开发者可以通过更新他们的工作副本来查看这些修改
+在提交之前，你必须将文件/目录添加到待变更列表中。列表中记录了将会被提交的改动。当提交的时候，我们通常会提供一个注释来说明为什么会进行这些改动。这个注释也会成为版本库历史记录的一部分。Commit 是一个原子操作，也就是说要么完全提交成功，要么失败回滚。用户不会看到成功提交一半的情况。
+```
+
+### 简述SubVersion 工作基础和工作副本的区别 ?
+
+```
+working base 是指在作出修改前的文件。
+working copy是指从版本库中检出的文件，svn操作都要是在工作副本里面进行的
+```
+
+### 请列举svn 服务配置文件 svnserve.conf的配置项目 ？
+
+```
+svn 服务配置文件为版本库目录中的文件 conf/svnserve.conf。该文件仅由一个 [general] 配置段组成。
+[general]
+anon-access = none
+auth-access = write
+password-db = /home/svn/passwd
+authz-db = /home/svn/authz
+realm = tiku
+anon-access: 控制非鉴权用户访问版本库的权限，取值范围为 "write"、"read" 和 "none"。 即 "write" 为可读可写，"read" 为只读，"none" 表示无访问权限，默认值：read。
+auth-access: 控制鉴权用户访问版本库的权限。取值范围为 "write"、"read" 和 "none"。 即"write"为可读可写，"read"为只读，"none"表示无访问权限，默认值：write。
+authz-db: 指定权限配置文件名，通过该文件可以实现以路径为基础的访问控制。 除非指定绝对路径，否则文件位置为相对conf目录的相对路径，默认值：authz。
+realm: 指定版本库的认证域，即在登录时提示的认证域名称。若两个版本库的认证域相同，建议使用相同的用户名口令数据文件。默认值：一个UUID(Universal Unique IDentifier，全局唯一标示)。
+```
+
+### 请列举用户名口令文件 passwd的配置 ？
+
+```
+用户名口令文件由 svnserve.conf 的配置项 password-db 指定，默认为 conf 目录中的 passwd。该文件仅由一个 [users] 配置段组成。
+[users] 配置段的配置行格式如下：
+<用户名> = <口令>
+[users]
+admin = admin
+thinker = 123456
+```
+
+### 请列举svn权限配置文件的配置 ？
+
+```
+权限配置文件由 svnserve.conf 的配置项 authz-db 指定，默认为 conf 目录中的 authz。该配置文件由一个 [groups] 配置段和若干个版本库路径权限段组成。
+[groups]配置段中配置行格式如下：
+<用户组> = <用户列表>
+版本库路径权限段的段名格式如下：
+[<版本库名>:<路径>]
+[groups]
+g_admin = admin,thinker
+[admintools:/]
+@g_admin = rw
+* =
+[test:/home/thinker]
+thinker = rw
+* = r
+```
+
+### SubVersion冲突是怎么产生的？
+
+```
+当开发人员A和开发人员B从版本库同时检出文档1.txt，而A和B同时修改了1.txt的同一地方，后提交的一方会在拷贝副本中产生冲突。
+两个工作拷贝，A拷贝中文件1.txt内容为
+dfqerq
+123dfwre
+B拷贝中文件1.txt内容为
+dfqerq
+123erwrq
+在B版本提交之前版本库上的1.txt（base版本）内容为
+dfqerq
+B拷贝先提交版本到版本库中，以至于最新版本内容变为
+dfqerq
+123erwrq
+此时A版本也提交则会产生冲突，无法提交，需要先svn update，此时会在A拷贝中产生三个临时文件1.txt.rNew\1.txt.rOld\1.txt.mine，其中1.txt.rNew是最新版 本，1.txt.rOld是base版本，1.txt.mine是A作者修改后的版本，在此例中内容为
+dfqerq
+123dfwre
+而update之后A拷贝中的1.txt内容为
+<<<<<<< .mine
+dfqerq
+123dfwre=======
+dfqerq
+123erwrq>>>>>>> .r18
+其中<<<<<<< .mine与=======之间表示A修改后的内容，=======与>>>>>>> .r18之间是版本服务器上的版本
+```
+
+### 简述解决SubVersion冲突的方案 ？
+
+```
+第一种，利用update的选项进行冲突解决，也就是说不管当前拷贝副本是否是最新版本，都使用—accept参数作为冲突处理方式
+–accept ARG : specify automatic conflict resolution action
+(‘postpone’, ‘base’, ‘mine-conflict’,
+‘theirs-conflict’, ‘mine-full’, ‘theirs-full’,
+‘edit’, ‘launch’)
+(p) postpone – mark the conflict to be resolved later //让文件在更新完成之后保持冲突状态。
+(df) diff-full – show all changes made to merged file //使用标准区别格式显示base修订版本和冲突文件本身的区别。
+(e) edit – change merged file in an editor //用你喜欢的编辑器打开冲突的文件，编辑器是环境变量EDITOR设置的。
+(r) resolved – accept merged version of file //完成文件编辑之后，通知svn你已经解决了文件的冲突，它必须接受当前的内容—从本质上讲就是你已经“解决了”冲突。
+(mf) mine-full – accept my version of entire file (ignore their change//丢弃新从服务器接收的变更，并只使用你查看文件的本地修改。
+(tf) theirs-full – accept their version of entire file (lose my changes)//丢弃你对查看文件的本地修改，只使用从服务器新接收的变更。
+(l) launch – launch external tool to resolve conflict//启动一个外置程序来执行冲突解决，这需要一些预先的准备。
+(h) help – show this list //显示所有在冲突解决时可能使用的命令。
+
+第二种，在update时并不处理冲突，利用svn resolve解决冲突
+1、利用svn resolve –accept base选择base版本，即1.txt.rOld作为最后提交的版本
+–accept ARG : specify automatic conflict resolution source
+(‘base’, ‘working’, ‘mine-conflict’,
+‘theirs-conflict’, ‘mine-full’, ‘theirs-full’)
+2、手工修改1.txt文件，然后将当前拷贝即1.txt作为最后提交的版本
+svn resolve –accept working 1.txt
+3、svn resolve –accept theirs-full 1.txt 使用1.txt.rNew作为最后提交的版本
+4、svn resolve –accept mine-full 1.txt 使用1.txt.mine作为最后提交的版本
+5、svn resolve –accept mine-conflict 1.txt 使用1.txt.mine的冲突部分作为最后提交的版本
+5、svn resolve –accept theirs-conflict 1.txt 使用1.txt.rNew的冲突部分作为最后提交的版本
+
+第三种，使用svn revert取消变更
+```
+
+### SubVersion 如何更新到某一版本 ？
+
+```
+右键点击需要更新的文件，选择update to revision，进入界面后通过showlog界面选择需要更新的版本。
+在源文件夹右键-tortoiseSVN-show log，在要恢复到的版本上右键Revent to this revision是恢复到此版本，Revent change from this revison是从此版本中恢复改变的部分
+```
+
+### 简述SubVersion 分支与主干都是什么，如何合并分支到主干 ？
+
+```
+1、在svn仓库下新建项目，结构如下：
+–project(项目名)
+–trunks(主干，)
+–branches(分支)
+–tags(标签)
+2、主干内容合并到分支：（分支需要改变，则右键分支进行合并）
+选择分支目录，选择合并，合并两个不同的树，起始处（from），选择当前目录中需要改变的目录或文件的url，结束处（to），选择主干目录或文件的url，往后默认执行。
+
+3、分支的内容合并到主干：（主干需要改变，右键主干，然后合并）
+选择主干目录，选择合并，合并两个不同的树，起始处（from），选择当前目录中需要改变的目录或文件的url，结束处（to），选择分支目录或文件的url，往后默认执行。
+```
+
+### 简述SubVersion什么情况下必须执行清理 ？
+
+```
+本地文件被锁定是需要使用clean操作，SVN本地更新的时候由于一些原因中断了操作，可能会造成本地文件被锁的情况，这时候无论是更新、提交等操作都会提示***locked的错误，这种时候就需要进行clean操作
+```
+
+### SubVersion怎样忽略指定文件以及xx后缀的文件 ？
+
+```
+右键需要忽视的文件进入TortoiseSVN-Universion and add to ignore list之后可以选择是忽略当前文件还是忽略以**后缀结尾的文件
+```
+
+### 请综合列举SubVersion 常用命令（参考）？
+
+```
+一、 SVN常用命令
+1、将文件checkout到本地目录
+svn checkout path（path是服务器上的目录）
+简写：svn co
+2、往版本库中添加新的文件
+svn add file
+3、将改动的文件提交到版本库
+svn commit -m “LogMessage” [-N] [--no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)
+简写：svn ci
+4、加锁/解锁
+svn lock -m “LockMessage” [--force] PATH
+svn unlock PATH
+5、更新到某个版本
+svn update -r m path
+简写：svn up
+6、查看文件或者目录状态
+1）svn status path（目录下的文件和子目录的状态，正常状态不显示）
+2）svn status -v path(显示文件和子目录状态)
+简写：svn st
+7、删除文件
+svn delete path -m “delete test fle”
+简写：svn (del, remove, rm)
+8、查看日志
+svn log path
+9、查看文件详细信息
+svn info path
+10、比较差异
+svn diff path(将修改的文件与基础版本比较)
+svn diff -r m:n path(对版本m和版本n比较差异)
+简写：svn di
+11、将两个版本之间的差异合并到当前文件
+svn merge -r m:n path
+12、SVN 帮助
+svn help
+svn help ci
+二、 SVN不常用命令
+13、版本库下的文件和目录列表
+svn list path 显示path目录下的所有属于版本库的文件和目录简写：svn ls
+14、创建纳入版本控制下的新目录
+svn mkdir: 创建纳入版本控制下的新目录。
+用法:
+1、mkdir PATH...
+每一个以工作副本 PATH 指定的目录，都会创建在本地端，并且加入新增调度，以待下一次的提交。
+2、mkdir URL... 创建版本控制的目录。
+每个以URL指定的目录，都会透过立即提交于仓库中创建。在这两个情况下，所有的中间目录都必须事先存在。
+15、恢复本地修改
+svn revert: 恢复原始未改变的工作副本文件 (恢复大部份的本地修改)。
+用法: revert PATH... 注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录
+16、代码库URL变更
+svn switch (sw): 更新工作副本至不同的URL。
+用法:
+1、switch URL [PATH]
+更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将 服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。
+2、switch --relocate FROM TO [PATH...]
+改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动 (比如方案名或是主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用 这个命令更新工作副本与仓库的对应关系。
+17、解决冲突
+svn resolved: 移除工作副本的目录或文件的“冲突”状态。
+用法: resolved PATH... 注意: 本子命令不会依语法来解决冲突或是移除冲突标记；它只是移除冲突的相关文件，然后让 PATH 可以再次提交。
+18、输出指定文件或URL的内容。
+svn cat 目标[@版本]...如果指定了版本，将从指定的版本开始查找。 svn cat -r PREV filename > filename (PREV 是上一版本,也可以写具体版本号,这样输出结果是可以提交的）
+svn cleanup
+当Subversion修改你的工作副本时（或者任何在.svn中的信息），它尝试尽可能做到安全。在改变一个工作副本前，Subversion把它的意 图写到一个日志文件中。接下来它执行日志文件中的命令来应用要求的修改。最后，Subversion删除日志文件。从架构上来说，这与一个日志文件系统 （journaled filesystem）类似。如果一个 Subversion操作被打断（例如，进程被杀掉了，或机器当掉了）了，日志文件仍在硬盘上。重新执行日志文件，Subversion可以完成先前开始 的操作，这样你的工作副本能回到一个可靠的状态。
+以下是svn cleanup所做的：它搜索你的工作副本并执行所有遗留的日志，在这过程中删除锁。如果Subversion曾告诉你你的工作副本的一部分被“锁定”了，那么你应该执行这个命令。另外， svn status会在锁定的项前显示L。
+$ svn status
+L somedir
+M somedir/foo.c
+$ svn cleanup
+$ svn status
+M somedir/foo.c
+svn import
+使用svn import是把未版本化的文件树复制到资料库的快速办法，它需要创建一个临时目录。
+SVN实例
+删除目录下所有的 .svn 隐藏子目录
+find . -name ".svn" -print0 | xargs -0 rm -rf
+tags打分支
+svn cp trunk/ tags/platform_2011.11.11 （或 svn cp http://192.168.1.100/platform/trunk/ http://192.168.1.100/platform/tags/platform_2011.11.11）
+svn ci -m "svn cp trunk/ tags/platform_2011.11.11" // 提交，并给出提交记录（-m "svn cp trunk/ tags/platform_2011.11.11"）
+svn 改名
+svn mv platform_2011.11.11 platform_20111111
+svn ci -m "svn mv platform_2011.11.11 platform_20111111" // 提交
+svn directory is missing
+1） svn up missingDirName
+2） svn del missingDirName
+3） svn ci
+svn chech version
+svn co http://192.168.1.100/platform/branch -r 12 platform_branch_v12
+svn log
+svn log http://192.168.1.100/platform/branch -l10 // svn 文字注释log
+svn log http://192.168.1.100/platform/branch -l10 -v // svn 文字注释log + 文件更新log（增，删，改）
+svn diff -r v_1 : v_2 svn_path
+svn diff -r 200:201 test.php
+查看svn版本
+svnserve --version
+```
+
+### 简述SubVersion 的更新会对自己造成哪些结果，提交和删除要注意什么，怎么填写日志？
+
+```
+svn的update会从仓库中更新文件到本地，但是可能会覆盖掉本地的修改，或者发生冲突，本地未修改过的文件但是别别人修改过并commit的文件可能会被覆盖。
+commit 是将本地做过的改动（修改、新增、删除、改名、移动等）上传更新到SVN服务器，在commit前要进行updata操作，并且在commit界面确认做出了修改需要上传的文件防止发生错误。
+svn的delete是从working copy 中删除某一个项目，在commit之后才会从版本库之中删除。svn的 delete只是做了个标记，在客户端获取新版本时不出现这些被删除的文件，而文件本身在服务器端仍版然是存在的，而且可以通过更新到原来的某个版本找回这些文件。
+为了以后你能更清晰的看到你所做的每一次更改的原因,你在每次提交的时候应该尽量详细写上日志
+```
