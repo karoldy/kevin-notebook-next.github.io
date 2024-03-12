@@ -8,5 +8,6 @@
   "web_garden": "Web Garden",
   "web_worker": "Web Worker",
   "web_socket": "Web Socket",
-  "service_worker": "Service Worker"
+  "service_worker": "Service Worker",
+  "app_cache": "离线缓存"
 }

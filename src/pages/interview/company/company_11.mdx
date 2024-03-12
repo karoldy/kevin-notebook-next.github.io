@@ -1,0 +1,48 @@
+# xxx物流-前端工程师
+
+### 1.以下vue代码实现了什么效果, :key起什么作用
+
+```vue
+<ul>
+  <li v-for="item in items" :key="item.id">...</li>
+</ul>
+```
+
+### 2.box的最终边距是多少?
+
+```html
+<style>
+  .c1 {
+    padding: 10px;
+  }
+  .c2 {
+    padding: 20px;
+  }
+</style>
+<div class="c1">
+  <div class="c2">box</div>
+</div>
+```
+
+### 3.微信小程序onShow和onLoad有什么区别?
+
+### 4.使用微信官方API批量为多个key设置缓存, 应使用哪个API
+
+### 5.检查以下小程序代码片段, 是否存在bug或者优化空间? 请直接在上面修改
+
+```js
+var that = this;
+var obj = JSON.parse(JSON.stringify(wx.getEnterOptionsSync().query));
+var Type = obj.type;
+if (Type = 1) {
+  wx.setStorageSync('type', Type);
+  var haida_OrderNo = obj.hardaOrderNo;
+  if (haida_OrderNo != '' && hardaOrderNo != undefined && haida_OrderNo != null) {
+    that.queryDetail(haida_OrderNo);
+  } else {
+    return;
+  }
+}
+```
+
+### 6.有三个数组存储水果数据, 一个只装苹果, 一个只装橙子, 一个既有苹果又有橙子。这三个数组贴的标签依次为: 苹果、橙子、苹果和橙子、已知三个标签都标错了, 你只能从一个数组里拿出一件水果来看, 然后确定每个数组正确的标签是什么。请设计Js程序解决该问题。(提示: 从哪个数组里拿水果非常关键)

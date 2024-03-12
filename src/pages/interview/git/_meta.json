@@ -7,7 +7,7 @@
   "head_tree_index": "说说Git 中 HEAD、工作树和索引之间的区别? ",
   "git_pull_git_fetch": "说说对git pull 和 git fetch 的理解? 有什么区别? ",
   "git_stash": "说说你对git stash 的理解? 应用场景? ",
-  "git_rebase_ git_merge": "说说你对git rebase 和 git merge的理解? 区别? ",
+  "git_rebase_git_merge": "说说你对git rebase 和 git merge的理解? 区别? ",
   "conflict": "说说 git 发生冲突的场景? 如何解决? ",
   "git_reset_git_revert": "说说你对git reset 和 git revert 的理解? 区别? "
 }
