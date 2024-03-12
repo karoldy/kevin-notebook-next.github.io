@@ -620,6 +620,7 @@ Uniapp框架是基于Vue.js进行封装的, 而Vue.js有自己的跨域解决方
 }
 
 ```
+
 上述配置中, "/api"是指这个代理地址的前缀, "target"是指被代理的地址。"changeOrigin"字段用于控制请求头中的host是否使用被代理地址, "secure"字段用于控制是否使用https协议, "pathRewrite"字段用于控制代理时路径的重写规则。
 
 uni.request的header中添加'Access-Control-Allow-Origin'字段
@@ -654,7 +655,7 @@ uni.request({
 
 - uniCloud —— 云空间目录
 - components —— 组件目录
-- comp-a.vue —— 可复用的a组件
+  - comp-a.vue —— 可复用的a组件
 - hybrid —— App端存放本地html文件的目录
 - platforms —— 存放各平台专用页面的目录
 - pages —— 业务页面文件存放的目录
@@ -1289,3 +1290,100 @@ uni.onShareTimeline(() => {
   };
 });
 ```
+
+### 59.uniApp中如何实现上传图片?
+
+在uniapp中上传图片，需要`uni.chooseImage()`和`uni.uploadFile()`这两个api结合使用，才能完成图片的上传，还有一个`uploadTask()`,可以用来监听上传进度变化事件，和取消上传任务。我们根据项目需求去决定要不要添加这个监听行为。
+
+```js showLineNumbers copy
+// 项目实战中使用
+uni.chooseImage({
+  count: 1,  // 图片数量
+  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+  sourceType: ['album', 'camera'], //从相册选择或者拍照
+  success: (res) => {
+    const tempFilePaths = res.tempFilePaths;
+    console.log(tempFilePaths[0])
+    _this.logo_list = tempFilePaths[0]
+    uni.uploadFile({
+      url: 'https://xx.com/center/group/icon', //上传图片api
+      filePath: tempFilePaths[0],
+      name: 'groupicon',
+      header:{
+        "Authorization": userinfo.token
+      },
+      success: (res) => {
+        let group =  JSON.parse(res.data) 
+        uni.showToast({
+          title:"上传成功",
+          icon:"success"
+        })
+      }
+    });
+  }
+});
+```
+
+### 60.在unipp中为什么要使用let that = this
+
+that是一个临时对象，用于在函数内部保存this的值。在一些情况下，函数内部的this并不是指向当前组件的实例，此时可以使用that来保存this的值，以便在函数内部继续使用。
+
+比如，在使用`uni.request`向服务器发起请求时，由于this的指向已经改变，此时需要使用that来保存当前组件的实例
+
+### 61.简述uni-app中的事件总线
+
+>其实跟vue的事件总线很相似
+
+1.应用场景
+
+除了父子组件传参之外，兄弟组件之间共享信息也是我们经常会遇到的。如果遇到这类问题，我们现在可以借助vuex，或者把数据统一放在他们父组件中处理。这两种方式都可以解决兄弟组件传递信息的问题。我们今天要介绍的是另一种方式-事件总线，事件总线也是我们开发过程中经常会用到的一种开发模式。
+
+2.定义
+
+事件总线可以作为组件沟通的桥梁，就像是所有组件共用相同的事件中心，可以向该中心注册发送事件或接收事件，所以组件都可以上下平行地通知其他组件，但也就是太方便所以若使用不慎，就会造成难以维护的灾难，因此才需要更完善的Vuex作为状态管理中心，将通知的概念上升到共享状态层次。
+
+3.监听事件
+
+`uni.$on(eventName,callback)`
+
+监听全局的自定义事件。事件可以由 uni.$emit 触发，回调函数会接收所有传入事件触发函数的额外参数。
+
+```js showLineNumbers copy
+uni.$on('update', function(data){
+  console.log('监听到事件来自 update ，携带参数 msg 为：' + data.msg);
+})
+```
+
+4.触发事件
+
+在uni中可以通过`uni.$emit(eventName, object)`来触发全局的自定事件。附加参数都会传给监听器回调。
+
+```js showLineNumbers copy
+uni.$emit('update',{ msg:'页面更新' })
+```
+
+5.只监听一次——$once
+
+`uni.$once(eventName, callback)`
+
+监听全局的自定义事件。事件可以由 uni.$emit 触发，但是只触发一次，在第一次触发之后移除监听器。
+
+```js showLineNumbers copy
+uni.$once('update', (data)=>{
+  console.log('监听到事件来自 update ，携带参数 msg 为：' + data.msg);
+})
+```
+
+6.移除监听
+
+`uni.$off([eventName, callback])`
+
+移除全局自定义事件监听器。
+
+
+注意事项
+
+- 如果没有提供参数，则移除所有的事件监听器；
+- 如果只提供了事件，则移除该事件所有的监听器；
+- 如果同时提供了事件与回调，则只移除这个回调的监听器；
+- 提供的回调必须跟$on的回调为同一个才能移除这个回调的监听器；
