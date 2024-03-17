@@ -1,0 +1,132 @@
+# xxx科技-前端工程师
+
+### 1.请选择结果为真的表达式 ()
+
+A、null instanceof Object
+
+B、null === undefined
+
+C、null == undefined
+
+D、NaN == NaN
+
+### 2.关于JavaScript, 以下选项描述错误的是 ()
+
+A、在原型上拓展的可枚举方法, 会被for in循环出来
+
+B、使用Object.defineProperty 可向对象添加或者修改属性
+
+C、通过hasOwnProperty可判断一个对象以及其原型链上是否具有指定名称的属性
+
+D、原型链是JavaScript实现继承的一种模型
+
+E、每个对象都有prototype属性, 返回对象类型原型的引用
+
+F、for循环是按顺序的, for in 循环是不一定按顺序的
+
+### 3.下面有关JavaScript中 call 和 apply的描述, 错误的是 ()
+
+A、call与apply都属于Function.prototype的一个方法, 所以每个Function实例都有call、apply属性
+
+B、apply传入的是一个参数数组, 也就是将多个参数组合成为一个数组传入
+
+C、call传入的则是直接的参数列表。call方法可将一个函数的对象上下文从初始的上下文改变为由thisObj指定的新对象
+
+D、两者的参数不同, call函数第一个参数都是要传入给当前对象的对象, apply不是
+
+### 4.以下输出内容为 ()
+
+```js showLineNumbers copy
+var a = {};
+var b = Object.prototype;
+[a.prototype === blur, Object.getProtoTypeOf(a) === b]
+```
+
+A、[false, true]
+
+B、[true, true]
+
+C、[false, false]
+
+D、other
+
+### 5.关于Vue组件间的参数传递, 下列哪项是不正确的 ()
+
+A、若子组件给父组件传值, 可使用 $emit 方法
+
+B、祖孙组件之间可以使用provide和inject方法跨层级相互传值
+
+C、若子组件使用 $emit('say') 派发事件, 父组件可使用 @say 监听
+
+D、若父组件给子组件传值, 子组件可通过props接收数据
+
+### 6.以下对vue的双向绑定说法不正确的是 ()
+
+A、采用数据劫持结合发布-订阅模式的方式
+
+B、通过Object.defineProperty()来劫持各个属性的setter, getter, 在数据变动时发布消息给订阅者, 触发相应监听回调
+
+C、MVVM作为数据绑定的入口, 整合Observer, Compile和Watcher三者, 通过Observer来监听自己的model的数据变化
+
+D、vue是通过基于脏检查机制实现双向绑定
+
+### 7.以下哪些是JavaScript的全局函数(多选) ()
+
+A、escape
+
+B、parseFloat
+
+C、eval
+
+D、setTimeout
+
+E、alet
+
+### 8.在ES6中, promise的状态有(多选) ()
+
+A、pending
+
+B、Pause
+
+C、Resolved
+
+D、Rejected
+
+### 9.下列关于闭包描述正确的是(多选) ()
+
+A、`(function () {})()` 理论上是一个闭包
+
+B、闭包不耗内存, 可以随意使用
+
+C、闭包内变量执行后不会被清除
+
+D、闭包不满足链式作用域结构
+
+### 10.对于vue中响应式数据原理的说法, 下列哪项是不正确的?(多选) ()
+
+A、采用数据劫持方式, 即Object.definedProperty()劫持data中各属性, 实现响应式数据
+
+B、视图中的变化会通过watcher更新data中的数据
+
+C、若data中某属性多次发生变化, watcher仅会进入更新队列一次
+
+D、通过编译过程进行依赖收集
+
+### 11.描述一下 cookie, sessionStorage, localStorage的区别
+
+### 12.缓存(强缓存)是什么, 如何设置缓存
+
+### 13.vue实现数据双向绑定的原理
+
+### 14.安全相关XSS的反射型是什么, 怎么避免
+
+### 15.请说明下伪类和伪元素
+
+### 16.JavaScript中的事件循环机制
+
+### 17.什么是防抖? 什么是节流? 请写出对应函数样例, 并说明在什么场景下使用
+
+### 18.实现一个vue自定义指令-懒加载
+
+### 19.实现一个有缓存的斐波拉契数列
+
